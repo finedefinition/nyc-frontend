@@ -1,0 +1,57 @@
+@import '../../../styles/var.scss';
+@import '../../../styles/mixins.scss';
+
+.container {
+  border: 2px solid $gray-primary;
+  border-radius: 0.4rem;
+  padding: 1.5rem;
+  margin: 0 auto;
+
+  height: 26rem;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__even {
+    border: 2px solid $orange-secondary-100;
+  }
+
+  &__text {
+    margin-bottom: 4rem;
+
+    &_stars {
+      display: flex;
+    }
+
+    &_review {
+      margin: 1rem 0 1.5rem;
+    }
+
+    &_quotes {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &__avatar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-baiJamjuree);
+
+    & img {
+      border-radius: 50%;
+    }
+
+    &_name {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    &_date {
+      color: #565360;
+      font-size: 0.75rem;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import '../../styles/mixins.scss';
+
+.title_container {
+  position: absolute;
+  z-index: 1;
+  width: 300%;
+
+  @include onDesktop {
+    top: -2rem;
+  }
+
+  &__odd {
+    transform: translate(-45%);
+
+    @include onLarge {
+      transform: translate(-55%);
+    }
+
+    @include onDesktop {
+      transform: translate(-20%);
+    }
+
+    @include onTablet {
+      transform: translate(0);
+    }
+  }
+
+  @include onTablet {
+    width: 100%;
+  }
+}

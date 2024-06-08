@@ -1,0 +1,61 @@
+@import '../styles/var.scss';
+@import '../styles/mixins.scss';
+
+.body {
+  max-width: 46rem;
+  max-height: 100vh;
+  margin: 3rem auto;
+
+  &__top {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+
+  &__bottom {
+    @include onMobile {
+      padding: 1rem;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+}
+
+.four {
+  @include onMobile {
+    font-size: 10rem;
+  }
+  font-size: 14vw;
+  font-weight: 700;
+  margin: 0 2rem;
+  font-family: var(--font-baiJamjuree);
+  color: $gray-primary;
+}
+
+.zero {
+  @include onMobile {
+    font-size: 25rem;
+  }
+  font-size: 33vw;
+  font-weight: 500;
+  line-height: 0;
+  font-family: var(--font-bEs);
+  color: $orange-secondary-100;
+}
+
+.text {
+  color: $black;
+  font-family: var(--font-baiJamjuree);
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  @include onMobile {
+    font-size: 1.5rem;
+  }
+}

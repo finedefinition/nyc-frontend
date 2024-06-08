@@ -1,0 +1,15 @@
+@import '@/styles/var.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+  color: $white;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 2.5;
+}

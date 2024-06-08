@@ -1,0 +1,33 @@
+@import '../../../styles/var.scss';
+
+.button {
+  background: transparent;
+  border: none;
+  color: $gray-primary;
+  cursor: pointer;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: transparent;
+    border: none;
+    color: $gray-primary;
+  }
+}
+
+.menu {
+  border-radius: 1rem;
+}
+
+.item {
+  width: max-content;
+  padding: 0.5rem 1rem;
+  margin: 1rem 1rem;
+
+
+  &:hover {
+    color: $white;
+    border-radius: 2rem;
+    background-color: $gray-primary;
+  }
+}

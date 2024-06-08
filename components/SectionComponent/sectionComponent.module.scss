@@ -1,0 +1,30 @@
+@import '../../styles/var.scss';
+@import '../../styles/mixins.scss';
+
+.section {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem 4rem;
+
+  background-color: $gray-primary;
+  overflow-x: hidden;
+
+  &:nth-child(odd) {
+    background-color: transparent;
+    flex-direction: row-reverse;
+
+    @include onTablet {
+      flex-direction: column;
+    }
+  }
+
+  @include onDesktop {
+    padding: 2.5rem 4rem;
+  }
+
+  @include onTablet {
+    flex-direction: column;
+    padding: 2rem 1.25rem;
+  }
+}
+

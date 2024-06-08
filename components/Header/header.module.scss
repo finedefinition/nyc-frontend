@@ -1,0 +1,50 @@
+@import '../../styles/mixins.scss';
+
+.header {
+  position: relative;
+  margin-top: -8rem;
+
+  &__container {
+    position: relative;
+    height: 55rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include onDesktop {
+      height: 43rem;
+    }
+
+    @include onTablet {
+      height: 32rem;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(0, 20%);
+}
+
+.image {
+  z-index: -1;
+  object-fit: cover;
+}
+
+.title {
+  transform: translate(0, -40%);
+}
+
+.button {
+  transform: translate(0, -300%);
+
+  @include onDesktop {
+    transform: translate(0, -50%);
+  }
+
+  @include onMobile {
+    transform: translate(0, 0);
+  }
+}

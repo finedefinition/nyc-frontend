@@ -1,0 +1,63 @@
+{
+  "name": "nyb",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "npx eslint --ext .tsx,.ts --fix",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{tsx,js,html}": [
+      "eslint"
+    ]
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.496.0",
+    "@aws-sdk/s3-request-presigner": "^3.496.0",
+    "@types/node": "20.8.10",
+    "@types/react": "18.2.34",
+    "@types/react-dom": "18.2.14",
+    "aws-amplify": "^6.0.13",
+    "aws-sdk": "^2.1537.0",
+    "bootstrap": "^5.3.3",
+    "classnames": "^2.5.1",
+    "dotenv": "^16.3.1",
+    "framer-motion": "^10.18.0",
+    "jwt-decode": "^4.0.0",
+    "next": "14.0.1",
+    "rc-slider": "^10.5.0",
+    "react": "18.2.0",
+    "react-bootstrap": "^2.10.1",
+    "react-dom": "18.2.0",
+    "react-fullscreen-crossbrowser": "^1.1.3",
+    "react-icons": "^5.0.1",
+    "sass": "^1.71.1",
+    "swiper": "^11.0.6"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend": "^0.10.3",
+    "@aws-amplify/backend-cli": "^0.10.0",
+    "@stylistic/eslint-plugin": "^1.2.0",
+    "@types/fscreen": "^1.0.4",
+    "@types/react-modal-image": "^2.6.3",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "aws-cdk": "^2.124.0",
+    "aws-cdk-lib": "^2.124.0",
+    "constructs": "^10.3.0",
+    "eslint": "^8.53.0",
+    "eslint-config-next": "14.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,180 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/var.scss';
+
+.page {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  padding: 1rem;
+
+  @include onTablet {
+    flex-direction: column;
+  }
+}
+
+.body {
+  max-width: 60vw;
+
+  @include onTablet {
+    max-width: 100vw;
+  }
+
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    @include onMobile {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+
+  &__gallery {
+    position: relative;
+  }
+
+  &__bottom {
+    margin-bottom: 2rem;
+  }
+
+  &__about {
+    display: flex;
+    gap: 2rem;
+
+    @include onMobile {
+      flex-direction: column;
+    }
+
+    &_text {
+      max-width: 46rem;
+
+      @include onMobile {
+        max-width: 100%;
+      }
+
+      @include onTablet {
+        max-width: 767px;
+      }
+    }
+
+    &_featch {
+      display: flex;
+      justify-content: space-between;
+
+      @include onMobile {
+        border-bottom: 1px solid $gray-80;
+      }
+    }
+
+    &_featchures {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 25rem;
+
+      @include onMobile {
+        max-width: 100vw;
+      }
+    }
+  }
+}
+
+.form {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1.5rem 2.5rem;
+
+  &_top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    line-height: 1rem;
+    margin: 1rem;
+  }
+
+  &_container {
+    height: 41rem;
+    width: 100%;
+    max-width: 36.5rem;
+    margin-bottom: 5rem;
+
+    @include onTablet {
+      max-width: 100%;
+    }
+  }
+
+  &_modal {
+    position: relative;
+
+    &:hover {
+      &::after {
+        position: absolute;
+        top: -10rem;
+        left: -23rem;
+        width: 22rem;
+        height: 7.3rem;
+        height: max-content;
+        background-color: white;
+        border: 1px solid $gray-80;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        line-height: 1.8rem;
+        z-index: 2;
+
+        @include onSmall {
+          width: 13rem;
+          line-height: 1.2rem;
+        }
+
+        @include onTablet {
+          top: -8rem;
+          left: 2rem;
+        }
+
+        content: 'VAT (Value-Added Tax) is a consumption tax applied to goods and services in the EU and other regions, including Norway. The rate can vary by country and product type. Read more...';
+      }
+    }
+  }
+
+  &_header {
+    margin-bottom: 2rem;
+  }
+
+  @include onLarge {
+    padding: 1.5rem 2.5rem;
+  }
+
+  @include onDesktop {
+    padding: 1rem 2rem;
+  }
+
+  @include onTablet {
+    padding: 2rem 3rem;
+  }
+
+  @include onMobile {
+    padding: 1rem 2rem;
+  }
+
+  @include onSmall {
+    padding: 1rem 1rem;
+  }
+}
+
+.full_screen {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  z-index: 2;
+  background-color: #ffffff99;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

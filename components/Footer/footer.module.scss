@@ -1,0 +1,87 @@
+@import '@/styles/var.scss';
+@import '../../styles/mixins.scss';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 4.5rem 4rem;
+  border-top: 1px solid #00000026;
+
+  background-color: $gray-primary;
+
+  &__side {
+    width: 30%;
+  }
+
+  &__logo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__links_container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-right: 2.5rem;
+    }
+  }
+
+  &__social {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}
+
+.link {
+  color: $white;
+
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 2.5;
+
+  text-decoration: none;
+
+  transition: 0.5s;
+  &:hover {
+    color: $orange-secondary-100;
+    text-decoration: underline;
+  }
+}
+
+@include onTablet {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 1.25rem;
+
+    &__side {
+      width: 100%;
+      align-items: center;
+    }
+
+    &__logo {
+      margin-bottom: 2.5rem;
+    }
+
+    &__links_container {
+      margin-bottom: 2.5rem;
+    }
+
+    &__social {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .logo__img {
+    width: 13.8rem;
+    height: auto;
+  }
+}

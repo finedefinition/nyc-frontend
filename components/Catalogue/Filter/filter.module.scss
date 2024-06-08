@@ -1,0 +1,129 @@
+@import '../../../styles/var.scss';
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.canvas__title {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+
+  &__main {
+    color: $black;
+    font-size: 1.5rem;
+  }
+
+  &__reset {
+    cursor: pointer;
+    color: $gray-primary;
+    font-size: 0.9rem;
+  }
+}
+
+.body {
+  overflow-y: scroll;
+  scrollbar-color: $orange-secondary-100 $orange-secondary-100;
+}
+
+.checkbox {
+  cursor: pointer;
+  accent-color: $orange-secondary-110;
+  border-color: $orange-secondary-110;
+  margin-left: 2%;
+}
+
+.title {
+  color: $gray-primary;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.dropdown {
+  &__button {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.8rem;
+    color: #525659;
+    background-color: transparent;
+    border: 1px solid #525659;
+    border-radius: 0.5rem;
+    transition: 0.5s ease-in;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $white;
+      background-color: $gray-primary;
+      border-color: $white;
+    }
+  }
+
+  &__menu {
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  &__item {
+    width: 100%;
+    margin-bottom: 0.5rem;
+
+    &:hover {
+      color: $white;
+      border-radius: 2rem;
+      background-color: $gray-primary;
+    }
+  }
+}
+
+.range {
+  &__dash {
+    height: 0.2rem;
+    width: 1.5rem;
+    background: url('../../../public/icons/dash.svg') no-repeat center/cover;
+  }
+  &__box {
+    outline: none;
+    border: 1px solid #b0bcc8;
+    border-radius: 0.5rem;
+    width: 96px;
+    height: 44px;
+    text-align: center;
+
+    &:focus {
+      border-color: $orange-secondary-110;
+    }
+  }
+}
+
+.submit {
+  color: $white;
+  font-weight: 500;
+  font-size: 18px;
+  background-color: $gray-primary;
+  border-radius: 5rem;
+  padding: 0.7rem;
+  margin: 1.5rem 1.25rem;
+  transition: 0.6s ease-in;
+
+  &:hover {
+    background-color: #fff;
+    border: 1px solid $gray-primary;
+    color: $gray-primary;
+  }
+}
+
+.range__box::-webkit-outer-spin-button,
+.range__box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

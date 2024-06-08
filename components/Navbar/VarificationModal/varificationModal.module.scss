@@ -1,0 +1,341 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/var.scss';
+
+.modal {
+  display: flex;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+
+  &__wrapper {
+    position: fixed;
+    width: 100%;
+    max-width: 34rem;
+    background-color: $white;
+    border-radius: 1rem;
+
+    @include onMobile {
+      height: 100svh;
+      width: 100vw;
+      max-width: 100%;
+      border-radius: 0;
+      overflow: scroll;
+    }
+  }
+
+  &.open {
+    display: flex;
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.781rem 1.75rem;
+
+    @include onMobile {
+      padding: 3.5rem 6rem;
+    }
+
+    @include onSmall {
+      padding: 5.5rem 2.75rem;
+    }
+    @include onSmallMobile {
+      padding: 5.344rem 1.375rem;
+    }
+  }
+
+  &__text {
+    font-size: rem(16);
+    display: block;
+    text-align: center;
+    margin-bottom: rem(24);
+  }
+
+  &__top {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  &__main {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+}
+
+.header {
+  color: $gray-primary;
+  font-family: var(--font-baiJamjuree);
+  font-size: 2.5rem;
+  line-height: normal;
+  font-weight: 600;
+
+  @include onMobile {
+    font-size: 4.5vw;
+  }
+
+  @include onSmall {
+    font-size: 1.9rem;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  @include onSmallMobile {
+    top: 0.5rem;
+  }
+  @include onSmall {
+    top: 1rem;
+  }
+  @include onMobile {
+    top: rem(6);
+    right: rem(6);
+  }
+}
+
+.form {
+  &__password {
+    color: $orange-secondary-100;
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  &_terms {
+    margin-bottom: 2rem;
+
+    &__link {
+      color: $orange-secondary-100;
+      text-decoration: none;
+      border-bottom: none;
+      transition: 0.6s;
+
+      &:hover {
+        border-bottom: 1px solid $orange-secondary-100;
+      }
+    }
+  }
+
+  &__button {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+
+    background-color: $gray-primary;
+    width: 100%;
+    height: 3.125rem;
+    border-radius: 3.5rem;
+    margin-bottom: 1.5rem;
+    transition: 0.6s ease-in;
+
+    &:hover {
+      background-color: #fff;
+      border: 1px solid $gray-primary;
+      color: $gray-primary;
+    }
+  }
+}
+
+.form_group {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: rem(16);
+}
+
+.devider {
+  display: block;
+  width: rem(16);
+  height: rem(1);
+  position: relative;
+  background-color: $black;
+}
+
+.varificationInput {
+  width: 100%;
+  max-width: rem(40);
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button,
+  &[type='number'] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0;
+  }
+}
+
+.input {
+  width: 100%;
+  font-size: 1rem;
+  padding: rem(16) 0;
+  text-align: center;
+  border-radius: 0.5rem;
+  color: $gray-primary;
+  border: 1px solid $gray-100;
+  background-color: transparent;
+  outline: none;
+  transform: background-color 0.6s ease;
+
+  &:focus {
+    border: 1px solid $orange-secondary-100;
+
+    & + .label {
+      top: 0;
+      color: $gray-primary;
+      font-size: 0.75rem;
+    }
+  }
+
+  &__error {
+    border-color: $error-color;
+
+    & + .label {
+      top: 0;
+      color: $gray-primary;
+      font-size: 0.75rem;
+    }
+  }
+
+  &__success {
+    border-color: $success-color;
+
+    & + .label {
+      top: 0;
+      color: $gray-primary;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.label {
+  position: absolute;
+  top: 1.7rem;
+  left: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 0.3s ease-out;
+  font-size: 0.8rem;
+  color: $gray-primary;
+  background-color: $white;
+  padding: 0 0.25rem;
+
+  &__password {
+    position: absolute;
+    cursor: pointer;
+    right: 1rem;
+    top: 0.85rem;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.error_message {
+  position: absolute;
+  left: 0;
+  bottom: -1rem;
+  font-size: 0.75rem;
+  line-height: 1.125;
+  color: $gray-primary;
+}
+
+.border {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  &__text {
+    position: absolute;
+    text-align: center;
+    width: 10.5rem;
+    background-color: #fff;
+    color: #67666b;
+  }
+
+  &__line {
+    margin-top: 1rem;
+    border-bottom: 1px solid #a9a9b0;
+    width: 100%;
+  }
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+
+  &__container {
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid $gray-primary;
+    border-radius: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.6s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__facebook {
+    height: 2rem;
+    width: 2rem;
+    background: url('../../../public/icons/facebook.svg') no-repeat center/cover;
+  }
+  &__google {
+    height: 2rem;
+    width: 2rem;
+    background: url('../../../public/icons/google.svg') no-repeat center/cover;
+  }
+  &__apple {
+    height: 2rem;
+    width: 2rem;
+    background: url('../../../public/icons/apple.svg') no-repeat center/cover;
+  }
+}
+
+.account {
+  display: flex;
+  gap: 1rem;
+
+  &__login {
+    cursor: pointer;
+    color: $orange-secondary-100;
+    transition: 1s ease-in;
+
+    &:hover {
+      border-bottom: 1px solid $orange-secondary-100;
+    }
+  }
+  @include onSmallMobile {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.eye {
+  background-image: url('../../../public/icons/eye.svg');
+}
+
+.eyeOff {
+  background-image: url('../../../public/icons/eye-crossed.svg');
+}

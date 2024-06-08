@@ -1,0 +1,13 @@
+.logo_container {
+  position: relative;
+}
+
+.logo_text {
+  position: absolute;
+  top: 3.5rem;
+  left: 1rem;
+
+  & > p {
+    width: 1.25rem;
+  }
+}
