@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import {useState} from 'react';
+import { useState } from 'react';
 import Fullscreen from 'react-fullscreen-crossbrowser';
 import QuestionMarkSvg from '@/components/SvgIconsComponents/QuestionMarkSvg';
-import {Vessel} from '@/interfaces/vessel.interface';
+import { Vessel } from '@/interfaces/vessel.interface';
 import FullScreen from '@/public/icons/full_screen.svg';
 import Slider from '@/components/ProductCard/Slider/Slider';
 import ContactForm from '@/components/ContactForm/ContactForm';
