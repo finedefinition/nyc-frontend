@@ -1,3 +1,7 @@
+// page.tsx
+
+'use client'; // Add this directive
+
 import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/typography.module.scss';
