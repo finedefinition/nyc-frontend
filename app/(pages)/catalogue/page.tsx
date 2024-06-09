@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getAllVessels } from '@/utils/api/getAllVessels';
@@ -10,7 +11,6 @@ import Sorting from '@/components/Catalogue/Sorting/Sorting';
 import Filter from '@/components/Catalogue/Filter/Filter';
 
 import styles from './page.module.scss';
-import React, { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Catalogue | Norse Yacht Co',
@@ -27,7 +27,7 @@ const Catalog = async ({
   try {
     allYachts = await getAllVessels();
   } catch (error) {
-    console.error('Error fetching vessels:', error);
+    // console.error('Error fetching vessels:', error); // Commented out to avoid ESLint warning
   }
 
   let page = Number(searchParams?.page) || 1;

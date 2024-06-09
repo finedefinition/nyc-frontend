@@ -42,6 +42,8 @@
   "devDependencies": {
     "@aws-amplify/backend": "^0.10.3",
     "@aws-amplify/backend-cli": "^0.10.0",
+    "@babel/plugin-transform-class-properties": "^7.x.x",
+    "@babel/plugin-transform-object-rest-spread": "^7.x.x",
     "@stylistic/eslint-plugin": "^1.2.0",
     "@types/fscreen": "^1.0.4",
     "@types/react-modal-image": "^2.6.3",
