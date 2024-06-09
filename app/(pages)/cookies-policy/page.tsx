@@ -1,6 +1,7 @@
+import React, { Suspense } from 'react';
 import styles from '@/styles/typography.module.scss';
 
-export default function CookiesPolicy() {
+function CookiesPolicyContent() {
   return (
     <div className="info-page">
       <div className="info-page__top">
@@ -136,4 +137,12 @@ export default function CookiesPolicy() {
       </section>
     </div>
   );
-};
+}
+
+const CookiesPolicyPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <CookiesPolicyContent />
+  </Suspense>
+);
+
+export default CookiesPolicyPage;

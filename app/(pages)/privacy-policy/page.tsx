@@ -1,6 +1,11 @@
+import React, { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/typography.module.scss';
 
-export default function PivacyPolicy() {
+function PrivacyPolicyContent() {
+  const searchParams = useSearchParams();
+  // Your component logic using searchParams
+
   return (
     <div className="info-page">
       <div className="info-page__top">
@@ -111,4 +116,12 @@ export default function PivacyPolicy() {
       </section>
     </div>
   );
-};
+}
+
+const PrivacyPolicy = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <PrivacyPolicyContent />
+  </Suspense>
+);
+
+export default PrivacyPolicy;
