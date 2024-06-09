@@ -1,7 +1,6 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/typography.module.scss';
 
 function PrivacyPolicyContent() {
