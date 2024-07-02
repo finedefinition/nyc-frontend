@@ -31,5 +31,5 @@ export const getVesselById = async (id: string): Promise<Vessel> =>
 export const getFeaturedYacht = async (): Promise<Vessel[]> => {
   const yachts = await getData();
 
-  return yachts.filter((yacht: Vessel) => yacht.yacht_featured);
+  return yachts.filter((yacht: Vessel) => yacht.yacht_top || yacht.yacht_hot_price);
 };
