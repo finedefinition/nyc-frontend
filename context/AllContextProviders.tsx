@@ -2,15 +2,18 @@ import React from 'react';
 import { CurrencyProvider } from './CurrencyContext';
 import { AuthProvider } from './AuthContext';
 import { ModalsProvider } from './ModalsContext';
+import { FavouriteYachtsProvider } from './FavouriteYachtsContext';
 
 const AllContextProviders = (props: { children: React.ReactNode }) => {
   return (
     <>
-      <CurrencyProvider>
-        <AuthProvider>
-          <ModalsProvider>{props.children}</ModalsProvider>
-        </AuthProvider>
-      </CurrencyProvider>
+      <AuthProvider>
+        <FavouriteYachtsProvider>
+          <CurrencyProvider>
+            <ModalsProvider>{props.children}</ModalsProvider>
+          </CurrencyProvider>
+        </FavouriteYachtsProvider>
+      </AuthProvider>
     </>
   );
 };

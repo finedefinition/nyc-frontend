@@ -1,9 +1,6 @@
-'use client';
-
-import React, { Suspense } from 'react';
 import styles from '@/styles/typography.module.scss';
 
-function PrivacyPolicyContent() {
+export default function PivacyPolicy() {
   return (
     <div className="info-page">
       <div className="info-page__top">
@@ -114,12 +111,4 @@ function PrivacyPolicyContent() {
       </section>
     </div>
   );
-}
-
-const PrivacyPolicy = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <PrivacyPolicyContent />
-  </Suspense>
-);
-
-export default PrivacyPolicy;
+};

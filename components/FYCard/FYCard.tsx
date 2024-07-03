@@ -4,29 +4,55 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import { fetchImgUrl } from '@/utils/api/getImageFromAWS';
 import typo from '@/styles/typography.module.scss';
 import { Vessel } from '@/interfaces/vessel.interface';
 import { useAuth } from '@/context/AuthContext';
 import { useModals } from '@/context/ModalsContext';
+import { useFavourite } from '@/context/FavouriteYachtsContext';
+import {
+  createFavouriteYachts,
+  deleteFavouriteYacht,
+} from '@/utils/api/usersAuth';
 import YachtPrice from '../YachtPrice/YachtPrice';
 import Button from '../Button/Button';
 import CardSkeleton from '../CardSkeleton/CardSkeleton';
+import Loader from '../Loader/Loader';
 import styles from './fycard.module.scss';
 import TopRightLabel from './TopRightLabel';
+const IMAGE_600_400 = 'https://fakeimg.pl/600x400?text=Norse+Yacht+Co.';
 
 interface Props {
   yacht: Vessel;
   inCatalog?: boolean;
+  inFavourite?: boolean;
+  isLoadingFavourite?: boolean;
 }
 
-const FYCard = ({ yacht, inCatalog }: Props) => {
+const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  const { isAuthenticated } = useAuth();
-  const { accountModalHandler } = useModals();
-
+  const [isRemoving, setIsRemoving] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>('');
+  const router = useRouter();
+  const { isAuthenticated, userInfoToken, userLogout } = useAuth();
+  const { accountModalLoginHandler, isFavouriteModalOpen } = useModals();
+  const {
+    createFavourite,
+    deleteFavourite,
+    favouriteList,
+    isLoadingFavourite,
+  } = useFavourite();
+
+  const LOCAL_STORAGE_TOKEN_KEY = 'authToken';
+  const LOCAL_STORAGE_SESSION_TIME = 'expTime';
+
+  const token =
+    typeof localStorage !== 'undefined'
+      ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+      : null;
+
   const {
     yacht_id,
     yacht_top,
@@ -41,14 +67,20 @@ const FYCard = ({ yacht, inCatalog }: Props) => {
     yacht_year,
   } = yacht;
 
+  // activated loader only in modal during removing
+  const removingInModal = isRemoving && isFavouriteModalOpen && inFavourite;
+  // activated loader only on catalog page during removing
+  const removing = isRemoving && !isFavouriteModalOpen;
+  const activatedLoader = (isAdding || removing) && !removingInModal;
+
+  const addedInFavourite = favouriteList.find(
+    (yacht) => yacht?.yacht_id === yacht_id
+  );
+
   useEffect(() => {
     async function loadImgFromAws() {
       const currImg = await fetchImgUrl(yacht_main_image_key);
-      setImageUrl(
-        currImg.length
-          ? currImg
-          : 'https://fakeimg.pl/600x400?text=Norse+Yacht+Co.'
-      );
+      setImageUrl(currImg.length ? currImg : IMAGE_600_400);
       setTimeout(() => {
         setIsLoading(false);
       }, 1500);
@@ -60,16 +92,77 @@ const FYCard = ({ yacht, inCatalog }: Props) => {
     router.push(`/catalogue/${yacht_id}?name=${yacht_make}`);
   };
 
+  const now = Math.floor(new Date().getTime() / 1000);
+  const expTime =
+    typeof localStorage !== 'undefined'
+      ? localStorage.getItem(LOCAL_STORAGE_SESSION_TIME)
+      : null;
+
+  const handleDeleteFavourite = (id: number) => {
+    if (userInfoToken?.sub && id && token) {
+      setIsRemoving(true);
+      deleteFavouriteYacht(userInfoToken?.sub, id, token)
+        .then(() => {
+          deleteFavourite(yacht);
+        })
+        .catch((error) => {
+          if (expTime && now > +expTime) {
+            userLogout();
+          }
+          alert(error);
+        })
+        .finally(() => {
+          setIsRemoving(false);
+        });
+    }
+  };
+
+  const handleCreateFavourite = (yacht: Vessel) => {
+    if (userInfoToken?.sub && yacht_id && token) {
+      setIsAdding(true);
+      createFavouriteYachts(userInfoToken?.sub, yacht_id, token)
+        .then(() => {
+          createFavourite(yacht);
+        })
+        .catch((error) => {
+          if (expTime && now > +expTime) {
+            userLogout();
+          }
+          alert(error);
+        })
+        .finally(() => {
+          setIsAdding(false);
+        });
+    }
+  };
+
   return (
-    <div className={styles.card}>
+    <div
+      className={classNames(styles.card, {
+        [styles.adding]: activatedLoader,
+        [styles.removing]: isRemoving,
+      })}
+    >
+      {activatedLoader && (
+        <Loader
+          biggest
+          absoluteCenter
+          zIndex
+        />
+      )}
+      {removingInModal && <Loader absoluteCenter />}
       {isLoading ? (
-        <CardSkeleton />
+        inFavourite ? (
+          <CardSkeleton isFavourite />
+        ) : (
+          <CardSkeleton />
+        )
       ) : (
         <>
           <div
-            className={`${styles.image_container} ${
-              inCatalog ? styles.image_catalog_container : ''
-            }`}
+            className={classNames(styles.image_container, {
+              [styles.image_catalog_container]: inCatalog,
+            })}
             onClick={routeToVessel}
           >
             <Image
@@ -120,15 +213,40 @@ const FYCard = ({ yacht, inCatalog }: Props) => {
             >
               {`${yacht_country}, ${yacht_town} | ${yacht_year}`}
             </p>
-            {isAuthenticated ? (
-              <button className={`${styles.favourite_icon}`} />
-            ) : (
+            {isAuthenticated && isLoadingFavourite && (
+              <div className={styles.loadFavourite}>
+                <Loader absoluteCenter />
+              </div>
+            )}
+            {isAuthenticated && !isLoadingFavourite && (
               <button
-                className={`${styles.favourite_icon}`}
-                onClick={accountModalHandler}
+                className={classNames(styles.favourite_icon, {
+                  [styles.favourite_icon_added]: !!addedInFavourite,
+                })}
+                onClick={() => {
+                  addedInFavourite
+                    ? handleDeleteFavourite(yacht_id)
+                    : handleCreateFavourite(yacht);
+                }}
+                disabled={isRemoving}
               />
             )}
+            {!isAuthenticated && (
+              <>
+                <button
+                  className={`${styles.favourite_icon}`}
+                  onClick={accountModalLoginHandler}
+                />
+              </>
+            )}
           </div>
+          {inFavourite && (
+            <button
+              className={styles.trash}
+              onClick={() => handleDeleteFavourite(yacht_id)}
+              disabled={isRemoving}
+            />
+          )}
         </>
       )}
     </div>

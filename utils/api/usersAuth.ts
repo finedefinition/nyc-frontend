@@ -30,3 +30,35 @@ export const sendRecoveryCode = (userEmail: string | null) => {
 export const confirmForgotPassword = (queryUserRecovery: string) => {
   return client.confirmUser(`/auth/confirmForgotPassword?${queryUserRecovery}`);
 };
+
+export const getFavouriteYachts = (
+  subUser: string,
+  tokenUser: string | null
+) => {
+  return client.getFavouriteYachts(
+    `/users/${subUser}/favouriteYachts`,
+    tokenUser
+  );
+};
+
+export const deleteFavouriteYacht = (
+  subUser: string,
+  yachtId: number,
+  tokenUser: string
+) => {
+  return client.deleteFavouriteYachts(
+    `/users/${subUser}/favouriteYachts/${yachtId}`,
+    tokenUser
+  );
+};
+
+export const createFavouriteYachts = (
+  subUser: string,
+  yachtId: number,
+  tokenUser: string
+) => {
+  return client.createFavouriteYachts(
+    `/users/${subUser}/favouriteYachts/${yachtId}`,
+    tokenUser
+  );
+};

@@ -1,8 +1,17 @@
+import classNames from 'classnames';
 import styles from './cardSkeleton.module.scss';
 
-const CardSkeleton = () => {
+interface Props {
+  isFavourite?: boolean;
+}
+
+const CardSkeleton = ({ isFavourite }: Props) => {
   return (
-    <div className={styles.loadingSkeleton}>
+    <div
+      className={classNames(styles.loadingSkeleton, {
+        [styles.loadingSkeleton80]: isFavourite,
+      })}
+    >
       <div className={styles.loading_image}></div>
       <div className={styles.loading_text}></div>
       <div className={styles.loading_text}></div>

@@ -1,6 +1,5 @@
 import { UserInterface } from '@/interfaces/user.interface';
-import { userPostSignUp } from '../usersAuth';
-
+import { userPostSignUp } from '../api/usersAuth';
 interface HandleSignUp {
   inputs: UserInterface;
   setLoading: (status: boolean) => void;

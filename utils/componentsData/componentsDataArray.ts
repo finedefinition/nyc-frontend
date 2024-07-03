@@ -28,3 +28,12 @@ export const componentsDataArray = [
     logoSubTxt: 'happy customers',
   },
 ];
+
+export const sortOptions = {
+  Made: 'made',
+  Modal: 'model',
+  Country: 'country',
+  Town: 'town',
+  FirstName: 'firstName',
+  LastLame: 'lastName',
+};

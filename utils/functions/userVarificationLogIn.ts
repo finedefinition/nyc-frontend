@@ -1,5 +1,5 @@
 import { UserInterface } from '@/interfaces/user.interface';
-import { confirmUserAuth } from '../usersAuth';
+import { confirmUserAuth } from '../api/usersAuth';
 
 interface HandleSignUp {
   inputs: UserInterface;

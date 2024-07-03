@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 import LogoImg from '@/public/icons/logo.svg';
 import { pageLinksArray } from '@/utils/links/pageLinks';
-import useWindowDimensions from '@/hooks/useWindowDimensions';
 import { useCurrency } from '@/context/CurrencyContext';
 import MenuMobileModal from '@/components/Navbar/MenuMobileModal/MenuMobileModal';
 import MenuIcon from '@/components/Navbar/MenuIcon/MenuIcon';
@@ -16,15 +15,17 @@ import styles from '@/components/Navbar/navbar.module.scss';
 
 import { useAuth } from '@/context/AuthContext';
 import { useModals } from '@/context/ModalsContext';
+import useWindowDimensions from '@/hooks/useWindowDimensions';
 import AccountModal from './AccountModal/AccountModal';
 import LoginModal from './LoginModal/LoginModal';
 import RecoveryModal from './RecoveryModal/RecoveryModal';
+import FavoriteYachts from './FavoriteYachts/FavoriteYachts';
 
 const Navbar = () => {
   const [isCurrencyModalOpen, setIsCurrencyModalOpen] = useState(false);
   const [isContactsModalOpen, setIsContactsModalOpen] = useState(false);
   const [isMobileMenuClose, setIsMobileMenuClose] = useState(false);
-  const [desktopScreen, setDesktopScreen] = useState(false);
+  const [desktopScreen, setDesktopScreen] = useState(true);
   const { isAuthenticated, userLogout, userInfoToken } = useAuth();
   const {
     isAccountModalOpen,
@@ -36,6 +37,9 @@ const Navbar = () => {
   } = useModals();
   const { width } = useWindowDimensions();
   const { selectedCurrency } = useCurrency();
+  const isAdmin = userInfoToken?.['cognito:groups']
+    ? userInfoToken?.['cognito:groups'][0]
+    : null;
 
   useEffect(() => {
     const screen = (width as number) < 1200;
@@ -122,70 +126,75 @@ const Navbar = () => {
           />
         </Link>
         <div className={styles.navbar__side}>
-          {desktopScreen ? (
+          <FavoriteYachts />
+          {desktopScreen && isAuthenticated && (
             <>
-              <button className={`${styles.link} ${styles.favourite_icon}`} />
-              {isAuthenticated ? (
-                <>
-                  <Link
-                    href="/"
-                    className={`${styles.userLoggedNavLink} ${styles.link}`}
-                  >
-                    {userInfoToken &&
-                      `${userInfoToken.given_name} ${userInfoToken.family_name}`}
-                    <ul className={styles.userLoggedNavLink__subMenu}>
-                      <li className={styles.userLoggedNavLink__item}>
-                        <button
-                          onClick={userLogout}
-                          className={`${styles.link} `}
-                        >
-                          Sign out
-                        </button>
-                      </li>
-                    </ul>
-                  </Link>
-                </>
-              ) : (
-                <button
-                  type="button"
-                  onClick={accountModalHandler}
-                  className={`${styles.link} ${styles.link__button}`}
-                >
-                  My account
-                </button>
-              )}
+              <Link
+                href="/"
+                className={`${styles.userLoggedNavLink} ${styles.link}`}
+              >
+                {userInfoToken &&
+                  `${userInfoToken.given_name} ${userInfoToken.family_name}`}
+                <ul className={styles.userLoggedNavLink__subMenu}>
+                  <li className={styles.userLoggedNavLink__item}>
+                    <button
+                      onClick={userLogout}
+                      className={`${styles.link} `}
+                    >
+                      Sign out
+                    </button>
+                  </li>
+                </ul>
+              </Link>
+            </>
+          )}
+          {desktopScreen && !isAuthenticated && (
+            <>
               <button
                 type="button"
-                onClick={currencyModalHandler}
+                onClick={accountModalLoginHandler}
+                className={`${styles.link} ${styles.link__button}`}
+              >
+                My account
+              </button>
+            </>
+          )}
+          {desktopScreen && (
+            <>
+              <button
+                type="button"
+                onClick={accountModalLoginHandler}
                 className={`${styles.link} ${styles.link__button}`}
               >
                 {`Split currency / ${selectedCurrency}`}
               </button>
-              <button
-                type="button"
-                onClick={contactsModalHandler}
-                className={`${styles.link} ${styles.link__button}`}
-              >
-                Contacts
-              </button>
-            </>
-          ) : (
-            <>
-              {isAuthenticated ? (
+              {isAuthenticated && isAdmin === 'ROLE_ADMIN' && (
                 <Link
-                  href="/"
-                  className={`${styles.link} ${styles.account_icon}`}
-                ></Link>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    onClick={accountModalHandler}
-                    className={`${styles.link} ${styles.account_icon}`}
-                  />
-                </>
+                  className={`${styles.link} ${styles.link__button}`}
+                  href={{
+                    pathname: `/admin/${userInfoToken?.given_name}${userInfoToken?.family_name}`,
+                  }}
+                >
+                  Admin Page
+                </Link>
+              )}
+              {isAuthenticated && isAdmin === null && (
+                <button
+                  type="button"
+                  onClick={accountModalLoginHandler}
+                  className={`${styles.link} ${styles.link__button}`}
+                >
+                  Contacts
+                </button>
               )}
             </>
+          )}
+          {!desktopScreen && !isAuthenticated && (
+            <button
+              type="button"
+              onClick={accountModalLoginHandler}
+              className={`${styles.link} ${styles.account_icon}`}
+            />
           )}
         </div>
       </nav>
