@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { getAllVessels } from '@/utils/api/getAllVessels';
+import { getAllVessels, getYachtMakes } from '@/utils/api/getAllVessels';
 import { Vessel } from '@/interfaces/vessel.interface';
 
 import typo from "@/styles/typography.module.scss";
+import { getCountries, getModels, getTowns } from '@/utils/api/getFilterProps';
+import CatalogProps from '@/components/Catalogue/CatalogProps/CatalogProps';
 import CatalogYacht from "@/components/Catalogue/CatalogYacht/catalogYacht";
 import Pagination from "@/components/Pagination/Pagination";
-import Sorting from '@/components/Catalogue/Sorting/Sorting';
-import Filter from '@/components/Catalogue/Filter/Filter';
 import { preparedYachtsList } from '@/utils/functions/preparedYachtsList';
 import styles from './page.module.scss';
 
@@ -33,6 +33,13 @@ const Catalog = async ({ searchParams }: {searchParams?: SearchParamsType}) => {
     // console.error('Error fetching vessels:', error); // Commented out to avoid ESLint warning
   }
 
+  const yachtsParams = { 
+    makes: await getYachtMakes(), 
+    models: await getModels(),
+    countries: await getCountries(), 
+    towns: await getTowns(), 
+  };
+
   let page = Number(searchParams?.page) || 1;
   const size = Number(searchParams?.size) || CardNumber;
 
@@ -53,7 +60,7 @@ const Catalog = async ({ searchParams }: {searchParams?: SearchParamsType}) => {
         <div className={styles.catalog__top}>
           <h4 className={`${styles.catalog_title} ${typo.typo_h4}`}>Catalogue</h4>
           <div className="d-flex">
-            <Filter /> <Sorting />
+            <CatalogProps yachtsParams={yachtsParams} />
           </div>
         </div>
         {yachtsPage.length ?
