@@ -7,11 +7,13 @@ type ModalsContextType = {
   isAccountModalLoginOpen: boolean;
   isVarificationModalOpen: boolean;
   isRecoveryModalOpen: boolean;
+  isFavouriteModalOpen: boolean;
   accountModalHandler: () => void;
   accountModalLoginHandler: () => void;
   accountVarificationModalHandler: () => void;
   toggleBetweenModals: () => void;
   recoveryPasswordHandler: () => void;
+  favouriteModalHandler: () => void;
 };
 
 const ModalsContext = React.createContext<ModalsContextType | undefined>(
@@ -27,6 +29,7 @@ export const ModalsProvider: React.FC<Props> = ({ children }) => {
   const [isAccountModalLoginOpen, setIsAccountModalLoginOpen] = useState(false);
   const [isVarificationModalOpen, setIsVarificationModalOpen] = useState(false);
   const [isRecoveryModalOpen, setIsRecoveryModalOpen] = useState(false);
+  const [isFavouriteModalOpen, setIsFavouriteModalOpen] = useState(false);
 
   const accountModalHandler = () => {
     setIsAccountModalOpen(!isAccountModalOpen);
@@ -50,6 +53,10 @@ export const ModalsProvider: React.FC<Props> = ({ children }) => {
     setIsAccountModalLoginOpen(!isAccountModalLoginOpen);
   };
 
+  const favouriteModalHandler = () => {
+    setIsFavouriteModalOpen(!isFavouriteModalOpen);
+  };
+
   return (
     <ModalsContext.Provider
       value={{
@@ -57,11 +64,13 @@ export const ModalsProvider: React.FC<Props> = ({ children }) => {
         isAccountModalLoginOpen,
         isVarificationModalOpen,
         isRecoveryModalOpen,
+        isFavouriteModalOpen,
         accountModalHandler,
         accountModalLoginHandler,
         toggleBetweenModals,
         accountVarificationModalHandler,
         recoveryPasswordHandler,
+        favouriteModalHandler,
       }}
     >
       {children}

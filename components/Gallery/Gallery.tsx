@@ -71,7 +71,10 @@ const Gallery = ({ vessel, images }: Props) => {
       <div className={styles.container}>
         <div className={styles.gallery__container}>
           <div className={styles.gallery_small}>
-            <button type="button" className={styles.swiper_prev}>
+            <button
+              type="button"
+              className={styles.swiper_prev}
+            >
               <LeftArrowSvg color={false} />
             </button>
 
@@ -90,20 +93,20 @@ const Gallery = ({ vessel, images }: Props) => {
             >
               <SwiperSlide>
                 {[...images, ...images].map((img, index) => (
-                  <Image
+                  <img
                     key={index}
                     src={img}
                     alt="yacht"
                     className={styles.swiper_small__image}
-                    layout="responsive"
-                    width={500}
-                    height={300}
                   />
                 ))}
               </SwiperSlide>
             </Swiper>
 
-            <button type="button" className={styles.swiper_next}>
+            <button
+              type="button"
+              className={styles.swiper_next}
+            >
               <RightArrowSvg color={false} />
             </button>
           </div>
@@ -111,7 +114,11 @@ const Gallery = ({ vessel, images }: Props) => {
           <div className={styles.gallery_big}>
             <p className={styles.gallery_big__info}>
               {vessel.yacht_model}{' '}
-              <Button text="Buy now" linkTo="/" primary />
+              <Button
+                text="Buy now"
+                linkTo="/"
+                primary
+              />
             </p>
             <Swiper
               direction={'vertical'}
@@ -123,15 +130,12 @@ const Gallery = ({ vessel, images }: Props) => {
             >
               <SwiperSlide className={styles.slider__image__container}>
                 {images.map((img, index) => (
-                  <Image
+                  <img
                     key={index}
                     id={String(index)}
                     src={img}
                     alt="yacht"
                     className={styles.swiper_big__image}
-                    layout="responsive"
-                    width={800}
-                    height={600}
                   />
                 ))}
               </SwiperSlide>
@@ -172,7 +176,7 @@ const Gallery = ({ vessel, images }: Props) => {
                 <p className={styles.info__body_item}>{vessel.yacht_town}</p>
               </section>
               <section className={styles.info__body_item__container}>
-                <p className={styles.info__body_title}>Length Overall:</p>
+                <p className={styles.info__body_title}>Lengh Overall:</p>
                 <p className={styles.info__body_item}>{vessel.yacht_loa}</p>
               </section>
               <section className={styles.info__body_item__container}>
@@ -192,7 +196,7 @@ const Gallery = ({ vessel, images }: Props) => {
                 <p className={styles.info__body_item}>{vessel.yacht_berth}</p>
               </section>
               <section className={styles.info__body_item__container}>
-                <p className={styles.info__body_title}>Keel Type:</p>
+                <p className={styles.info__body_title}>Kell Type:</p>
                 <p className={styles.info__body_item}>
                   {vessel.yacht_keel_type}
                 </p>
@@ -204,8 +208,8 @@ const Gallery = ({ vessel, images }: Props) => {
                 </p>
               </section>
               <section className={styles.info__body_item__container}>
-                <p className={styles.info__body_title}>Heads:</p>
-                <p className={styles.info__body_item}>{vessel.yacht_heads}</p>
+                <p className={styles.info__body_title}>Engine Quantity:</p>
+                <p className={styles.info__body_item}>{vessel.yacht_engine}</p>
               </section>
             </div>
           </div>
