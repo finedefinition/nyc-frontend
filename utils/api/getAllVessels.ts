@@ -26,10 +26,21 @@ async function getData(
 }
 
 export const getAllVessels = async (): Promise<Vessel[]> => await getData(); //  Promise<Vessel[]>
+
 export const getVesselById = async (id: string): Promise<Vessel> =>
   await getData(id); // Promise<Vessel>
 export const getFeaturedYacht = async (): Promise<Vessel[]> => {
   const yachts = await getData();
 
   return yachts.filter((yacht: Vessel) => yacht.yacht_top || yacht.yacht_hot_price);
+};
+
+export const getYachtMakes = async (): Promise<string[]> => {
+  const yachts = await getData();
+
+  const makes = yachts
+    .map((yacht: Vessel) => yacht.yacht_make)
+    .filter((yacht, index, arr) => arr.indexOf(yacht) === index)
+  
+  return makes;
 };
