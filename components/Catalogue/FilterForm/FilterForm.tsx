@@ -7,6 +7,7 @@ import { getSearchWith } from '@/utils/functions/getSearchWith';
 import { FilterProps } from '@/interfaces/filterProps.interface';
 import { FeaturedType } from './types';
 import { FEATURED } from './constants';
+import Featured from './components/Featured/Featured';
 import classes from './filterForm.module.scss';
 
 type Props = {
@@ -46,9 +47,15 @@ export const FilterForm: React.FC<Props> = ({ closeForm }) => {
     hotPrice: !!searchParams.get('hotPrice'),
     vat: !!searchParams.get('vat'),
   });
-
+  
+  const handleFeatured = (value: keyof FeaturedType) =>
+    setFeatured({ ...featured, [value]: !featured[value] });
+  
   const handleReset = () => {
     setFeatured(FEATURED);
+
+    const params = getSearchWith(searchParams, FEATURED);
+    replace(`${pathname}?${params}`);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -71,8 +78,10 @@ export const FilterForm: React.FC<Props> = ({ closeForm }) => {
         <span>Filter</span>
         <Image src={Close} alt="Close" onClick={closeForm} />
       </div>
-      <div className={classes.content}>
-        Content
+      <div className={classes.container}>
+        <div className={classes.content}>
+          <Featured values={featured} changeValue={handleFeatured} />
+        </div>
       </div>
 
       <div className={classes.buttons}>
