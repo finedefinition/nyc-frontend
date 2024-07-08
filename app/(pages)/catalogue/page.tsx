@@ -9,7 +9,7 @@ import CatalogYacht from "@/components/Catalogue/CatalogYacht/catalogYacht";
 import Pagination from "@/components/Pagination/Pagination";
 import Sorting from '@/components/Catalogue/Sorting/Sorting';
 import Filter from '@/components/Catalogue/Filter/Filter';
-
+import { preparedYachtsList } from '@/utils/functions/preparedYachtsList';
 import styles from './page.module.scss';
 
 export const metadata: Metadata = {
@@ -18,14 +18,17 @@ export const metadata: Metadata = {
 
 const CardNumber = 9;
 
-const Catalog = async ({
-  searchParams,
-}: {
-  searchParams?: { page: string; size: string };
-}) => {
+type SearchParamsType = {
+  page: string;
+  size: string;
+  sort: string;
+};
+
+const Catalog = async ({ searchParams }: {searchParams?: SearchParamsType}) => {
   let allYachts: Vessel[] = [];
   try {
-    allYachts = await getAllVessels();
+    const baseYachts = await getAllVessels();
+    allYachts = preparedYachtsList(baseYachts, searchParams);
   } catch (error) {
     // console.error('Error fetching vessels:', error); // Commented out to avoid ESLint warning
   }

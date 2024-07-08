@@ -52,3 +52,12 @@ $mainfont: 16;
 
   @return $remvalue;
 }
+
+@mixin hover($property, $toValue) {
+  transition: #{$property} 0.3s;
+
+  &:hover {
+    #{$property}: $toValue;
+    transition-duration: 0.3s;
+  }
+}
