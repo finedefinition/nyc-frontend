@@ -5,21 +5,38 @@ import { sliderStyle } from './constants';
 
 import classes from './range.module.scss';
 
+type Pair = [number, number];
+
 type RangeType = {
-  r1: number;
-  r2: number;
+  defaultValue: Pair;
   step?: number;
   title: string;
+  changeMinPrice?: (value: number) => void,
+  changeMaxPrice?: (value: number) => void,
 }
 
-export const Range = ({ r1, r2, step, title }: RangeType) => {
+export const Range = ({
+  defaultValue,
+  step,
+  title,
+  changeMinPrice = () => {},
+  changeMaxPrice = () => {},
+}: RangeType) => {
+  const [r1, r2] = defaultValue;
+
   const [min, setMin] = useState(r1);
   const [max, setMax] = useState(r2);
+  
+  const validation = false;
 
   const onMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= r1) {
       setMin(value);
+    }
+
+    if (validation) {
+      changeMinPrice(min);
     }
   }
 
@@ -28,12 +45,19 @@ export const Range = ({ r1, r2, step, title }: RangeType) => {
     if (!isNaN(value) && value <= r2) {
       setMax(value);
     }
+
+    if (validation) {
+      changeMaxPrice(min);
+    }
   }
 
   const handleRangeChange = (value: number | number[]) => {
     if (Array.isArray(value)) {
       setMin(value[0]);
       setMax(value[1]);
+
+      changeMinPrice(value[0]);
+      changeMaxPrice(value[1]);
     }
   }
 
@@ -63,7 +87,7 @@ export const Range = ({ r1, r2, step, title }: RangeType) => {
         <Slider
           range
           pushable
-          defaultValue={[r1, r2]}
+          defaultValue={defaultValue}
           value={[min, max]}
           min={r1}
           max={r2}

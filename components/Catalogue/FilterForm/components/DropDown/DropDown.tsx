@@ -17,7 +17,7 @@ export const DropDown = ({
   defaultValue,
   active,
   selectItem = () => {},
-} : DropDownType) => {
+}: DropDownType) => {
   return (
     <Form.Group className={classes.group}>
       <p className={classes.title}>{title}</p>
