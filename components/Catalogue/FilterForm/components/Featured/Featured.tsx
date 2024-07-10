@@ -1,39 +1,32 @@
 import Form from 'react-bootstrap/Form';
-import { FeaturedType, } from '../../types';
+import { useFilter } from '@/components/Catalogue/CatalogProps/FilterContext';
+import { FeaturedType } from '../../types';
+import { FEATURED_FIELDS } from '../../constants';
 import classes from './features.module.scss';
 
-interface FeaturedProps {
-  values: FeaturedType;
-  changeValue: (value: keyof FeaturedType) => void;
-}
+function Featured() {
+  const { featured, setFeatured } = useFilter();
+  
+  const handleChange = (key: keyof FeaturedType) => setFeatured({
+    ...featured,
+    [key]: !featured[key],
+  });
 
-function Featured({ values, changeValue }: FeaturedProps) {
   return (
     <Form.Group className={classes.group}>
       <p>Featured</p>
 
       <div className={classes.features}>
-        <Form.Check
-          className={classes.checkbox}
-          name='top'
-          label='Top 3'
-          checked={values['top']}
-          onChange={() => changeValue('top')}
-        />
-        <Form.Check
-          className={classes.checkbox}
-          name='hotPrice'
-          label='Hot Price'
-          checked={values['hotPrice']}
-          onChange={() => changeValue('hotPrice')}
-        />
-        <Form.Check
-          className={classes.checkbox}
-          name='vat'
-          label='VAT'
-          checked={values['vat']}
-          onChange={() => changeValue('vat')}
-        />
+        {FEATURED_FIELDS.map(field => (
+          <Form.Check
+            key={field.name}
+            className={classes.checkbox}
+            name={field.name}
+            label={field.label}
+            checked={featured[field.name]}
+            onChange={() => handleChange(field.name)}
+          />
+        ))}
       </div>
     </Form.Group>
   );

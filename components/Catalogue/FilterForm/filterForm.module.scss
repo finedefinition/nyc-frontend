@@ -29,11 +29,7 @@
   font-size: 1.5rem;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
+.container {
   padding-right: 1.5rem;;
   overflow-y: auto;
 
@@ -50,6 +46,12 @@
     background-color: $orange-secondary-100;
     border-radius: 5px;
   }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 
