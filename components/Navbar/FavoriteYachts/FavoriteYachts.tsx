@@ -3,6 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useFavourite } from '@/context/FavouriteYachtsContext';
 import { getFavouriteYachts } from '@/utils/api/usersAuth';
 import { getVesselById } from '@/utils/api/getAllVessels';
+import { LOCAL_STORAGE_TOKEN_KEY } from '@/utils/constants';
 import FavoriteYachtsButton from './FavoriteYachtsButton/FavoriteYachtsButton';
 import FavoriteYachtsModal from './FavoriteYachtsModal/FavoriteYachtsModal';
 
@@ -17,17 +18,15 @@ const FavoriteYachts = () => {
     useFavourite();
   const { userInfoToken, isAuthenticated } = useAuth();
 
-  const LOCAL_STORAGE_TOKEN_KEY = 'authToken';
-
-  const token =
-    typeof localStorage !== 'undefined'
-      ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
-      : null;
-
   useEffect(() => {
+    const TOKEN =
+      typeof localStorage !== 'undefined'
+        ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+        : null;
+
     if (userInfoToken?.sub && isAuthenticated) {
       isFavouriteLoading();
-      getFavouriteYachts(userInfoToken?.sub, token)
+      getFavouriteYachts(userInfoToken?.sub, TOKEN)
         .then((response) => {
           const yachtsData = response as FavouriteYachts | 0;
           if (yachtsData) {
@@ -39,7 +38,7 @@ const FavoriteYachts = () => {
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, userInfoToken?.sub]);
+  }, [userInfoToken?.sub]);
 
   const getFavouriteYachtsById = (yachtsData: FavouriteYachts) => {
     const favoriteYachtIds = yachtsData?.favouriteYachtIds ?? [];

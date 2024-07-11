@@ -3,6 +3,7 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { TokenInterface } from '@/interfaces/token.interface';
+import { EXP_TIME, TOKEN } from '@/utils/constants';
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -22,20 +23,10 @@ type Props = {
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [varificationCode, setVarificationCode] = useState<string>('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const LOCAL_STORAGE_TOKEN_KEY = 'authToken';
-  const LOCAL_STORAGE_SESSION_TIME = 'expTime';
+  const [token, setToken] = useState(TOKEN);
   const [userInfoToken, setUserInfoToken] = useState<TokenInterface | undefined>();
-  const token =
-    typeof localStorage !== 'undefined'
-      ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
-      : null;
 
   const now = Math.floor(new Date().getTime() / 1000);
-  const expTime =
-    typeof localStorage !== 'undefined'
-      ? localStorage.getItem(LOCAL_STORAGE_SESSION_TIME)
-      : null;
-
   const tokenDecode = useCallback(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -44,7 +35,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       if (decodedToken.exp !== undefined) {
         localStorage.setItem('expTime', decodedToken.exp.toString());
         setUserInfoToken(decodedToken);
-        if (expTime && now > +expTime) {
+        if (EXP_TIME && now > +EXP_TIME) {
           userLogout();
         }
       }
@@ -54,9 +45,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     tokenDecode();
-  }, [tokenDecode]);
+  }, [tokenDecode, token]);
 
   const userLogin = (token: string) => {
+    setToken(token);
     localStorage.setItem('authToken', token);
     setIsAuthenticated(true);
     tokenDecode();
@@ -64,6 +56,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const userLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('expTime');
     setIsAuthenticated(false);
   };
 

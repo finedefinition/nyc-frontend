@@ -1,5 +1,6 @@
 import { UserInterface } from '@/interfaces/user.interface';
 import { confirmUserAuth } from '../api/usersAuth';
+import { LOCAL_STORAGE_TOKEN_KEY } from '../constants';
 
 interface HandleSignUp {
   inputs: UserInterface;
@@ -24,7 +25,10 @@ export const userHandleVarificationLogIn = ({
   userLogin,
   accountModalHandler,
 }: HandleSignUp) => {
-  const getToken = localStorage.getItem('authToken');
+  const TOKEN =
+    typeof localStorage !== 'undefined'
+      ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+      : null;
 
   const resetFields = () => {
     inputs.firstName = '';
@@ -43,7 +47,7 @@ export const userHandleVarificationLogIn = ({
 
       const signInResponse = response as SignInResponse;
 
-      if (!getToken) {
+      if (TOKEN === null) {
         userLogin(signInResponse.token);
       }
 
