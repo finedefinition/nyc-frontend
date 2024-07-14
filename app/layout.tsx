@@ -36,6 +36,7 @@ export default function RootLayout({
       </head>
       <body
         className={`page__body ${baiJamjuree.variable} ${beautifulEs.variable} ${roboto.variable} page`}
+        suppressHydrationWarning={true}
       >
         <AllContextProviders>
           <NoSSRNavBar />

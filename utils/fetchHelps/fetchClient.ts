@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+//Move server url to .env file
 const BASE_URL = 'https://nyb-project-production.up.railway.app';
 export function wait(delay: number) {
   return new Promise((resolve) => {
@@ -12,6 +12,7 @@ type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 function request<T>(
   url: string,
   data: any = null,
+  tokenUser: string | null = '',
   method: RequestMethod = 'POST'
 ): Promise<T> {
   const options: RequestInit = { method };
@@ -20,7 +21,12 @@ function request<T>(
     options.body = JSON.stringify(data);
     options.headers = {
       'Content-Type': 'application/json;charset=UTF-8',
-      Accept: 'application/json',
+    };
+  }
+
+  if ((method === 'GET' || method === 'DELETE' || method === 'POST') && tokenUser) {
+    options.headers = {
+      ...(tokenUser ? { Authorization: `Bearer ${tokenUser}` } : {}),
     };
   }
 
@@ -38,7 +44,13 @@ function request<T>(
 }
 
 export const client = {
-  userSignUp: <T>(url: string, data: any) => request<T>(url, data, 'POST'),
-  userSignIn: <T>(url: string, data: any) => request<T>(url, data, 'POST'),
+  userSignUp: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
+  userSignIn: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
   confirmUser: <T>(url: string) => request<T>(url, 'POST'),
+  getFavouriteYachts: <T>(url: string, tokenUser: string | null) =>
+    request<T>(url, null, tokenUser, 'GET'),
+  deleteFavouriteYachts: <T>(url: string, tokenUser: string | null) =>
+    request<T>(url, null, tokenUser, 'DELETE'),
+  createFavouriteYachts: <T>(url: string, tokenUser: string | null) =>
+    request<T>(url, null, tokenUser, 'POST'),
 };

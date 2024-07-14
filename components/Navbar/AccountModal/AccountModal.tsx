@@ -9,8 +9,8 @@ import { Errors } from '@/interfaces/errors.interface';
 
 import Loader from '@/components/Loader/Loader';
 import { useAuth } from '@/context/AuthContext';
-import { userHandleSignUp } from '@/utils/api/userSignUp/userSignUp';
-import { userHandleVarificationLogIn } from '@/utils/api/userVarificationLogIn/userVarificationLogIn';
+import { userHandleSignUp } from '@/utils/functions/userSignUp';
+import { userHandleVarificationLogIn } from '@/utils/functions/userVarificationLogIn';
 import VarificationModal from '../VarificationModal/VarificationModal';
 import styles from './accountModal.module.scss';
 
@@ -318,32 +318,34 @@ const AccountModal = ({
                 )}
               </form>
 
-              <p className={styles.form_terms}>
-                By creating an account, you agree to our{' '}
-                <Link
-                  href="/terms-of-use"
-                  className={styles.form_terms__link}
-                  onClick={accountModalHandler}
-                >
-                  Terms of use
-                </Link>{' '}
-                ,{' '}
-                <Link
-                  href="/privacy-policy"
-                  className={styles.form_terms__link}
-                  onClick={accountModalHandler}
-                >
-                  Privacy policy
-                </Link>{' '}
-                and{' '}
-                <Link
-                  href="/cookies-policy"
-                  className={styles.form_terms__link}
-                  onClick={accountModalHandler}
-                >
-                  Cookies policy
-                </Link>
-              </p>
+              {!isVarification && (
+                <p className={styles.form_terms}>
+                  By creating an account, you agree to our{' '}
+                  <Link
+                    href="/terms-of-use"
+                    className={styles.form_terms__link}
+                    onClick={accountModalHandler}
+                  >
+                    Terms of use
+                  </Link>{' '}
+                  ,{' '}
+                  <Link
+                    href="/privacy-policy"
+                    className={styles.form_terms__link}
+                    onClick={accountModalHandler}
+                  >
+                    Privacy policy
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    href="/cookies-policy"
+                    className={styles.form_terms__link}
+                    onClick={accountModalHandler}
+                  >
+                    Cookies policy
+                  </Link>
+                </p>
+              )}
               <button
                 form={isVarification ? 'varification-form' : 'auth-form'}
                 className={styles.form__button}
@@ -353,17 +355,19 @@ const AccountModal = ({
                 {!loading ? submitButtonText : <Loader />}
               </button>
             </div>
-            <div className={styles.modal__bottom}>
-              <p className={styles.account}>
-                <span>Already have an account? </span>
-                <span
-                  onClick={toggleBetweenModals}
-                  className={styles.account__login}
-                >
-                  Sign In
-                </span>
-              </p>
-            </div>
+            {!isVarification && (
+              <div className={styles.modal__bottom}>
+                <p className={styles.account}>
+                  <span>Already have an account? </span>
+                  <span
+                    onClick={toggleBetweenModals}
+                    className={styles.account__login}
+                  >
+                    Sign In
+                  </span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

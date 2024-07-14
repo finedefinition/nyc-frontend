@@ -13,6 +13,26 @@
     border-left-color: #374a57;
     animation: load8 1.2s infinite linear;
   }
+
+  &.biggest {
+    width: 1.8em;
+    height: 1.8em;
+    .loader__content {
+      width: 1.8em;
+      height: 1.8em;
+    }
+  }
+
+  &.zIndex {
+    z-index: 1;
+  }
+
+  &.absoluteCenter {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @keyframes load8 {

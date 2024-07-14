@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { TokenInterface } from '@/interfaces/token.interface';
 
 type AuthContextType = {
   isAuthenticated: boolean;
-  userInfoToken: TokenInterface | null;
+  userInfoToken?: TokenInterface;
   varificationCode: string;
   userLogin: (token: string) => void;
   userLogout: () => void;
@@ -20,29 +20,37 @@ type Props = {
 };
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [varificationCode, setVarificationCode] = useState<string>('');
-  const [userInfoToken, setUserInfoToken] = useState<TokenInterface | null>(
-    null
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const LOCAL_STORAGE_TOKEN_KEY = 'authToken';
+  const LOCAL_STORAGE_SESSION_TIME = 'expTime';
+  const [userInfoToken, setUserInfoToken] = useState<TokenInterface | undefined>();
+  const token =
+    typeof localStorage !== 'undefined'
+      ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+      : null;
+
+  const now = Math.floor(new Date().getTime() / 1000);
+  const expTime =
+    typeof localStorage !== 'undefined'
+      ? localStorage.getItem(LOCAL_STORAGE_SESSION_TIME)
+      : null;
 
   const tokenDecode = useCallback(() => {
-    const getToken = localStorage.getItem('authToken');
-    const now = Math.floor(new Date().getTime() / 1000);
-
-    if (getToken) {
+    if (token) {
+      const decodedToken = jwtDecode(token);
       setIsAuthenticated(true);
-      const decodedToken = jwtDecode(getToken);
 
       if (decodedToken.exp !== undefined) {
+        localStorage.setItem('expTime', decodedToken.exp.toString());
         setUserInfoToken(decodedToken);
-
-        if (now > decodedToken.exp) {
+        if (expTime && now > +expTime) {
           userLogout();
         }
       }
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   useEffect(() => {
     tokenDecode();

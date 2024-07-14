@@ -9,6 +9,11 @@
   border-radius: 0.5rem;
   overflow: hidden;
 
+  &.loadingSkeleton80 {
+    width: 100%;
+    height: rem(80);
+  }
+
   @keyframes shimmer {
     0% {
       background-position: -200% 0;

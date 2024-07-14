@@ -1,0 +1,71 @@
+@import '../../../../../styles/var.scss';
+@import '../../../../../styles/mixins.scss';
+
+.group {
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid $gray-20;
+
+  &>p {
+    margin-bottom: 0.5rem;
+    color: $gray-primary;
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: auto;
+  height: 44px;
+  padding-inline: 0.8rem;
+  color: $gray-100;
+
+  background-color: transparent;
+  border: 1px solid $gray-100;
+  border-radius: 0.5rem;
+  transition: 0.5s ease-in;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: $gray-primary;
+    border-color: $white;
+  }
+
+  &::after {
+    margin: 0;
+    border: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url('../../../../../public/icons/Arrowdown.svg') no-repeat center/cover;
+  }
+}
+
+.menu {
+  padding-inline: 0.8rem;
+  width: 100%;
+  border: 1px solid $gray-100;
+}
+
+.item {
+  width: auto;
+  padding: 0.8rem 0 0.4rem;
+
+  color: $gray-100;
+  border-bottom: 1px solid $white;
+
+  &--active {
+    color: $black;
+    border-bottom-color: $gray-primary;
+  }
+
+  &:hover {
+    background-color: $white;
+    color: $gray-100;
+  }
+
+  @include hover(border-bottom-color, $orange-secondary-100);
+}

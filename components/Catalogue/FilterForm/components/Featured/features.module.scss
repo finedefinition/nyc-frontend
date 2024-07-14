@@ -1,0 +1,34 @@
+@import '../../../../../styles/var.scss';
+
+.group {
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid $gray-20;
+
+  &>p {
+    color: $gray-primary;
+  }
+}
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $black;
+}
+
+.checkbox {
+  margin: auto 0;
+  cursor: pointer;
+
+  &>input,
+  &>input:checked,
+  &>input:focus {
+    border-color: $orange-secondary-100;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &>input:checked {
+    background-color: $orange-secondary-100;
+  }
+}
