@@ -207,10 +207,6 @@ const Gallery = ({ vessel, images }: Props) => {
                   {vessel.yacht_fuel_type}
                 </p>
               </section>
-              <section className={styles.info__body_item__container}>
-                <p className={styles.info__body_title}>Engine Quantity:</p>
-                <p className={styles.info__body_item}>{vessel.yacht_engine}</p>
-              </section>
             </div>
           </div>
         </div>
