@@ -1,7 +1,7 @@
 import { DefaultError } from '@/utils/errors/defaultError';
 import { Vessel } from '@/interfaces/vessel.interface';
 // import { getCurrencyRates } from './getCurrencyExange';
-
+//Move server url to .env file
 const BASE_URL = 'https://nyb-project-production.up.railway.app/yachts';
 // const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels';
 // const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels/cards';

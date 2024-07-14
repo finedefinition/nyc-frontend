@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+//Move server url to .env file
 const BASE_URL = 'https://nyb-project-production.up.railway.app';
 export function wait(delay: number) {
   return new Promise((resolve) => {

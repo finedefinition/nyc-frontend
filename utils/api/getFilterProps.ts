@@ -2,7 +2,7 @@ import { Country } from '@/interfaces/country.interface';
 import { Model } from '@/interfaces/model.interface';
 import { Town } from '@/interfaces/town.interface';
 import { DefaultError } from '@/utils/errors/defaultError';
-
+//Move server url to .env file
 const BASE_URL = 'https://nyb-project-production.up.railway.app';
 
 async function getData(url: string = '') {
