@@ -15,10 +15,10 @@ import { useAuth } from '@/context/AuthContext';
 const FavoriteYachtsModal = () => {
   const { favouriteModalHandler, accountModalLoginHandler } = useModals();
   const { favouriteList, isLoadingFavourite } = useFavourite();
+
   const { isAuthenticated } = useAuth();
-  const modalText = isAuthenticated
-    ? 'The list is currently empty'
-    : 'Log in to explore the most beautiful yachts';
+
+  console.log(favouriteList.length);
 
   return (
     <div className={styles.favoriteModal}>
@@ -32,7 +32,7 @@ const FavoriteYachtsModal = () => {
             onClick={() => favouriteModalHandler(false)}
           />
         </div>
-        {!isLoadingFavourite && favouriteList.length > 0 && (
+        {!isLoadingFavourite && isAuthenticated && favouriteList.length > 0 && (
           <ul className={styles.favoriteModal__yachts}>
             {favouriteList.slice(0, 5).map((yacht: Vessel | null) => {
               return (
@@ -59,13 +59,15 @@ const FavoriteYachtsModal = () => {
             <Loader biggest />
           </div>
         )}
-        {!isLoadingFavourite && favouriteList?.length === 0 && (
+        {!isLoadingFavourite && !favouriteList.length && (
           <p
             className={classNames(styles.noYachts, {
               [styles.noYachts__underline]: !isLoadingFavourite,
             })}
           >
-            {modalText}
+            {isAuthenticated
+              ? 'The list is currently empty'
+              : 'Log in to explore the most beautiful yachts'}
           </p>
         )}
 
@@ -80,9 +82,9 @@ const FavoriteYachtsModal = () => {
           </button>
         )}
 
-        {favouriteList.length > 0 && (
+        {favouriteList.length > 0 && isAuthenticated && (
           <div className={styles.favoriteModal__bottom}>
-            <Link href={'/'}>Show more on User page</Link>
+            <Link href={'/catalogue'}>Show more on User page</Link>
           </div>
         )}
       </>

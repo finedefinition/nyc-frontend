@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { TokenInterface } from '@/interfaces/token.interface';
 import { EXP_TIME, TOKEN } from '@/utils/constants';
+import { useFavourite } from './FavouriteYachtsContext';
 
 type AuthContextType = {
   isAuthenticated: boolean;

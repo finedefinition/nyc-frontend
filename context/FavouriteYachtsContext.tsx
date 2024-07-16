@@ -11,6 +11,7 @@ type FavouriteContenxtType = {
   deleteFavourite: (yacht: Vessel) => void;
   isFavouriteLoading: () => void;
   isFavouriteLoaded: () => void;
+  clearFavouriteList: () => void;
 };
 
 const FavouriteContext = React.createContext<FavouriteContenxtType | undefined>(
@@ -31,6 +32,10 @@ export const FavouriteYachtsProvider: React.FC<Props> = ({ children }) => {
 
   const createFavourite = (yacht: Vessel) => {
     setFavouriteList((prev) => [...prev, yacht]);
+  };
+
+  const clearFavouriteList = () => {
+    setFavouriteList([]);
   };
 
   const deleteFavourite = (yacht: Vessel) => {
@@ -57,6 +62,7 @@ export const FavouriteYachtsProvider: React.FC<Props> = ({ children }) => {
         deleteFavourite,
         isFavouriteLoading,
         isFavouriteLoaded,
+        clearFavouriteList,
       }}
     >
       {children}

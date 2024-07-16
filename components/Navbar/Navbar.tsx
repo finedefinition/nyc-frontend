@@ -21,13 +21,14 @@ import AccountModal from './AccountModal/AccountModal';
 import LoginModal from './LoginModal/LoginModal';
 import RecoveryModal from './RecoveryModal/RecoveryModal';
 import FavoriteYachts from './FavoriteYachts/FavoriteYachts';
+import LoggedUser from './LoggedUser/LoggedUser';
 
 const Navbar = () => {
   const [isCurrencyModalOpen, setIsCurrencyModalOpen] = useState(false);
   const [isContactsModalOpen, setIsContactsModalOpen] = useState(false);
   const [isMobileMenuClose, setIsMobileMenuClose] = useState(false);
   const [desktopScreen, setDesktopScreen] = useState(true);
-  const { isAuthenticated, userLogout, userInfoToken } = useAuth();
+  const { isAuthenticated, userInfoToken } = useAuth();
   const {
     isAccountModalOpen,
     isAccountModalLoginOpen,
@@ -146,38 +147,7 @@ const Navbar = () => {
         </Link>
         <div className={styles.navbar__side}>
           <FavoriteYachts />
-          {desktopScreen && isAuthenticated && (
-            <>
-              <Link
-                href='/'
-                className={`${styles.userLoggedNavLink} ${styles.link}`}
-              >
-                {userInfoToken &&
-                  `${userInfoToken.given_name} ${userInfoToken.family_name}`}
-                <ul className={styles.userLoggedNavLink__subMenu}>
-                  <li className={styles.userLoggedNavLink__item}>
-                    <button
-                      onClick={userLogout}
-                      className={`${styles.link} `}
-                    >
-                      Sign out
-                    </button>
-                  </li>
-                </ul>
-              </Link>
-            </>
-          )}
-          {desktopScreen && !isAuthenticated && (
-            <>
-              <button
-                type='button'
-                onClick={accountModalLoginHandler}
-                className={`${styles.link} ${styles.link__button}`}
-              >
-                My account
-              </button>
-            </>
-          )}
+          <LoggedUser />
           {desktopScreen && (
             <>
               <button
@@ -207,13 +177,6 @@ const Navbar = () => {
                 </button>
               )}
             </>
-          )}
-          {!desktopScreen && !isAuthenticated && (
-            <button
-              type='button'
-              onClick={accountModalLoginHandler}
-              className={`${styles.link} ${styles.account_icon}`}
-            />
           )}
         </div>
       </nav>

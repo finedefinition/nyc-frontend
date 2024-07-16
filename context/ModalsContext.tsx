@@ -53,9 +53,6 @@ export const ModalsProvider: React.FC<Props> = ({ children }) => {
     setIsAccountModalLoginOpen(!isAccountModalLoginOpen);
   };
 
-  // const favouriteModalHandler = () => {
-  //   setIsFavouriteModalOpen(!isFavouriteModalOpen);
-  // };
   const favouriteModalHandler = (newOpen: boolean) => {
     setIsFavouriteModalOpen(newOpen);
   };

@@ -37,7 +37,7 @@ const YachtInfo = ({ yacht }: Props) => {
             <Image
               src={imageUrl}
               fill
-              alt="feature_img"
+              alt='feature_img'
             />
           }
         </div>
