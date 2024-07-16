@@ -7,7 +7,7 @@ import useWindowDimensions from '@/hooks/useWindowDimensions';
 import { useAuth } from '@/context/AuthContext';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const FavoriteYachtsButton = ({ children }: Props) => {

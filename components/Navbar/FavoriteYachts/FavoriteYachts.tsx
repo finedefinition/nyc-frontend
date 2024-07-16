@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import { Popover } from 'antd';
 import { useAuth } from '@/context/AuthContext';
 import { useFavourite } from '@/context/FavouriteYachtsContext';
 import { getFavouriteYachts } from '@/utils/api/usersAuth';
 import { getVesselById } from '@/utils/api/getAllVessels';
 import { LOCAL_STORAGE_TOKEN_KEY } from '@/utils/constants';
+import { useModals } from '@/context/ModalsContext';
 import FavoriteYachtsButton from './FavoriteYachtsButton/FavoriteYachtsButton';
 import FavoriteYachtsModal from './FavoriteYachtsModal/FavoriteYachtsModal';
 
@@ -16,6 +18,7 @@ export interface FavouriteYachts {
 const FavoriteYachts = () => {
   const { onCreateFavouriteList, isFavouriteLoading, isFavouriteLoaded } =
     useFavourite();
+  const { favouriteModalHandler, isFavouriteModalOpen } = useModals();
   const { userInfoToken, isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -61,12 +64,19 @@ const FavoriteYachts = () => {
         isFavouriteLoaded();
       });
   };
+  console.log(isFavouriteModalOpen);
 
   return (
     <>
-      <FavoriteYachtsButton>
-        <FavoriteYachtsModal />
-      </FavoriteYachtsButton>
+      <Popover
+        className='favoriteYachtsModal'
+        content={<FavoriteYachtsModal />}
+        open={isFavouriteModalOpen}
+        trigger='click'
+        onOpenChange={favouriteModalHandler}
+      >
+        <FavoriteYachtsButton />
+      </Popover>
     </>
   );
 };
