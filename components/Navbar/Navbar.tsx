@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Modal } from 'antd';
 import LogoImg from '@/public/icons/logo.svg';
 import { pageLinksArray } from '@/utils/links/pageLinks';
 import { useCurrency } from '@/context/CurrencyContext';
@@ -31,6 +32,7 @@ const Navbar = () => {
     isAccountModalOpen,
     isAccountModalLoginOpen,
     isRecoveryModalOpen,
+    recoveryPasswordHandler,
     accountModalHandler,
     accountModalLoginHandler,
     toggleBetweenModals,
@@ -58,6 +60,8 @@ const Navbar = () => {
     setIsMobileMenuClose(!isMobileMenuClose);
   };
 
+  const isUserAdmin = isAuthenticated && isAdmin === 'ROLE_ADMIN';
+
   return (
     <>
       {isMobileMenuClose && (
@@ -78,21 +82,36 @@ const Navbar = () => {
           contactsModalHandler={contactsModalHandler}
         />
       )}
-      {isAccountModalLoginOpen && (
+
+      <Modal
+        open={isAccountModalLoginOpen}
+        onCancel={accountModalLoginHandler}
+        footer={false}
+      >
         <LoginModal
           toggleBetweenModals={toggleBetweenModals}
-          isAccountModalLoginOpen={isAccountModalLoginOpen}
           accountModalLoginHandler={accountModalLoginHandler}
         />
-      )}
-      {isAccountModalOpen && (
+      </Modal>
+
+      <Modal
+        open={isAccountModalOpen}
+        onCancel={accountModalHandler}
+        footer={false}
+      >
         <AccountModal
           toggleBetweenModals={toggleBetweenModals}
-          isAccountModalOpen={isAccountModalOpen}
           accountModalHandler={accountModalHandler}
         />
-      )}
-      {isRecoveryModalOpen && <RecoveryModal />}
+      </Modal>
+
+      <Modal
+        open={isRecoveryModalOpen}
+        onCancel={recoveryPasswordHandler}
+        footer={false}
+      >
+        <RecoveryModal />
+      </Modal>
       <nav className={styles.navbar}>
         <div className={styles.navbar__side}>
           {desktopScreen ? (
@@ -115,13 +134,13 @@ const Navbar = () => {
           )}
         </div>
         <Link
-          href="/"
+          href='/'
           className={styles.logo}
         >
           <Image
             src={LogoImg}
             className={styles.logo__image}
-            alt="Logo"
+            alt='Logo'
             priority
           />
         </Link>
@@ -130,7 +149,7 @@ const Navbar = () => {
           {desktopScreen && isAuthenticated && (
             <>
               <Link
-                href="/"
+                href='/'
                 className={`${styles.userLoggedNavLink} ${styles.link}`}
               >
                 {userInfoToken &&
@@ -151,7 +170,7 @@ const Navbar = () => {
           {desktopScreen && !isAuthenticated && (
             <>
               <button
-                type="button"
+                type='button'
                 onClick={accountModalLoginHandler}
                 className={`${styles.link} ${styles.link__button}`}
               >
@@ -162,13 +181,13 @@ const Navbar = () => {
           {desktopScreen && (
             <>
               <button
-                type="button"
-                onClick={accountModalLoginHandler}
+                type='button'
+                onClick={currencyModalHandler}
                 className={`${styles.link} ${styles.link__button}`}
               >
                 {`Split currency / ${selectedCurrency}`}
               </button>
-              {isAuthenticated && isAdmin === 'ROLE_ADMIN' && (
+              {isUserAdmin && (
                 <Link
                   className={`${styles.link} ${styles.link__button}`}
                   href={{
@@ -178,10 +197,10 @@ const Navbar = () => {
                   Admin Page
                 </Link>
               )}
-              {isAuthenticated && isAdmin === null && (
+              {(!isUserAdmin || !isAuthenticated) && (
                 <button
-                  type="button"
-                  onClick={accountModalLoginHandler}
+                  type='button'
+                  onClick={contactsModalHandler}
                   className={`${styles.link} ${styles.link__button}`}
                 >
                   Contacts
@@ -191,7 +210,7 @@ const Navbar = () => {
           )}
           {!desktopScreen && !isAuthenticated && (
             <button
-              type="button"
+              type='button'
               onClick={accountModalLoginHandler}
               className={`${styles.link} ${styles.account_icon}`}
             />

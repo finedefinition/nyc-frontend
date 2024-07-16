@@ -1,10 +1,8 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 
 import classNames from 'classnames';
 import { useSearchParams } from 'next/navigation';
 import { Errors } from '@/interfaces/errors.interface';
-import Close from '@/public/icons/close.svg';
 
 import Loader from '@/components/Loader/Loader';
 import { useAuth } from '@/context/AuthContext';
@@ -117,6 +115,7 @@ const RecoveryModal = () => {
     e.preventDefault();
 
     if (!isRecovering) {
+      checkEmailInput();
       if (!inputs.userEmail) return;
       setLoading(true);
       sendRecoveryCode(inputs.userEmail)
@@ -131,7 +130,6 @@ const RecoveryModal = () => {
         });
     } else if (isRecovering) {
       const { newPassword } = inputs;
-
       if (!newPassword || !varificationCode) return;
 
       setLoading(true);
@@ -159,20 +157,9 @@ const RecoveryModal = () => {
 
   return (
     <>
-      <div
-        className={`${styles.modal} ${isRecoveryModalOpen ? styles.open : ''}`}
-      >
+      <div className={`${styles.modal} ${styles.open}`}>
         <div className={styles.modal__wrapper}>
           <div className={styles.modal__content}>
-            <div
-              onClick={recoveryPasswordHandler}
-              className={styles.close}
-            >
-              <Image
-                src={Close}
-                alt="Close"
-              />
-            </div>
             <div className={styles.modal__top}>
               <h4 className={styles.header}>{titleText}</h4>
             </div>
@@ -186,9 +173,9 @@ const RecoveryModal = () => {
                 {!isRecovering ? (
                   <div className={styles.form_group}>
                     <input
-                      id="userEmail"
-                      name="userEmail"
-                      type="email"
+                      id='userEmail'
+                      name='userEmail'
+                      type='email'
                       value={inputs.userEmail}
                       className={classNames(styles.input, {
                         [styles.input__error]: errors.userEmail,
@@ -201,7 +188,7 @@ const RecoveryModal = () => {
                     />
                     <label
                       className={styles.label}
-                      htmlFor="userEmail"
+                      htmlFor='userEmail'
                     >
                       Email
                     </label>
@@ -215,8 +202,8 @@ const RecoveryModal = () => {
                   <>
                     <div className={styles.form_group}>
                       <input
-                        id="newPassword"
-                        name="newPassword"
+                        id='newPassword'
+                        name='newPassword'
                         type={showNewPassword ? 'text' : 'password'}
                         value={inputs.newPassword}
                         className={classNames(styles.input, {
@@ -231,7 +218,7 @@ const RecoveryModal = () => {
                       />
                       <label
                         className={styles.label}
-                        htmlFor="newPassword"
+                        htmlFor='newPassword'
                       >
                         Password
                       </label>
@@ -240,7 +227,7 @@ const RecoveryModal = () => {
                           showNewPassword ? styles.eye : styles.eyeOff
                         }`}
                         onClick={toggleShowNewPassword}
-                        data-password="newPassword"
+                        data-password='newPassword'
                       />
                       {errors.newPassword && (
                         <span className={styles.error_message}>
@@ -250,8 +237,8 @@ const RecoveryModal = () => {
                     </div>
                     <div className={styles.form_group}>
                       <input
-                        id="newPasswordConfirm"
-                        name="newPasswordConfirm"
+                        id='newPasswordConfirm'
+                        name='newPasswordConfirm'
                         type={showConfirmPassword ? 'text' : 'password'}
                         value={inputs.newPasswordConfirm}
                         className={classNames(styles.input, {
@@ -266,7 +253,7 @@ const RecoveryModal = () => {
                       />
                       <label
                         className={styles.label}
-                        htmlFor="newPasswordConfirm"
+                        htmlFor='newPasswordConfirm'
                       >
                         Confirm Password
                       </label>
@@ -276,7 +263,7 @@ const RecoveryModal = () => {
                           showConfirmPassword ? styles.eye : styles.eyeOff
                         }`}
                         onClick={toggleShowConfirmPassword}
-                        data-password="newPasswordConfirm"
+                        data-password='newPasswordConfirm'
                       />
                       {errors.newPasswordConfirm && (
                         <span className={styles.error_message}>

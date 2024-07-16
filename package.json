@@ -22,6 +22,7 @@
     "@types/node": "20.8.10",
     "@types/react": "18.2.34",
     "@types/react-dom": "18.2.14",
+    "antd": "^5.19.1",
     "aws-amplify": "^6.0.13",
     "aws-sdk": "^2.1537.0",
     "bootstrap": "^5.3.3",

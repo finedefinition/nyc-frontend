@@ -1,10 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 import classNames from 'classnames';
 import { useSearchParams } from 'next/navigation';
-import Close from '@/public/icons/close.svg';
 import { Errors } from '@/interfaces/errors.interface';
 
 import Loader from '@/components/Loader/Loader';
@@ -16,15 +14,10 @@ import styles from './accountModal.module.scss';
 
 type Props = {
   toggleBetweenModals: () => void;
-  isAccountModalOpen: boolean;
   accountModalHandler: () => void;
 };
 
-const AccountModal = ({
-  toggleBetweenModals,
-  isAccountModalOpen,
-  accountModalHandler,
-}: Props) => {
+const AccountModal = ({ toggleBetweenModals, accountModalHandler }: Props) => {
   const [inputs, setInputs] = useState({
     firstName: '',
     lastName: '',
@@ -37,7 +30,6 @@ const AccountModal = ({
   const [type, setType] = useState('password');
   const [isVarification, setIsVarification] = useState(false);
   const { varificationCode, userLogin } = useAuth();
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -140,12 +132,21 @@ const AccountModal = ({
     };
   }, []);
 
+  const checkAllInputs = () => {
+    checkFirstNameInput();
+    checkLastNameInput();
+    checkEmailInput();
+    checkPasswordInput();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isVarification) {
+      checkAllInputs();
       userHandleSignUp({ inputs, setLoading, setIsVarification });
     } else if (isVarification) {
+      checkAllInputs();
       const signUpParams = new URLSearchParams(searchParams.toString());
       signUpParams.append('email', inputs.userEmail);
       signUpParams.append('password', inputs.password);
@@ -170,20 +171,9 @@ const AccountModal = ({
 
   return (
     <>
-      <div
-        className={`${styles.modal} ${isAccountModalOpen ? styles.open : ''}`}
-      >
+      <div className={`${styles.modal} ${styles.open}`}>
         <div className={styles.modal__wrapper}>
           <div className={styles.modal__content}>
-            <div
-              onClick={accountModalHandler}
-              className={styles.close}
-            >
-              <Image
-                src={Close}
-                alt="Close"
-              />
-            </div>
             <div className={styles.modal__top}>
               <h4 className={styles.header}>Create a new account</h4>
             </div>
@@ -195,9 +185,9 @@ const AccountModal = ({
               >
                 <div className={styles.form_group}>
                   <input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
+                    id='firstName'
+                    name='firstName'
+                    type='text'
                     value={inputs.firstName}
                     className={classNames(styles.input, {
                       [styles.input__error]: errors.firstName,
@@ -211,7 +201,7 @@ const AccountModal = ({
                   />
                   <label
                     className={styles.label}
-                    htmlFor="firstName"
+                    htmlFor='firstName'
                   >
                     First name
                   </label>
@@ -223,9 +213,9 @@ const AccountModal = ({
                 </div>
                 <div className={styles.form_group}>
                   <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
+                    id='lastName'
+                    name='lastName'
+                    type='text'
                     value={inputs.lastName}
                     className={classNames(styles.input, {
                       [styles.input__error]: errors.lastName,
@@ -239,7 +229,7 @@ const AccountModal = ({
                   />
                   <label
                     className={styles.label}
-                    htmlFor="lastName"
+                    htmlFor='lastName'
                   >
                     Last name
                   </label>
@@ -251,9 +241,9 @@ const AccountModal = ({
                 </div>
                 <div className={styles.form_group}>
                   <input
-                    id="userEmail"
-                    name="userEmail"
-                    type="email"
+                    id='userEmail'
+                    name='userEmail'
+                    type='email'
                     value={inputs.userEmail}
                     className={classNames(styles.input, {
                       [styles.input__error]: errors.userEmail,
@@ -267,7 +257,7 @@ const AccountModal = ({
                   />
                   <label
                     className={styles.label}
-                    htmlFor="userEmail"
+                    htmlFor='userEmail'
                   >
                     Email
                   </label>
@@ -279,8 +269,8 @@ const AccountModal = ({
                 </div>
                 <div className={styles.form_group}>
                   <input
-                    id="password"
-                    name="password"
+                    id='password'
+                    name='password'
                     type={type}
                     value={inputs.password}
                     className={classNames(styles.input, {
@@ -295,7 +285,7 @@ const AccountModal = ({
                   />
                   <label
                     className={styles.label}
-                    htmlFor="password"
+                    htmlFor='password'
                   >
                     Password
                   </label>
@@ -322,7 +312,7 @@ const AccountModal = ({
                 <p className={styles.form_terms}>
                   By creating an account, you agree to our{' '}
                   <Link
-                    href="/terms-of-use"
+                    href='/terms-of-use'
                     className={styles.form_terms__link}
                     onClick={accountModalHandler}
                   >
@@ -330,7 +320,7 @@ const AccountModal = ({
                   </Link>{' '}
                   ,{' '}
                   <Link
-                    href="/privacy-policy"
+                    href='/privacy-policy'
                     className={styles.form_terms__link}
                     onClick={accountModalHandler}
                   >
@@ -338,7 +328,7 @@ const AccountModal = ({
                   </Link>{' '}
                   and{' '}
                   <Link
-                    href="/cookies-policy"
+                    href='/cookies-policy'
                     className={styles.form_terms__link}
                     onClick={accountModalHandler}
                   >

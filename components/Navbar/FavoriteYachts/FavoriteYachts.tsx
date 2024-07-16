@@ -64,7 +64,6 @@ const FavoriteYachts = () => {
         isFavouriteLoaded();
       });
   };
-  console.log(isFavouriteModalOpen);
 
   return (
     <>
