@@ -68,7 +68,6 @@ const FavoriteYachts = () => {
   return (
     <>
       <Popover
-        className='favoriteYachtsModal'
         content={<FavoriteYachtsModal />}
         open={isFavouriteModalOpen}
         trigger='click'

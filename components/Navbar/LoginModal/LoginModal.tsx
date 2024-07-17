@@ -103,7 +103,8 @@ const LoginModal = ({
 
   const handleLogIn = (e: React.FormEvent) => {
     e.preventDefault();
-
+    checkEmailInput();
+    checkPasswordInput();
     if (!inputs.password || !inputs.userEmail) return;
     const TOKEN =
       typeof localStorage !== 'undefined'

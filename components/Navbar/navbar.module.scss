@@ -77,7 +77,11 @@
   position: relative;
 
   &__userInfo {
-    padding: rem(24);
+    padding: rem(12);
+
+    @include onTablet {
+      width: 100vw;
+    }
 
     h2 {
       font-family: '__Bai_Jamjuree_2d2b04';

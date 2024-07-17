@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Vessel } from '@/interfaces/vessel.interface';
 import FYCard from '@/components/FYCard/FYCard';
 import styles from '@/components/FYCard/fycard.module.scss';
-import './favoriteYachtsModal.scss';
+
 import Close from '@/public/icons/close.svg';
 
 import { useModals } from '@/context/ModalsContext';
@@ -17,8 +17,6 @@ const FavoriteYachtsModal = () => {
   const { favouriteList, isLoadingFavourite } = useFavourite();
 
   const { isAuthenticated } = useAuth();
-
-  console.log(favouriteList.length);
 
   return (
     <div className={styles.favoriteModal}>

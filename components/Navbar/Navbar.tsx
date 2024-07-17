@@ -88,6 +88,8 @@ const Navbar = () => {
         open={isAccountModalLoginOpen}
         onCancel={accountModalLoginHandler}
         footer={false}
+        destroyOnClose
+        centered
       >
         <LoginModal
           toggleBetweenModals={toggleBetweenModals}
@@ -99,6 +101,8 @@ const Navbar = () => {
         open={isAccountModalOpen}
         onCancel={accountModalHandler}
         footer={false}
+        destroyOnClose
+        centered
       >
         <AccountModal
           toggleBetweenModals={toggleBetweenModals}
@@ -110,6 +114,8 @@ const Navbar = () => {
         open={isRecoveryModalOpen}
         onCancel={recoveryPasswordHandler}
         footer={false}
+        destroyOnClose
+        centered
       >
         <RecoveryModal />
       </Modal>

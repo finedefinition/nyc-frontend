@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { useSearchParams } from 'next/navigation';
 import { sortOptions } from '@/utils/componentsData/componentsDataArray';
 import '@fortawesome/fontawesome-free/css/all.css';
-import styles from '@/components/AdminPage/YachtsTable/componentYachtsTable.module.scss';
 import { SearchLink } from '@/utils/searchHelps/SearchLink';
+import styles from '@/components/AdminPage/YachtsTable/componentYachtsTable.module.scss';
 
 const TableHead = () => {
   const searchParams = useSearchParams();
@@ -30,7 +30,7 @@ const TableHead = () => {
                   order: sortBy === sortName && !orderBy ? 'desc' : null,
                 }}
               >
-                <span className="icon">
+                <span className='icon'>
                   <i
                     className={classNames('fas ', {
                       'fa-sort': sortBy !== sortName,
@@ -55,7 +55,7 @@ const TableHead = () => {
               order: sortBy === 'date' && !orderBy ? 'desc' : null,
             }}
           >
-            <span className="icon">
+            <span className='icon'>
               <i
                 className={classNames('fas ', {
                   'fa-sort': sortBy !== 'date',

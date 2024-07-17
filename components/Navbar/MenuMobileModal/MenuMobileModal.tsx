@@ -12,8 +12,6 @@ import { pageLinksArray } from '@/utils/links/pageLinks';
 import { currencyArray } from '@/utils/currency/currencyArray';
 import { useAuth } from '@/context/AuthContext';
 import { useModals } from '@/context/ModalsContext';
-import AccountModal from '../AccountModal/AccountModal';
-import LoginModal from '../LoginModal/LoginModal';
 import SocialMedia from '../../SocialMedia/SocialMedia';
 import styles from './menuMobileModal.module.scss';
 
@@ -30,13 +28,7 @@ type Props = {
 const MenuMobileModal = ({ isMobileMenuClose, mobileMenuHandler }: Props) => {
   const { setCurrency, selectedCurrency } = useCurrency();
   const { isAuthenticated, userLogout, userInfoToken } = useAuth();
-  const {
-    isAccountModalOpen,
-    isAccountModalLoginOpen,
-    accountModalHandler,
-    accountModalLoginHandler,
-    toggleBetweenModals,
-  } = useModals();
+  const { accountModalLoginHandler } = useModals();
   const contactPhome = '+353874375161';
   const contactEmail = 'info@norseyacht.com';
   const color = '#4D6575';
@@ -56,20 +48,6 @@ const MenuMobileModal = ({ isMobileMenuClose, mobileMenuHandler }: Props) => {
   }, []);
   return (
     <>
-      {isAccountModalLoginOpen && (
-        <LoginModal
-          toggleBetweenModals={toggleBetweenModals}
-          isAccountModalLoginOpen={isAccountModalLoginOpen}
-          accountModalLoginHandler={accountModalLoginHandler}
-        />
-      )}
-      {isAccountModalOpen && (
-        <AccountModal
-          toggleBetweenModals={toggleBetweenModals}
-          isAccountModalOpen={isAccountModalOpen}
-          accountModalHandler={accountModalHandler}
-        />
-      )}
       <motion.div
         className={styles.modal}
         animate={isMobileMenuClose ? 'open' : 'closed'}
@@ -88,7 +66,7 @@ const MenuMobileModal = ({ isMobileMenuClose, mobileMenuHandler }: Props) => {
         {isAuthenticated ? (
           <>
             <Link
-              href="/"
+              href='/'
               className={`${styles.modal__link} ${styles.modal__user}`}
             >
               {userInfoToken &&
@@ -103,15 +81,15 @@ const MenuMobileModal = ({ isMobileMenuClose, mobileMenuHandler }: Props) => {
           </>
         ) : (
           <button
-            type="button"
-            onClick={accountModalHandler}
+            type='button'
+            onClick={accountModalLoginHandler}
             className={`${styles.modal__link} `}
           >
             My account
           </button>
         )}
         <button
-          type="button"
+          type='button'
           className={`${styles.modal__link} ${styles.modal__currency}`}
         >
           {`Split currency / ${selectedCurrency}`}
@@ -137,13 +115,13 @@ const MenuMobileModal = ({ isMobileMenuClose, mobileMenuHandler }: Props) => {
         <div className={styles.contact}>
           <p className={styles.contact__title}>Contact</p>
           <Link
-            href="tel:+380632345521"
+            href='tel:+380632345521'
             className={styles.contact__phone}
           >
             {contactPhome}
           </Link>
           <Link
-            href="mailto:info@norseyacht.com"
+            href='mailto:info@norseyacht.com'
             className={styles.contact__email}
           >
             {contactEmail}

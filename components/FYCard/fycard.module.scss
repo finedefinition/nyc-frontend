@@ -221,7 +221,6 @@
   background-color: $white;
   z-index: 3;
   border-radius: rem(16);
-  padding: rem(8) 0;
 
   @include onTablet {
     transform: none;
