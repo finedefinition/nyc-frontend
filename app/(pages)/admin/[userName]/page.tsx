@@ -1,46 +1,40 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 import YachtsTable from '@/components/AdminPage/YachtsTable/YachtsTable';
-import { getAllVessels } from '@/utils/api/getAllVessels';
+import { LOCAL_STORAGE_TOKEN_KEY } from '@/utils/constants';
+import { getAdminYachtsQuery } from '@/utils/api/getAllVessels';
+import { VesselTableAdmin } from '@/interfaces/vessel.interface';
 import styles from './page.module.scss';
 
 export const metadata: Metadata = {
   title: 'Admin Page',
 };
 
-const CardNumber = 9;
-
-const AdminPage = async ({
-  searchParams,
-}: {
-  searchParams?: { page: string; size: string };
-}) => {
-  const allYachts = await getAllVessels();
-  const page = Number(searchParams?.page) || 1;
-  const size = Number(searchParams?.size) || CardNumber;
-  const LOCAL_STORAGE_TOKEN_KEY = 'authToken';
-
+const AdminPage = async () => {
+  let yachtsData: VesselTableAdmin = {
+    currentPage: 0,
+    totalPages: 0,
+    totalItems: 0,
+    yachts: [],
+  };
+  let TOKEN: string | null = '';
   try {
-    const token =
+    yachtsData = await getAdminYachtsQuery();
+
+    TOKEN =
       typeof localStorage !== 'undefined'
         ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
         : null;
-    if (token !== null) {
-      redirect('/');
-    }
   } catch (error) {
-    /* empty */
+    // console.error('Error fetching vessels:', error); // Commented out to avoid ESLint warning
   }
 
-  const toVessel = page * size;
-  const fromVessel = toVessel - size;
-  const yachtsPage = allYachts?.length
-    ? allYachts.slice(fromVessel, toVessel)
-    : [];
+  // if (!TOKEN) {
+  //   redirect('/');
+  // }
 
   return (
     <section className={styles.admin_container}>
-      <YachtsTable yachts={yachtsPage} />
+      <YachtsTable yachtsResponse={yachtsData} />
     </section>
   );
 };

@@ -1,10 +1,8 @@
 import { DefaultError } from '@/utils/errors/defaultError';
-import { Vessel } from '@/interfaces/vessel.interface';
-// import { getCurrencyRates } from './getCurrencyExange';
+import { Vessel, VesselTableAdmin } from '@/interfaces/vessel.interface';
+import { client } from '../fetchHelps/fetchClient';
 
 const BASE_URL = 'https://nyb-project-production.up.railway.app/yachts';
-// const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels';
-// const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels/cards';
 
 function getData(): Promise<Vessel[]>;
 function getData(url: string): Promise<Vessel>;
@@ -32,7 +30,9 @@ export const getVesselById = async (id: string): Promise<Vessel> =>
 export const getFeaturedYacht = async (): Promise<Vessel[]> => {
   const yachts = await getData();
 
-  return yachts.filter((yacht: Vessel) => yacht.yacht_top || yacht.yacht_hot_price);
+  return yachts.filter(
+    (yacht: Vessel) => yacht.yacht_top || yacht.yacht_hot_price
+  );
 };
 
 export const getYachtMakes = async (): Promise<string[]> => {
@@ -40,7 +40,17 @@ export const getYachtMakes = async (): Promise<string[]> => {
 
   const makes = yachts
     .map((yacht: Vessel) => yacht.yacht_make)
-    .filter((yacht, index, arr) => arr.indexOf(yacht) === index)
-  
+    .filter((yacht, index, arr) => arr.indexOf(yacht) === index);
+
   return makes;
+};
+
+// export const getAdminYachts = (): Promise<VesselTableAdmin> => {
+//   return client.adminYachts(`/yachts/paginated`);
+// };
+
+export const getAdminYachtsQuery = (
+  queryParams: string = 'page=1'
+): Promise<VesselTableAdmin> => {
+  return client.adminYachtsQuery(`/yachts/paginated?${queryParams}`);
 };
