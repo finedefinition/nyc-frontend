@@ -45,10 +45,6 @@ export const getYachtMakes = async (): Promise<string[]> => {
   return makes;
 };
 
-// export const getAdminYachts = (): Promise<VesselTableAdmin> => {
-//   return client.adminYachts(`/yachts/paginated`);
-// };
-
 export const getAdminYachtsQuery = (
   queryParams: string = 'page=1'
 ): Promise<VesselTableAdmin> => {

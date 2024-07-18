@@ -15,6 +15,7 @@ import { getSearchWith } from '@/utils/functions/getSearchWith';
 import { getAdminYachtsQuery } from '@/utils/api/getAllVessels';
 import { tableColl } from '@/utils/constants';
 import TableImage from '../TableImage/TableImage';
+import HeadSearch from '../HeadSearch/HeadSearch';
 
 type Props = {
   yachtsResponse: VesselTableAdmin;
@@ -125,26 +126,33 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
   };
 
   return (
-    <div className='tableContainer'>
-      <Table
-        className='crmYachtsTable'
-        columns={columns}
-        dataSource={yachtsTable}
-        loading={loading}
-        onChange={onChangeTable}
-        pagination={false}
-        scroll={{ x: 'max-content' }}
+    <>
+      <HeadSearch
+        setLoading={(status: boolean) => {
+          setLoading(status);
+        }}
       />
-      <Pagination
-        current={current}
-        defaultPageSize={totalItems}
-        align={'center'}
-        onChange={onChangePagination}
-        total={totalItems}
-        disabled={loading}
-        pageSize={yachts.length}
-      />
-    </div>
+      <div className='tableContainer'>
+        <Table
+          className='crmYachtsTable'
+          columns={columns}
+          dataSource={yachtsTable}
+          loading={loading}
+          onChange={onChangeTable}
+          pagination={false}
+          scroll={{ x: 'max-content' }}
+        />
+        <Pagination
+          current={current}
+          defaultPageSize={totalItems}
+          align={'center'}
+          onChange={onChangePagination}
+          total={totalItems}
+          disabled={loading}
+          pageSize={yachts.length}
+        />
+      </div>
+    </>
   );
 };
 

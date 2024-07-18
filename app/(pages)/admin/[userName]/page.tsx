@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import YachtsTable from '@/components/AdminPage/YachtsTable/YachtsTable';
-import { LOCAL_STORAGE_TOKEN_KEY } from '@/utils/constants';
 import { getAdminYachtsQuery } from '@/utils/api/getAllVessels';
 import { VesselTableAdmin } from '@/interfaces/vessel.interface';
 import styles from './page.module.scss';
@@ -16,14 +15,14 @@ const AdminPage = async () => {
     totalItems: 0,
     yachts: [],
   };
-  let TOKEN: string | null = '';
+  // const TOKEN: string | null = '';
   try {
     yachtsData = await getAdminYachtsQuery();
 
-    TOKEN =
-      typeof localStorage !== 'undefined'
-        ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
-        : null;
+    // TOKEN =
+    //   typeof localStorage !== 'undefined'
+    //     ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+    //     : null;
   } catch (error) {
     // console.error('Error fetching vessels:', error); // Commented out to avoid ESLint warning
   }
