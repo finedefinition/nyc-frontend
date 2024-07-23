@@ -125,3 +125,28 @@
 }
 
 //Accordion
+
+.advanced-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 1.5rem;
+  width: 100%;
+
+  color: $gray-primary;
+  background-color: inherit;
+
+  &::after {
+    content: '';
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url('../../../public/icons/Arrowdown.svg') no-repeat center/cover;
+  }
+
+  &--active {
+    &::after {
+      background: url('../../../public/icons/Arrowup.svg') no-repeat center/cover;
+    }
+  }
+}
