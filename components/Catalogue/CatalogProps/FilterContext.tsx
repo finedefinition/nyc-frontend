@@ -6,10 +6,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FilterProps } from '@/interfaces/filterProps.interface';
 import { useLocalStorage } from '@/utils/hooks/useLocalStorage';
 import { getSearchWith } from '@/utils/functions/getSearchWith';
-import { BaseFilterType, DropDownType, FeaturedType } from '../FilterForm/types';
-import { BASE_FILTER, FEATURED } from '../FilterForm/constants';
+import { AdvancedFilterType, BaseFilterType, DropDownType, FeaturedType } from '../FilterForm/types';
+import { ADVANCED_FILTER, DROP_DOWNS, BASE_FILTER, FEATURED } from '../FilterForm/constants';
 
 type FilterContextType = {
+  yachtsParams: FilterProps;
   setYachtsParams: (value: FilterProps) => void;
   handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
   handleReset: () => void;
@@ -17,8 +18,11 @@ type FilterContextType = {
   featured: FeaturedType;
   setFeatured: (value: FeaturedType) => void;
   dropDownList: DropDownType;
+  setDropDownList: (value: DropDownType) => void;
   baseFilterField: BaseFilterType,
-  handleBaseFilter: (key: string, value: string | number | null) => void
+  setBaseFilterField: (value: BaseFilterType) => void;
+  advancedFilterField: AdvancedFilterType,
+  setAdvancedFilterField: (value: AdvancedFilterType) => void;
 };
 
 const FilterContext = React.createContext<FilterContextType | undefined>(undefined);
@@ -32,7 +36,14 @@ export const FilterProvider: React.FC<Props> = ({ children }) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  const [yachtsParams, setYachtsParams] = useState<FilterProps | null>(null);
+  const [yachtsParams, setYachtsParams] = useState<FilterProps>({
+    makes: [], 
+    models: [],
+    countries: [], 
+    towns: [],
+    fuels: [], 
+    keels: [],
+  });
   
   const [featured, setFeatured] = useLocalStorage<FeaturedType>('featured', {
     top: !!searchParams.get('top'),
@@ -41,12 +52,8 @@ export const FilterProvider: React.FC<Props> = ({ children }) => {
   });
   
   const [baseFilterField, setBaseFilterField] = useLocalStorage<BaseFilterType>('baseFilter', BASE_FILTER);
-  const [dropDownList, setDropDownList] = useState<DropDownType>({
-    makes: [],
-    countries: [],
-    towns: [],
-    models: [],
-  });
+  const [advancedFilterField, setAdvancedFilterField] = useLocalStorage<AdvancedFilterType>('advancedFilter', ADVANCED_FILTER);
+  const [dropDownList, setDropDownList] = useState<DropDownType>(DROP_DOWNS);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,53 +63,37 @@ export const FilterProvider: React.FC<Props> = ({ children }) => {
     replace(`${pathname}?${params}`);
   };
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setFeatured(FEATURED);
-    setBaseFilterField(BASE_FILTER)
+    setBaseFilterField(BASE_FILTER);
+    setAdvancedFilterField(ADVANCED_FILTER);
 
     const params = getSearchWith(searchParams, FEATURED);
     replace(`${pathname}?${params}`);
-  };
+  }, []);
 
   const handleFeatured = (value: keyof FeaturedType) =>
     setFeatured({ ...featured, [value]: !featured[value] });
   
-  const handleBaseFilter = useCallback((
-    key: string,
-    value: string | number | null,
-  ) => setBaseFilterField({ ...baseFilterField, [key]: value }), [])
-  
   useEffect(() => {
     if (yachtsParams) {
-      setDropDownList({
+      const list = {
         makes: yachtsParams.makes,
         models: yachtsParams.models.map(item => item.model),
         countries: yachtsParams.countries.map(item => item.country_name),
         towns: yachtsParams.towns.map(item => item.town_name),
-      })
+        keelType: yachtsParams.keels.map(item => item.keel_type_name),
+        fuelType: yachtsParams.fuels.map(item => item.fuel_type_name),
+      }
+
+      setDropDownList(list);
     }
   }, [yachtsParams])
-
-  // useEffect(() => {
-  //   const {town, country, make, model} = baseFilterField;
-    
-  //   console.log(baseFilterField);
-
-  //   // if (town) {
-  //   //   const currentTown = yachtsParams?.towns.find(item => item.town_name === town);
-
-  //   //   handleBaseFilter('country', currentTown?.town_country_name || null)
-
-  //   //   console.log(currentTown, baseFilterField.country);
-  //   // }
-
-  //   // if (country) {
-  //   // }
-  // }, [baseFilterField])
 
   return (
     <FilterContext.Provider
       value={{
+        yachtsParams,
         setYachtsParams,
         handleSubmit,
         handleReset,
@@ -110,8 +101,11 @@ export const FilterProvider: React.FC<Props> = ({ children }) => {
         featured,
         setFeatured,
         dropDownList,
+        setDropDownList,
         baseFilterField,
-        handleBaseFilter,
+        setBaseFilterField,
+        advancedFilterField,
+        setAdvancedFilterField,
       }}
     >
       {children}

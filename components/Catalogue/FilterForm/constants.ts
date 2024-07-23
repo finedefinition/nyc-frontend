@@ -41,3 +41,12 @@ export const ADVANCED_FILTER = {
   minShowerNumber: 0,
   maxShowerNumber: 10,
 } as const;
+
+export const DROP_DOWNS = {
+  makes: [],
+  countries: [],
+  towns: [],
+  models: [],
+  keelType: [],
+  fuelType: [],
+}

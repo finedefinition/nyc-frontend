@@ -5,7 +5,7 @@ import { getAllVessels, getYachtMakes } from '@/utils/api/getAllVessels';
 import { Vessel } from '@/interfaces/vessel.interface';
 
 import typo from "@/styles/typography.module.scss";
-import { getCountries, getModels, getTowns } from '@/utils/api/getFilterProps';
+import { getCountries, getFuels, getKeels, getModels, getTowns } from '@/utils/api/getFilterProps';
 import CatalogProps from '@/components/Catalogue/CatalogProps/CatalogProps';
 import CatalogYacht from "@/components/Catalogue/CatalogYacht/catalogYacht";
 import Pagination from "@/components/Pagination/Pagination";
@@ -37,7 +37,9 @@ const Catalog = async ({ searchParams }: {searchParams?: SearchParamsType}) => {
     makes: await getYachtMakes(), 
     models: await getModels(),
     countries: await getCountries(), 
-    towns: await getTowns(), 
+    towns: await getTowns(),
+    keels: await getKeels(),
+    fuels: await getFuels(),
   };
 
   let page = Number(searchParams?.page) || 1;
