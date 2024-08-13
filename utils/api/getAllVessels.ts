@@ -2,7 +2,7 @@ import { DefaultError } from '@/utils/errors/defaultError';
 import { Vessel } from '@/interfaces/vessel.interface';
 // import { getCurrencyRates } from './getCurrencyExange';
 //Move server url to .env file
-const BASE_URL = 'http://54.175.77.224:8080/yachts';
+const BASE_URL = 'backend-server-ELB-App-834605941.us-east-1.elb.amazonaws.com/yachts';
 // const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels';
 // const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels/cards';
 
