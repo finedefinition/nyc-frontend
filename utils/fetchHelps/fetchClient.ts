@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 //Move server url to .env file
-const BASE_URL = 'http://54.175.77.224:8080';
+const BASE_URL = 'http://backend-server-elb-app-834605941.us-east-1.elb.amazonaws.com';
 export function wait(delay: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);

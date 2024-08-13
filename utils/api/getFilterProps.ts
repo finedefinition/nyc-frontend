@@ -3,7 +3,7 @@ import { Model } from '@/interfaces/model.interface';
 import { Town } from '@/interfaces/town.interface';
 import { DefaultError } from '@/utils/errors/defaultError';
 //Move server url to .env file
-const BASE_URL = 'http://54.175.77.224:8080';
+const BASE_URL = 'http://backend-server-elb-app-834605941.us-east-1.elb.amazonaws.com';
 
 async function getData(url: string = '') {
   const response = await fetch(`${BASE_URL}${url}`, {
