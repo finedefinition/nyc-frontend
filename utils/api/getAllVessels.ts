@@ -1,8 +1,10 @@
 import { DefaultError } from '@/utils/errors/defaultError';
-import { Vessel, VesselTableAdmin } from '@/interfaces/vessel.interface';
+import {
+  AdminSearchParams,
+  Vessel,
+  VesselTableAdmin,
+} from '@/interfaces/vessel.interface';
 import { client } from '../fetchHelps/fetchClient';
-
-const BASE_URL = 'https://nyb-project-production.up.railway.app/yachts';
 
 function getData(): Promise<Vessel[]>;
 function getData(url: string): Promise<Vessel>;
@@ -12,9 +14,12 @@ async function getData(
   url: string = '',
   search: string = ''
 ): Promise<Vessel[] | Vessel> {
-  const response = await fetch(`${BASE_URL}${url}?${search}`, {
-    next: { revalidate: 10800 },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/yachts${url}?${search}`,
+    {
+      next: { revalidate: 10800 },
+    }
+  );
 
   if (!response.ok) {
     throw new DefaultError();
@@ -49,4 +54,8 @@ export const getAdminYachtsQuery = (
   queryParams: string = 'page=1'
 ): Promise<VesselTableAdmin> => {
   return client.adminYachtsQuery(`/yachts/paginated?${queryParams}`);
+};
+
+export const getAdminSearchParams = (): Promise<AdminSearchParams> => {
+  return client.searchParams(`/yachts/combined`);
 };

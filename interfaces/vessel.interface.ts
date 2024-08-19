@@ -61,3 +61,16 @@ export interface VesselTableAdmin {
   totalItems: number;
   yachts: VesselAdmin[];
 }
+
+interface VesselKeysModel {
+  [key: string]: string[];
+}
+
+export interface AdminSearchParams {
+  yacht_model_make: VesselKeysModel;
+  yacht_model_keel_type: string[];
+  yacht_model_fuel_type: string[];
+  yacht_country: VesselKeysModel;
+  first_name: string[];
+  last_name: string[];
+}

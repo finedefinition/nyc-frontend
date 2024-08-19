@@ -1,12 +1,12 @@
-import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 const useCurrentSearchParams = () => {
   const searchParams = useSearchParams();
-  const [currentSearchParams, setSearchParams] = useState<ReadonlyURLSearchParams | string>(searchParams);
+  const [currentSearchParams, setSearchParams] = useState<string>(searchParams.toString());
 
   const setCurrentSearchParams = (
-    newValue: ReadonlyURLSearchParams | string
+    newValue: string
   ) => {
     setSearchParams(newValue);
   };

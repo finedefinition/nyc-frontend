@@ -7,13 +7,13 @@ import {
   TableColumnsType,
   TableProps,
 } from 'antd';
-import { useSearchParams } from 'next/navigation';
 import { SorterResult, SortOrder } from 'antd/es/table/interface';
 import { VesselAdmin, VesselTableAdmin } from '@/interfaces/vessel.interface';
 import './componentYachtsTable.scss';
 import { getSearchWith } from '@/utils/functions/getSearchWith';
 import { getAdminYachtsQuery } from '@/utils/api/getAllVessels';
 import { tableColl } from '@/utils/constants';
+import useCurrentSearchParams from '@/hooks/useCurrentSearchParams';
 import TableImage from '../TableImage/TableImage';
 import HeadSearch from '../HeadSearch/HeadSearch';
 
@@ -22,10 +22,9 @@ type Props = {
 };
 
 const YachtsTable = ({ yachtsResponse }: Props) => {
-  const searchParams = useSearchParams();
-  const { currentPage, totalItems, yachts } = yachtsResponse;
-  const [yachtsTable, setYachtsTable] = useState(yachts);
-  const [current, setCurrent] = useState<number>(currentPage);
+  const [currentSearchParams, setCurrentSearchParams] = useCurrentSearchParams();
+  const [yachtsResponseData, setYachtsResponse] = useState(yachtsResponse);
+  const [current, setCurrent] = useState<number>(yachtsResponseData.currentPage);
   const [sorter, setSorter] = useState<SorterResult<VesselAdmin> | object>({});
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +40,7 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
       render: (yacht_main_image_key) => {
         return (
           <TableImage
-            yachtsTable={yachtsTable}
+            yachtsTable={yachtsResponseData.yachts}
             yacht_main_image_key={yacht_main_image_key}
           />
         );
@@ -91,17 +90,20 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
     sorter: SorterResult<VesselAdmin>
   ) => {
     setLoading(true);
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(currentSearchParams);
     const queryParams = getSearchWith(params, {
-      sortBy: (sorter.field as SortOrder) || null,
-      orderBy: sorter.order || null,
+      sortBy: (sorter.field as SortOrder) ?? null,
+      orderBy: sorter.order ?? null,
       page: page.toString(),
     });
-
+    
+    setCurrentSearchParams(queryParams);
+    
     getAdminYachtsQuery(queryParams)
       .then((yachtsResponse) => {
         const newYachts = yachtsResponse as VesselTableAdmin;
-        setYachtsTable(newYachts.yachts);
+        console.log(yachtsResponse);
+        setYachtsResponse(newYachts);
       })
       .catch((error) => {
         alert(error);
@@ -117,7 +119,7 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
     sorter
   ) => {
     setSorter(sorter);
-    handleUpdateTableRequest(current, sorter as SorterResult<VesselAdmin>);
+    handleUpdateTableRequest('current', sorter as SorterResult<VesselAdmin>);
   };
 
   const onChangePagination: PaginationProps['onChange'] = (page) => {
@@ -131,12 +133,20 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
         setLoading={(status: boolean) => {
           setLoading(status);
         }}
+        setQuery={(query: string) => {
+          setCurrentSearchParams(query);
+        }}
+        handleSubmit={() => {
+          handleUpdateTableRequest(1, sorter)
+        }}
+        currentQuery={currentSearchParams}
+        loading={loading}
       />
       <div className='tableContainer'>
         <Table
           className='crmYachtsTable'
           columns={columns}
-          dataSource={yachtsTable}
+          dataSource={yachtsResponseData.yachts}
           loading={loading}
           onChange={onChangeTable}
           pagination={false}
@@ -144,12 +154,12 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
         />
         <Pagination
           current={current}
-          defaultPageSize={totalItems}
+          defaultPageSize={yachtsResponseData.totalItems}
           align={'center'}
           onChange={onChangePagination}
-          total={totalItems}
+          total={yachtsResponseData.totalItems}
           disabled={loading}
-          pageSize={yachts.length}
+          pageSize={yachtsResponseData.yachts.length}
         />
       </div>
     </>

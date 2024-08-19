@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const BASE_URL = 'https://nyb-project-production.up.railway.app';
 export function wait(delay: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
@@ -34,7 +33,7 @@ function request<T>(
   }
 
   return wait(300)
-    .then(() => fetch(BASE_URL + url, options))
+    .then(() => fetch(process.env.NEXT_PUBLIC_BASE_URL + url, options))
     .then(async (response) => {
       if (!response.ok) {
         const errorMessage = await response.json();
@@ -58,4 +57,5 @@ export const client = {
     request<T>(url, null, tokenUser, 'POST'),
   adminYachts: <T>(url: string) => request<T>(url, null, null, 'GET'),
   adminYachtsQuery: <T>(url: string) => request<T>(url, null, null, 'GET'),
+  searchParams: <T>(url: string) => request<T>(url, null, null, 'GET'),
 };
