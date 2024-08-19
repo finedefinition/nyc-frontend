@@ -1,3 +1,11 @@
+import { FeaturedFieldsType } from "./types";
+
+export const FEATURED_FIELDS: FeaturedFieldsType[] = [
+  { name:'top', label: 'Top 3' },
+  { name:'hotPrice', label: 'Hot Price' },
+  { name:'vat', label: 'VAT' },
+] as const;
+
 export const FEATURED = {
   top: false,
   hotPrice: false,
@@ -33,3 +41,12 @@ export const ADVANCED_FILTER = {
   minShowerNumber: 0,
   maxShowerNumber: 10,
 } as const;
+
+export const DROP_DOWNS = {
+  makes: [],
+  countries: [],
+  towns: [],
+  models: [],
+  keelType: [],
+  fuelType: [],
+}

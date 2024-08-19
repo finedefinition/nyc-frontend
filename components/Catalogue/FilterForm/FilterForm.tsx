@@ -1,26 +1,33 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import classNames from 'classnames';
 import Close from '@/public/icons/close.svg';
-import { getSearchWith } from '@/utils/functions/getSearchWith';
 import { FilterProps } from '@/interfaces/filterProps.interface';
-import { FeaturedType } from './types';
-import { FEATURED } from './constants';
+import { useFilter } from '../CatalogProps/FilterContext';
+import Featured from './components/Featured/Featured';
 import classes from './filterForm.module.scss';
+import BaseFilterField from './components/BaseFilterField/BaseFilterField';
+import AdvancedFilterField from './components/AdvancedFilterField/AdvancedFilterField';
 
 type Props = {
   yachtsParams: FilterProps,
   closeForm: () => void;
 }
 
-export const FilterForm: React.FC<Props> = ({ closeForm }) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
+export const FilterForm: React.FC<Props> = ({ closeForm, yachtsParams }) => {
+  const {
+    setYachtsParams,
+    handleSubmit,
+    handleReset,
+  } = useFilter();
+
+  useEffect(() => setYachtsParams(yachtsParams), []);
   
   const formRef = useRef<HTMLFormElement>(null);
   const [formHeight, setFormHeight] = useState<number | null>(null);
+  const [advanced, setAdvanced] = useState(false);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -41,24 +48,6 @@ export const FilterForm: React.FC<Props> = ({ closeForm }) => {
     };
   }, []);
 
-  const [featured, setFeatured] = useState<FeaturedType>({
-    top: !!searchParams.get('top'),
-    hotPrice: !!searchParams.get('hotPrice'),
-    vat: !!searchParams.get('vat'),
-  });
-
-  const handleReset = () => {
-    setFeatured(FEATURED);
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const params = getSearchWith(searchParams, featured);
-    replace(`${pathname}?${params}`);
-  };
-
   return (
     <Form
       ref={formRef}
@@ -71,8 +60,27 @@ export const FilterForm: React.FC<Props> = ({ closeForm }) => {
         <span>Filter</span>
         <Image src={Close} alt="Close" onClick={closeForm} />
       </div>
-      <div className={classes.content}>
-        Content
+      <div className={classes.container}>
+        <div className={classes.content}>
+          <Featured />
+        </div>
+
+        <BaseFilterField />
+
+        <Form.Group className={classes.group}>
+          <button
+            className={classNames(
+              classes['advanced-button'],
+              { [classes['advanced-button--active']]: advanced },
+            )}
+            type='button'
+            onClick={() => setAdvanced(!advanced)}
+          >
+            Advanced filter
+          </button>
+        </Form.Group>
+
+        {advanced && <AdvancedFilterField />}
       </div>
 
       <div className={classes.buttons}>
@@ -83,11 +91,7 @@ export const FilterForm: React.FC<Props> = ({ closeForm }) => {
         >
           Reset
         </button>
-
-        <button
-          className={classes.button}
-          type="submit"
-        >
+        <button className={classes.button} type="submit">
           Apply
         </button>
       </div>

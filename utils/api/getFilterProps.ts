@@ -1,4 +1,6 @@
 import { Country } from '@/interfaces/country.interface';
+import { Fuels } from '@/interfaces/fuels.interface';
+import { Keels } from '@/interfaces/keels.interface';
 import { Model } from '@/interfaces/model.interface';
 import { Town } from '@/interfaces/town.interface';
 import { DefaultError } from '@/utils/errors/defaultError';
@@ -20,3 +22,7 @@ export const getCountries = async (): Promise<Country[]> =>
 export const getTowns = async (): Promise<Town[]> => await getData('/towns');
 export const getModels = async (): Promise<Model[]> =>
   await getData('/yachtModels');
+export const getModels = async (): Promise<Model[]> => await getData('/yachtModels');
+
+export const getKeels = async (): Promise<Keels[]> => await getData('/keels');
+export const getFuels = async (): Promise<Fuels[]> => await getData('/fuels');

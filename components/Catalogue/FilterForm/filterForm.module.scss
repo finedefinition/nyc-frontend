@@ -29,11 +29,7 @@
   font-size: 1.5rem;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
+.container {
   padding-right: 1.5rem;;
   overflow-y: auto;
 
@@ -50,6 +46,12 @@
     background-color: $orange-secondary-100;
     border-radius: 5px;
   }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 
@@ -123,3 +125,28 @@
 }
 
 //Accordion
+
+.advanced-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 1.5rem;
+  width: 100%;
+
+  color: $gray-primary;
+  background-color: inherit;
+
+  &::after {
+    content: '';
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url('../../../public/icons/Arrowdown.svg') no-repeat center/cover;
+  }
+
+  &--active {
+    &::after {
+      background: url('../../../public/icons/Arrowup.svg') no-repeat center/cover;
+    }
+  }
+}

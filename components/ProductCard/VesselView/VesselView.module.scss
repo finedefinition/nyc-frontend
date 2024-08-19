@@ -13,7 +13,7 @@
 }
 
 .body {
-  max-width: 60vw;
+  max-width: 80vw; // Adjust as needed, e.g., 70vw
 
   @include onTablet {
     max-width: 100vw;
@@ -48,7 +48,8 @@
     }
 
     &_text {
-      max-width: 46rem;
+      display: flex;
+      max-width: 40rem; // Increased width
 
       @include onMobile {
         max-width: 100%;
