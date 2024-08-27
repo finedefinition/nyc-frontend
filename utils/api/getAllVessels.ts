@@ -8,7 +8,7 @@ import {
 import { client } from '../fetchHelps/fetchClient';
 
 //Move server url to .env file
-const BASE_URL = `${process.env.NEXT_PUBLIC_SERVER_URL}/yachts`;
+// const BASE_URL = `${process.env.NEXT_PUBLIC_SERVER_URL}/yachts`;
 // const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels';
 // const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels/cards';
 
@@ -22,7 +22,7 @@ async function getData(
   search: string = ''
 ): Promise<Vessel[] | Vessel> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/yachts${url}?${search}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/yachts${url}?${search}`,
     {
       next: { revalidate: 10800 },
     }
