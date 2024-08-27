@@ -102,6 +102,7 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
     getAdminYachtsQuery(queryParams)
       .then((yachtsResponse) => {
         const newYachts = yachtsResponse as VesselTableAdmin;
+        // eslint-disable-next-line
         console.log(yachtsResponse);
         setYachtsResponse(newYachts);
       })

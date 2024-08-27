@@ -74,7 +74,7 @@ const HeadSearch = ({
   };
 
   const makesData = searchResponseData?.yacht_model_make || {};
-  const countriesData = searchResponseData?.yacht_country || {};
+  // const countriesData = searchResponseData?.yacht_country || {};
   
   return (
     <ConfigProvider
