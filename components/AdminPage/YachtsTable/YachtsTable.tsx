@@ -86,7 +86,7 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
   ];
 
   const handleUpdateTableRequest = (
-    page: number,
+    page: number | string,
     sorter: SorterResult<VesselAdmin>
   ) => {
     setLoading(true);
