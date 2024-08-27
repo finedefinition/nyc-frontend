@@ -15,6 +15,10 @@ import {
   createFavouriteYachts,
   deleteFavouriteYacht,
 } from '@/utils/api/usersAuth';
+import {
+  LOCAL_STORAGE_SESSION_TIME,
+  LOCAL_STORAGE_TOKEN_KEY,
+} from '@/utils/constants';
 import YachtPrice from '../YachtPrice/YachtPrice';
 import Button from '../Button/Button';
 import CardSkeleton from '../CardSkeleton/CardSkeleton';
@@ -45,12 +49,14 @@ const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
     isLoadingFavourite,
   } = useFavourite();
 
-  const LOCAL_STORAGE_TOKEN_KEY = 'authToken';
-  const LOCAL_STORAGE_SESSION_TIME = 'expTime';
-
-  const token =
+  const TOKEN =
     typeof localStorage !== 'undefined'
       ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+      : null;
+
+  const EXP_TIME =
+    typeof localStorage !== 'undefined'
+      ? localStorage.getItem(LOCAL_STORAGE_SESSION_TIME)
       : null;
 
   const {
@@ -93,20 +99,16 @@ const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
   };
 
   const now = Math.floor(new Date().getTime() / 1000);
-  const expTime =
-    typeof localStorage !== 'undefined'
-      ? localStorage.getItem(LOCAL_STORAGE_SESSION_TIME)
-      : null;
 
   const handleDeleteFavourite = (id: number) => {
-    if (userInfoToken?.sub && id && token) {
+    if (userInfoToken?.sub && id && TOKEN) {
       setIsRemoving(true);
-      deleteFavouriteYacht(userInfoToken?.sub, id, token)
+      deleteFavouriteYacht(userInfoToken?.sub, id, TOKEN)
         .then(() => {
           deleteFavourite(yacht);
         })
         .catch((error) => {
-          if (expTime && now > +expTime) {
+          if (EXP_TIME && now > +EXP_TIME) {
             userLogout();
           }
           alert(error);
@@ -118,14 +120,14 @@ const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
   };
 
   const handleCreateFavourite = (yacht: Vessel) => {
-    if (userInfoToken?.sub && yacht_id && token) {
+    if (userInfoToken?.sub && yacht_id && TOKEN) {
       setIsAdding(true);
-      createFavouriteYachts(userInfoToken?.sub, yacht_id, token)
+      createFavouriteYachts(userInfoToken?.sub, yacht_id, TOKEN)
         .then(() => {
           createFavourite(yacht);
         })
         .catch((error) => {
-          if (expTime && now > +expTime) {
+          if (EXP_TIME && now > +EXP_TIME) {
             userLogout();
           }
           alert(error);
@@ -168,9 +170,9 @@ const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
             <Image
               src={imageUrl}
               fill
-              sizes="100vw"
+              sizes='100vw'
               className={styles.image}
-              alt="feature_img"
+              alt='feature_img'
             />
             <span className={styles.top_right}>
               <TopRightLabel
@@ -180,7 +182,7 @@ const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
             </span>
             <span className={styles.center}>
               <Button
-                text="See Detail"
+                text='See Detail'
                 linkTo={`/catalogue/${yacht_id}?name=${yacht_make}`}
                 primary
               />

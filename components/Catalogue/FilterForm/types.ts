@@ -18,6 +18,8 @@ export type DropDownType = {
   countries: string[];
   towns: string[];
   models: string[];
+  keelType: string[],
+  fuelType: string[],
 }
 
 export type BaseFilterType = {

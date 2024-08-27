@@ -133,3 +133,7 @@ input:-webkit-autofill:active {
     opacity: 0.4;
   }
 }
+
+:where(.css-dev-only-do-not-override-98ntnt).ant-popover .ant-popover-inner {
+  padding: rem(8) 0;
+}

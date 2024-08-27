@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Modal } from 'antd';
 import LogoImg from '@/public/icons/logo.svg';
 import { pageLinksArray } from '@/utils/links/pageLinks';
 import { useCurrency } from '@/context/CurrencyContext';
@@ -20,17 +21,19 @@ import AccountModal from './AccountModal/AccountModal';
 import LoginModal from './LoginModal/LoginModal';
 import RecoveryModal from './RecoveryModal/RecoveryModal';
 import FavoriteYachts from './FavoriteYachts/FavoriteYachts';
+import LoggedUser from './LoggedUser/LoggedUser';
 
 const Navbar = () => {
   const [isCurrencyModalOpen, setIsCurrencyModalOpen] = useState(false);
   const [isContactsModalOpen, setIsContactsModalOpen] = useState(false);
   const [isMobileMenuClose, setIsMobileMenuClose] = useState(false);
   const [desktopScreen, setDesktopScreen] = useState(true);
-  const { isAuthenticated, userLogout, userInfoToken } = useAuth();
+  const { isAuthenticated, userInfoToken } = useAuth();
   const {
     isAccountModalOpen,
     isAccountModalLoginOpen,
     isRecoveryModalOpen,
+    recoveryPasswordHandler,
     accountModalHandler,
     accountModalLoginHandler,
     toggleBetweenModals,
@@ -58,6 +61,8 @@ const Navbar = () => {
     setIsMobileMenuClose(!isMobileMenuClose);
   };
 
+  const isUserAdmin = isAuthenticated && isAdmin === 'ROLE_ADMIN';
+
   return (
     <>
       {isMobileMenuClose && (
@@ -78,21 +83,42 @@ const Navbar = () => {
           contactsModalHandler={contactsModalHandler}
         />
       )}
-      {isAccountModalLoginOpen && (
+
+      <Modal
+        open={isAccountModalLoginOpen}
+        onCancel={accountModalLoginHandler}
+        footer={false}
+        destroyOnClose
+        centered
+      >
         <LoginModal
           toggleBetweenModals={toggleBetweenModals}
-          isAccountModalLoginOpen={isAccountModalLoginOpen}
           accountModalLoginHandler={accountModalLoginHandler}
         />
-      )}
-      {isAccountModalOpen && (
+      </Modal>
+
+      <Modal
+        open={isAccountModalOpen}
+        onCancel={accountModalHandler}
+        footer={false}
+        destroyOnClose
+        centered
+      >
         <AccountModal
           toggleBetweenModals={toggleBetweenModals}
-          isAccountModalOpen={isAccountModalOpen}
           accountModalHandler={accountModalHandler}
         />
-      )}
-      {isRecoveryModalOpen && <RecoveryModal />}
+      </Modal>
+
+      <Modal
+        open={isRecoveryModalOpen}
+        onCancel={recoveryPasswordHandler}
+        footer={false}
+        destroyOnClose
+        centered
+      >
+        <RecoveryModal />
+      </Modal>
       <nav className={styles.navbar}>
         <div className={styles.navbar__side}>
           {desktopScreen ? (
@@ -115,60 +141,29 @@ const Navbar = () => {
           )}
         </div>
         <Link
-          href="/"
+          href='/'
           className={styles.logo}
         >
           <Image
             src={LogoImg}
             className={styles.logo__image}
-            alt="Logo"
+            alt='Logo'
             priority
           />
         </Link>
         <div className={styles.navbar__side}>
           <FavoriteYachts />
-          {desktopScreen && isAuthenticated && (
-            <>
-              <Link
-                href="/"
-                className={`${styles.userLoggedNavLink} ${styles.link}`}
-              >
-                {userInfoToken &&
-                  `${userInfoToken.given_name} ${userInfoToken.family_name}`}
-                <ul className={styles.userLoggedNavLink__subMenu}>
-                  <li className={styles.userLoggedNavLink__item}>
-                    <button
-                      onClick={userLogout}
-                      className={`${styles.link} `}
-                    >
-                      Sign out
-                    </button>
-                  </li>
-                </ul>
-              </Link>
-            </>
-          )}
-          {desktopScreen && !isAuthenticated && (
-            <>
-              <button
-                type="button"
-                onClick={accountModalLoginHandler}
-                className={`${styles.link} ${styles.link__button}`}
-              >
-                My account
-              </button>
-            </>
-          )}
+          <LoggedUser />
           {desktopScreen && (
             <>
               <button
-                type="button"
-                onClick={accountModalLoginHandler}
+                type='button'
+                onClick={currencyModalHandler}
                 className={`${styles.link} ${styles.link__button}`}
               >
                 {`Split currency / ${selectedCurrency}`}
               </button>
-              {isAuthenticated && isAdmin === 'ROLE_ADMIN' && (
+              {isUserAdmin && (
                 <Link
                   className={`${styles.link} ${styles.link__button}`}
                   href={{
@@ -178,23 +173,16 @@ const Navbar = () => {
                   Admin Page
                 </Link>
               )}
-              {isAuthenticated && isAdmin === null && (
+              {(!isUserAdmin || !isAuthenticated) && (
                 <button
-                  type="button"
-                  onClick={accountModalLoginHandler}
+                  type='button'
+                  onClick={contactsModalHandler}
                   className={`${styles.link} ${styles.link__button}`}
                 >
                   Contacts
                 </button>
               )}
             </>
-          )}
-          {!desktopScreen && !isAuthenticated && (
-            <button
-              type="button"
-              onClick={accountModalLoginHandler}
-              className={`${styles.link} ${styles.account_icon}`}
-            />
           )}
         </div>
       </nav>

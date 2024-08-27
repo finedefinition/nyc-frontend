@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 //Move server url to .env file
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export function wait(delay: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
@@ -24,14 +26,17 @@ function request<T>(
     };
   }
 
-  if ((method === 'GET' || method === 'DELETE' || method === 'POST') && tokenUser) {
+  if (
+    (method === 'GET' || method === 'DELETE' || method === 'POST') &&
+    tokenUser
+  ) {
     options.headers = {
       ...(tokenUser ? { Authorization: `Bearer ${tokenUser}` } : {}),
     };
   }
 
   return wait(300)
-    .then(() => fetch(BASE_URL + url, options))
+    .then(() => fetch(process.env.NEXT_PUBLIC_BASE_URL + url, options))
     .then(async (response) => {
       if (!response.ok) {
         const errorMessage = await response.json();
@@ -53,4 +58,7 @@ export const client = {
     request<T>(url, null, tokenUser, 'DELETE'),
   createFavouriteYachts: <T>(url: string, tokenUser: string | null) =>
     request<T>(url, null, tokenUser, 'POST'),
+  adminYachts: <T>(url: string) => request<T>(url, null, null, 'GET'),
+  adminYachtsQuery: <T>(url: string) => request<T>(url, null, null, 'GET'),
+  searchParams: <T>(url: string) => request<T>(url, null, null, 'GET'),
 };
