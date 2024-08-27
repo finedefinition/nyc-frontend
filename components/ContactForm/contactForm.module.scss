@@ -33,6 +33,20 @@
   margin-bottom: 2rem;
 }
 
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+  -webkit-text-fill-color: $white;
+}
+
+.input_prCard:-webkit-autofill,
+.input_prCard:-webkit-autofill:hover,
+.input_prCard:-webkit-autofill:focus,
+.input_prCard:-webkit-autofill:active {
+  -webkit-text-fill-color: $gray-primary;
+}
+
 .input {
   width: 100%;
   font-size: 1rem;

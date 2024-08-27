@@ -1,7 +1,9 @@
 /* eslint-disable @stylistic/indent */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { Errors } from '@/interfaces/errors.interface';
+import { client } from '@/utils/fetchHelps/fetchClient';
 import styles from './contactForm.module.scss';
 import ContactFormModal from './ContactFormModal/ContactFormModal';
 
@@ -34,11 +36,11 @@ const ContactForm = ({ productCard }: Props) => {
     if (!inputs.name.trim()) {
       data = 'The name field is required';
     } else if (
-      !/^[a-zA-Zа-яА-ЯіёЁĀ-žŠĐŽČćžšđčŚŹŃĄĘŚŁŻĆŹńąęśłżćźÆØÅÜÑæøåüñ\s]+$/.test(
+      !/^(?=[A-ZА-ЯІЁĀ-ŽŠĐČĆŽŠŹŃĄĘŚŁŻĆŹÆØÅÜÑ])[a-zA-Zа-яА-ЯіёЁĀ-žŠĐŽČćžšđčŚŹŃĄĘŚŁŻĆŹńąęśłżćźÆØÅÜÑæøåüñ\s]+$/.test(
         inputs.name
       )
     ) {
-      data = 'The name must contain only letters';
+      data = 'The name must contain only letters and start with an uppercase letter';
     } else if (inputs.name.length > 30) {
       data = 'The name must not be longer than 30 characters';
     }
@@ -94,16 +96,7 @@ const ContactForm = ({ productCard }: Props) => {
     e.preventDefault();
 
     if (validateForm()) {
-      const data = await fetch(
-        'http://54.152.80.233:8080/contact',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(inputs),
-        }
-      );
+      const data: any = await client.sendMessageFromForm('/contact', inputs)
 
       // eslint-disable-next-line
       console.log(data.status === 200);

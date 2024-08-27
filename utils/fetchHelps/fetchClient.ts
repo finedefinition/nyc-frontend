@@ -39,11 +39,12 @@ function request<T>(
         throw new Error(`Network response was not ok: ${errorMessage.message}`);
       }
 
-      return response.json();
+      return url === '/contact' ? response : response.json();
     });
 }
 
 export const client = {
+  sendMessageFromForm: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
   userSignUp: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
   userSignIn: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
   confirmUser: <T>(url: string) => request<T>(url, 'POST'),
