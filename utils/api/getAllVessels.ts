@@ -1,10 +1,10 @@
 import { DefaultError } from '@/utils/errors/defaultError';
-import { Vessel } from '@/interfaces/vessel.interface';
-// import { getCurrencyRates } from './getCurrencyExange';
-//Move server url to .env file
-const BASE_URL = 'https://nyb-project-production.up.railway.app/yachts';
-// const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels';
-// const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels/cards';
+import {
+  AdminSearchParams,
+  Vessel,
+  VesselTableAdmin,
+} from '@/interfaces/vessel.interface';
+import { client } from '../fetchHelps/fetchClient';
 
 function getData(): Promise<Vessel[]>;
 function getData(url: string): Promise<Vessel>;
@@ -14,9 +14,12 @@ async function getData(
   url: string = '',
   search: string = ''
 ): Promise<Vessel[] | Vessel> {
-  const response = await fetch(`${BASE_URL}${url}?${search}`, {
-    next: { revalidate: 10800 },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/yachts${url}?${search}`,
+    {
+      next: { revalidate: 10800 },
+    }
+  );
 
   if (!response.ok) {
     throw new DefaultError();
@@ -32,7 +35,9 @@ export const getVesselById = async (id: string): Promise<Vessel> =>
 export const getFeaturedYacht = async (): Promise<Vessel[]> => {
   const yachts = await getData();
 
-  return yachts.filter((yacht: Vessel) => yacht.yacht_top || yacht.yacht_hot_price);
+  return yachts.filter(
+    (yacht: Vessel) => yacht.yacht_top || yacht.yacht_hot_price
+  );
 };
 
 export const getYachtMakes = async (): Promise<string[]> => {
@@ -40,7 +45,17 @@ export const getYachtMakes = async (): Promise<string[]> => {
 
   const makes = yachts
     .map((yacht: Vessel) => yacht.yacht_make)
-    .filter((yacht, index, arr) => arr.indexOf(yacht) === index)
-  
+    .filter((yacht, index, arr) => arr.indexOf(yacht) === index);
+
   return makes;
+};
+
+export const getAdminYachtsQuery = (
+  queryParams: string = 'page=1'
+): Promise<VesselTableAdmin> => {
+  return client.adminYachtsQuery(`/yachts/paginated?${queryParams}`);
+};
+
+export const getAdminSearchParams = (): Promise<AdminSearchParams> => {
+  return client.searchParams(`/yachts/combined`);
 };

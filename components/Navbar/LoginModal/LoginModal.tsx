@@ -1,25 +1,22 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import Image from 'next/image';
 
 import classNames from 'classnames';
 import { Errors } from '@/interfaces/errors.interface';
-import Close from '@/public/icons/close.svg';
 
 import Loader from '@/components/Loader/Loader';
 import { userPostSignIn } from '@/utils/api/usersAuth';
 import { useAuth } from '@/context/AuthContext';
 import { useModals } from '@/context/ModalsContext';
+import { LOCAL_STORAGE_TOKEN_KEY } from '@/utils/constants';
 import styles from './loginModal.module.scss';
 
 type Props = {
   toggleBetweenModals: () => void;
-  isAccountModalLoginOpen: boolean;
   accountModalLoginHandler: () => void;
 };
 
 const LoginModal = ({
   toggleBetweenModals,
-  isAccountModalLoginOpen,
   accountModalLoginHandler,
 }: Props) => {
   const [inputs, setInputs] = useState({
@@ -106,16 +103,20 @@ const LoginModal = ({
 
   const handleLogIn = (e: React.FormEvent) => {
     e.preventDefault();
-
+    checkEmailInput();
+    checkPasswordInput();
     if (!inputs.password || !inputs.userEmail) return;
-    const getToken = localStorage.getItem('authToken');
+    const TOKEN =
+      typeof localStorage !== 'undefined'
+        ? localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+        : null;
 
     setLoading(true);
     userPostSignIn(inputs)
       .then((response) => {
         const signInResponse = response as SignInResponse;
 
-        if (!getToken) {
+        if (TOKEN === null) {
           userLogin(signInResponse.token);
         }
 
@@ -132,36 +133,23 @@ const LoginModal = ({
 
   return (
     <>
-      <div
-        className={`${styles.modal} ${
-          isAccountModalLoginOpen ? styles.open : ''
-        }`}
-      >
+      <div className={`${styles.modal} ${styles.open}`}>
         <div className={styles.modal__wrapper}>
           <div className={styles.modal__content}>
-            <div
-              onClick={accountModalLoginHandler}
-              className={styles.close}
-            >
-              <Image
-                src={Close}
-                alt="Close"
-              />
-            </div>
             <div className={styles.modal__top}>
               <h4 className={styles.header}>Sign In</h4>
             </div>
             <div className={styles.modal__main}>
               <form
-                id="signIn-form"
+                id='signIn-form'
                 className={styles.form}
                 onSubmit={() => {}}
               >
                 <div className={styles.form_group}>
                   <input
-                    id="userEmail"
-                    name="userEmail"
-                    type="email"
+                    id='userEmail'
+                    name='userEmail'
+                    type='email'
                     value={inputs.userEmail}
                     className={classNames(styles.input, {
                       [styles.input__error]: errors.userEmail,
@@ -174,7 +162,7 @@ const LoginModal = ({
                   />
                   <label
                     className={styles.label}
-                    htmlFor="userEmail"
+                    htmlFor='userEmail'
                   >
                     Email
                   </label>
@@ -186,8 +174,8 @@ const LoginModal = ({
                 </div>
                 <div className={styles.form_group}>
                   <input
-                    id="password"
-                    name="password"
+                    id='password'
+                    name='password'
                     type={type}
                     value={inputs.password}
                     className={classNames(styles.input, {
@@ -201,7 +189,7 @@ const LoginModal = ({
                   />
                   <label
                     className={styles.label}
-                    htmlFor="password"
+                    htmlFor='password'
                   >
                     Password
                   </label>
@@ -226,7 +214,7 @@ const LoginModal = ({
                 Forgot password?
               </button>
               <button
-                form="signIn-form"
+                form='signIn-form'
                 className={styles.form__button}
                 disabled={loading}
                 onClick={handleLogIn}

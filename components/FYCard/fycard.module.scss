@@ -213,19 +213,14 @@
 
 .favoriteModal {
   display: flex;
-  position: absolute;
   flex-direction: column;
   top: rem(35);
-  right: 100%;
-  transform: translateX(50%);
   width: rem(320);
   min-height: rem(80);
   z-index: 2;
   background-color: $white;
   z-index: 3;
   border-radius: rem(16);
-  padding: rem(8) 0;
-  box-shadow: rem(1) rem(1) rem(1) rem(1) #d9e2eb;
 
   @include onTablet {
     transform: none;
