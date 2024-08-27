@@ -95,7 +95,7 @@ const ContactForm = ({ productCard }: Props) => {
 
     if (validateForm()) {
       const data = await fetch(
-        'https://nyb-project-production.up.railway.app/contact',
+        'http://54.152.80.233:8080/contact',
         {
           method: 'POST',
           headers: {

@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+//Move server url to .env file
+const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export function wait(delay: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);

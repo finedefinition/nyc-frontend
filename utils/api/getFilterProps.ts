@@ -5,6 +5,10 @@ import { Model } from '@/interfaces/model.interface';
 import { Town } from '@/interfaces/town.interface';
 import { DefaultError } from '@/utils/errors/defaultError';
 
+//Move server url to .env file
+const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+
 async function getData(url: string = '') {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`, {
     next: { revalidate: 10800 },
