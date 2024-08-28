@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 //Move server url to .env file
-const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export function wait(delay: number) {
   return new Promise((resolve) => {
@@ -36,7 +36,7 @@ function request<T>(
   }
 
   return wait(300)
-    .then(() => fetch(process.env.NEXT_PUBLIC_BASE_URL + url, options))
+    .then(() => fetch(process.env.NEXT_PUBLIC_SERVER_URL + url, options))
     .then(async (response) => {
       if (!response.ok) {
         const errorMessage = await response.json();

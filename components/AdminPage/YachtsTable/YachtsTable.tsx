@@ -86,7 +86,7 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
   ];
 
   const handleUpdateTableRequest = (
-    page: number,
+    page: number | string,
     sorter: SorterResult<VesselAdmin>
   ) => {
     setLoading(true);
@@ -102,6 +102,7 @@ const YachtsTable = ({ yachtsResponse }: Props) => {
     getAdminYachtsQuery(queryParams)
       .then((yachtsResponse) => {
         const newYachts = yachtsResponse as VesselTableAdmin;
+        // eslint-disable-next-line
         console.log(yachtsResponse);
         setYachtsResponse(newYachts);
       })
