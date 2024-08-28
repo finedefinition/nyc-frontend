@@ -26,7 +26,7 @@ const RecoveryModal = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
   const { varificationCode } = useAuth();
-  const { isRecoveryModalOpen, recoveryPasswordHandler } = useModals();
+  const { recoveryPasswordHandler } = useModals();
 
   const toggleShowNewPassword = () => setShowNewPassword(!showNewPassword);
   const toggleShowConfirmPassword = () =>

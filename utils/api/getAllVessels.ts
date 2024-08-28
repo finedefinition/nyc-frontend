@@ -7,12 +7,6 @@ import {
 } from '@/interfaces/vessel.interface';
 import { client } from '../fetchHelps/fetchClient';
 
-//Move server url to .env file
-// const BASE_URL = `${process.env.NEXT_PUBLIC_SERVER_URL}/yachts`;
-// const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels';
-// const BASE_URL = 'https://nyb-project-production.up.railway.app/vessels/cards';
-
-
 function getData(): Promise<Vessel[]>;
 function getData(url: string): Promise<Vessel>;
 function getData(url: string): Promise<Vessel[]>;
