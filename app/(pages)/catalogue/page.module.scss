@@ -25,3 +25,23 @@
 .catalog_container {
   padding-bottom: 3.5rem;
 }
+
+.cards_wrapper {
+  @include onTablet {
+    justify-content: space-between;
+  }
+
+  > div {
+    @include onTablet {
+      width: 49%;
+    }
+
+    @media (max-width: 980px) {
+      width: 48.5%;
+    }
+
+    @include onSmall {
+      width: 100%;
+    }
+  }
+}

@@ -35,7 +35,8 @@ interface Props {
 }
 
 const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -87,9 +88,9 @@ const FYCard = ({ yacht, inCatalog, inFavourite }: Props) => {
     async function loadImgFromAws() {
       const currImg = await fetchImgUrl(yacht_main_image_key);
       setImageUrl(currImg.length ? currImg : IMAGE_600_400);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1500);
+      // setTimeout(() => {
+      //   setIsLoading(false);
+      // }, 1500);
     }
     loadImgFromAws();
   }, [yacht_main_image_key]);

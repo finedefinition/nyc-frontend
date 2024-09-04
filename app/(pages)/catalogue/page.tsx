@@ -11,6 +11,7 @@ import CatalogYacht from "@/components/Catalogue/CatalogYacht/catalogYacht";
 import Pagination from "@/components/Pagination/Pagination";
 import { preparedYachtsList } from '@/utils/functions/preparedYachtsList';
 import styles from './page.module.scss';
+import Loading from './loading';
 
 export const metadata: Metadata = {
   title: 'Catalogue | Norse Yacht Co',
@@ -57,7 +58,7 @@ const Catalog = async ({ searchParams }: {searchParams?: SearchParamsType}) => {
     : [];
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <section className={styles.catalog_container}>
         <div className={styles.catalog__top}>
           <h4 className={`${styles.catalog_title} ${typo.typo_h4}`}>Catalogue</h4>

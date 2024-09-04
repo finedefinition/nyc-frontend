@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { Metadata } from 'next';
 import { Images } from '@/interfaces/vessel.interface';
 import { getVesselById } from '@/utils/api/getAllVessels';
 import { fetchImgUrl } from '@/utils/api/getImageFromAWS';
+import LoadingYacht from './loading';
 
 type Props = {
   params: {
@@ -39,11 +41,11 @@ export default async function Vessel({ params: { id } }: Props) {
   }
 
   return (
-    <>
+    <Suspense fallback={<LoadingYacht />}>
       <VesselViewNoSSR
         ves={ves}
         images={images}
       />
-    </>
+    </Suspense>
   );
 };
