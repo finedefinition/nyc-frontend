@@ -14,7 +14,7 @@ export const EXP_TIME =
 export const tableColl = [
   { title: 'Made', dataIndex: 'yacht_make', sorter: true },
   { title: 'Model', dataIndex: 'yacht_model', sorter: true },
-  { title: 'Сountry', dataIndex: 'yacht_country', sorter: true },
+  { title: 'Country', dataIndex: 'yacht_country', sorter: true },
   { title: 'City', dataIndex: 'yacht_town', sorter: true },
   { title: 'First name', dataIndex: 'yacht_owner_first_name', sorter: true },
   { title: 'Last name', dataIndex: 'yacht_owner_last_name', sorter: true },
