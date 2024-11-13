@@ -15,7 +15,7 @@ async function request<T>(
     const options: RequestInit = {
       method,
       headers: createHeaders(tokenUser, method),
-      next: { revalidate: 10800 },
+      cache: 'no-store',
     };
 
     if (data) {
