@@ -20,6 +20,7 @@
     "@aws-sdk/s3-request-presigner": "^3.676.0",
     "@hookform/resolvers": "^3.9.1",
     "@react-google-maps/api": "^2.20.3",
+    "aws-amplify": "^6.8.1",
     "formik": "^2.4.6",
     "next": "14.2.15",
     "react": "^18",

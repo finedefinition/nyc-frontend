@@ -3,7 +3,7 @@ import ContactData from '@/data/contactPage/contactPageData';
 import AddressSection from '@/components/Contact/AddressSection';
 import PhoneNumberSection from '@/components/Contact/PhoneNumberSection';
 import EmailAddressSection from '@/components/Contact/EmailAddressSection';
-import Map from '@/components/Map/Map';
+import Map from '@/components/Contact/Map/Map';
 
 const Contact = () => {
   return (
