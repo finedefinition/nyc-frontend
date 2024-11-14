@@ -1,6 +1,8 @@
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 
 import { mobileMenuLinks } from '@/data/links/mobileMenuLinks';
+import CurrencyList from '../Shared/CurrencyList';
+import SocialMedia from '../Shared/SocialMedia';
 import ModalWrapper from './ModalWrapper';
 
 type MobileMenuModalProps = {
@@ -27,6 +29,12 @@ const MobileMenuModal = ({ onClose }: MobileMenuModalProps) => {
             </ClickableComponent>
           </li>
         ))}
+        <li>
+          <CurrencyList onClose={onClose} />
+        </li>
+        <li>
+          <SocialMedia color="#4d6575" />
+        </li>
       </ul>
     </ModalWrapper>
   );
