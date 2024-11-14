@@ -40,6 +40,10 @@ const LinkComponent = ({ href, variant, children }: LinkProps) => {
     case 'emailAddress':
       linkStyle = 'underline';
       break;
+    case 'pagination':
+      linkStyle =
+        'w-8 h-8 flex justify-center items-center border border-grey-50 rounded hover:text-white hover:bg-grey-50 transition';
+      break;
     default:
       linkStyle = '';
   }
