@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Yacht } from '@/interfaces/yacht.interface';
+import { PaginationOptions } from '@/interfaces/pagination.interface';
 import { CustomErrorClass } from '../error/CustomErrorClass';
 import { createHeaders } from './createHeaders';
 
@@ -42,9 +43,17 @@ async function request<T>(
 }
 
 export const apiClient = {
-  getAllYachts: async (url: string) => {
-    const data = await request<{ yachts: Yacht[] }>(url);
-    return data.yachts;
+  getYachtsWithPagination: async (url: string) => {
+    try {
+      const { pagination, yachts } = await request<{
+        pagination: PaginationOptions;
+        yachts: Yacht[];
+      }>(url);
+
+      return { pagination, yachts };
+    } catch (error) {
+      return { pagination: {}, yachts: [] };
+    }
   },
   getFeaturedYachts: async (url: string) => {
     const data = await request<{ yachts: Yacht[] }>(url);
