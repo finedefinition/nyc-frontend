@@ -23,7 +23,7 @@ export default function RootLayout({
       lang="en"
       className={`${roboto.variable} ${baiJ.variable} ${bEs.variable}`}
     >
-      <body className="bg-white text-black font-roboto h-screen flex flex-col justify-between max-w-screen-3xl mx-auto">
+      <body className="bg-white font-roboto text-black font-medium h-screen flex flex-col justify-between max-w-screen-3xl mx-auto">
         <CurrencyProvider>
           <Navbar />
           {children}

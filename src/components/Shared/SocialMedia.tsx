@@ -12,7 +12,7 @@ const SocialMedia = ({ color, footer }: Props) => {
   return (
     <div className="flex flex-col justify-center items-center space-y-4">
       <span
-        className={`text-2xl font-baiJ font-medium ${footer ? 'text-white' : 'text-primary'}`}
+        className={`text-2xl font-baiJ ${footer ? 'text-white' : 'text-black'}`}
       >
         Follow us
       </span>
