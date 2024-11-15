@@ -7,14 +7,14 @@ import ClickableComponent from '../ClickableComponent/ClickableComponent';
 
 type PaginationProps = {
   pagination: PaginationOptions;
-}
+};
 
 const Pagination = ({ pagination }: PaginationProps) => {
   if (isEmpty(pagination)) {
     return null;
   }
 
-  const { currentPage, totalPages } = pagination; 
+  const { currentPage, totalPages } = pagination;
 
   const paginationArray = getPaginationWithDots(
     currentPage as number,
@@ -25,6 +25,7 @@ const Pagination = ({ pagination }: PaginationProps) => {
       <li className={currentPage === 1 ? 'pointer-events-none' : ''}>
         <ClickableComponent
           href={`?page=${(currentPage as number) - 1}`}
+          className="w-16 mr-8 "
           variant="pagination"
         >
           <Image
@@ -45,15 +46,15 @@ const Pagination = ({ pagination }: PaginationProps) => {
           );
         }
         return (
-          <li
-            key={idx}
-            className={
-              currentPage === page ? 'border rounded border-secondary-100' : ''
-            }
-          >
+          <li key={idx}>
             <ClickableComponent
               href={`?page=${page}`}
               variant="pagination"
+              className={
+                currentPage === page
+                  ? 'border-secondary-100 pointer-events-none'
+                  : ''
+              }
             >
               {page}
             </ClickableComponent>
@@ -67,6 +68,7 @@ const Pagination = ({ pagination }: PaginationProps) => {
       >
         <ClickableComponent
           href={`?page=${(currentPage as number) + 1}`}
+          className="w-16 ml-8 "
           variant="pagination"
         >
           <Image

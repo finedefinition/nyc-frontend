@@ -1,5 +1,6 @@
 interface Clickable {
   children?: React.ReactNode;
+  className?: string;
   variant:
     | 'linkButtonPrimary'
     | 'linkButtonSecondary'
