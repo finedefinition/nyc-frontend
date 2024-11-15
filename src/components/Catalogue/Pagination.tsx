@@ -2,10 +2,20 @@ import Image from 'next/image';
 import { PaginationOptions } from '@/interfaces/pagination.interface';
 import RightArrowImg from '@/public/icons/rightArrow.svg';
 import LeftArrowImg from '@/public/icons/leftArrow.svg';
-import { getPaginationWithDots } from '@/utils/pagination/pagination';
+import { getPaginationWithDots, isEmpty } from '@/utils/pagination/pagination';
 import ClickableComponent from '../ClickableComponent/ClickableComponent';
 
-const Pagination = ({ currentPage, totalPages }: PaginationOptions) => {
+type PaginationProps = {
+  pagination: PaginationOptions;
+}
+
+const Pagination = ({ pagination }: PaginationProps) => {
+  if (isEmpty(pagination)) {
+    return null;
+  }
+
+  const { currentPage, totalPages } = pagination; 
+
   const paginationArray = getPaginationWithDots(
     currentPage as number,
     totalPages as number
