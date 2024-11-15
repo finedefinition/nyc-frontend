@@ -1,4 +1,6 @@
-export function isEmpty(obj: {}) {
+import { PaginationOptions } from '@/interfaces/pagination.interface';
+
+export function isEmpty(obj: PaginationOptions): boolean {
   return Object.keys(obj).length === 0;
 }
 
