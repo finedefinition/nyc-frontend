@@ -13,6 +13,8 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     `/yachts?page=${page}`
   );
 
+  console.log(pagination);
+
   return (
     <>
       <div className="flex w-full justify-between items-center px-5 md:px-16 py-4 md:py-6 xl:py-8">
@@ -25,7 +27,7 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
         <CatalogueList yachts={yachts} />
       </div>
       <div className="px-5 md:px-16 pt-10 pb-10 xl:pb-20 mx-auto">
-        <Pagination {...pagination} />
+        <Pagination pagination={pagination} />
       </div>
     </>
   );
