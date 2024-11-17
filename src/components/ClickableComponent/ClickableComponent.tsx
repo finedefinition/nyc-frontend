@@ -14,9 +14,11 @@ const variantClasses = {
     'bg-primary hover:bg-secondary-100 active:bg-secondary-110 transition',
   secondary:
     'bg-secondary-100 hover:bg-secondary-110 active:bg-transparent active:text-secondary-110 active:border-2 active:border-secondary-110 active:border-solid transition',
-  link: 'text-lg content-center hover:underline hover:text-secondary-100 transition',
+  link: 'text-lg font-medium content-center hover:underline hover:text-secondary-100 transition',
   footer: 'text-white',
   text: 'text-secondary-100 underline font-normal hover:text-secondary-110 transition',
+  pagination:
+    'h-8 flex justify-center items-center border border-grey-50 rounded hover:text-white hover:bg-grey-50 transition',
 };
 
 const ClickableComponent = (props: ButtonProps | LinkProps) => {

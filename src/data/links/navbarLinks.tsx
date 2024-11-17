@@ -8,7 +8,13 @@ import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
 //   text: string | JSX.Element;
 // }
 
-export const navbarLeftLinks = [
+export interface NavbarLinksInterface {
+  text: string | JSX.Element;
+  href: string;
+  variant: string;
+}
+
+export const navbarLeftLinks: NavbarLinksInterface[] = [
   {
     text: 'Yachts',
     href: '/catalogue',
@@ -21,7 +27,7 @@ export const navbarLeftLinks = [
   },
 ];
 
-export const navbarRightLinks = [
+export const navbarRightLinks: NavbarLinksInterface[] = [
   {
     text: <Heart />,
     href: '/',

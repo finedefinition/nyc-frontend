@@ -66,15 +66,15 @@ const ReviewsSection = () => {
       <div className="text-center xl:float-right space-x-2 ">
         <ClickableComponent
           type="button"
-          className="swiper_prev group rounded-full bg-grey-10 p-2 hover:bg-secondary-100"
+          className="swiper_prev group rounded-full bg-grey-10 p-2 hover:bg-secondary-100 transition"
         >
-          <LeftArrow className="fill-secondary-100 group-hover:fill-grey-10" />
+          <LeftArrow className="fill-secondary-100 group-hover:fill-grey-10 transition" />
         </ClickableComponent>
         <ClickableComponent
           type="button"
-          className="swiper_next group rounded-full bg-grey-10 p-2 hover:bg-secondary-100"
+          className="swiper_next group rounded-full bg-grey-10 p-2 hover:bg-secondary-100 transition"
         >
-          <RightArrow className="fill-secondary-100 group-hover:fill-grey-10" />
+          <RightArrow className="fill-secondary-100 group-hover:fill-grey-10 transition" />
         </ClickableComponent>
       </div>
     </section>
