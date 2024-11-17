@@ -51,7 +51,7 @@ const ContactForm = ({ dark }: ContactFormikProps) => {
             <ClickableComponent
               type="submit"
               disabled={!(isValid && dirty)}
-              variant="secondaryButton"
+              variants={['button', 'secondary']}
             >
               {ContactSectionData.button}
             </ClickableComponent>

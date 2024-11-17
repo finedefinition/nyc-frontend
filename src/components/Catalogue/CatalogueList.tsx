@@ -8,8 +8,8 @@ type CatalogPageProps = {
   yachts: Yacht[];
 };
 
-const CatalogueList = async ({ yachts }: CatalogPageProps) => {
-  return yachts.length > 0 ? (
+const CatalogueList = async ({ yachts }: CatalogPageProps) =>
+  yachts.length > 0 ? (
     <>
       {yachts.map((yacht) => (
         <Card
@@ -25,6 +25,5 @@ const CatalogueList = async ({ yachts }: CatalogPageProps) => {
       ))}
     </>
   );
-};
 
 export default CatalogueList;

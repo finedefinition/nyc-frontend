@@ -28,7 +28,7 @@ const NavbarLinks = () => {
           >
             <ClickableComponent
               href={link.href}
-              variant={link.variant}
+              variants={['link']}
             >
               {link.text}
             </ClickableComponent>
@@ -36,10 +36,7 @@ const NavbarLinks = () => {
         ))}
       </ul>
       <span className="flex justify-center">
-        <ClickableComponent
-          href="/"
-          variant="logo"
-        >
+        <ClickableComponent href="/">
           <NavbarFooterLogo navbar />
         </ClickableComponent>
       </span>
@@ -51,7 +48,7 @@ const NavbarLinks = () => {
           >
             <ClickableComponent
               href={link.href}
-              variant={link.variant}
+              variants={['link']}
             >
               {link.text}
             </ClickableComponent>

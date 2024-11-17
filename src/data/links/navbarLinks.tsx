@@ -2,13 +2,13 @@ import Heart from '@/components/SvgIcons/Heart';
 import User from '@/components/SvgIcons/User';
 import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
 
-import { LinkProps } from '@/interfaces/clickable.interface';
+// import { LinkProps } from '@/interfaces/clickable.interface';
 
-interface NavbarLinksArrays extends LinkProps {
-  text: string | JSX.Element;
-}
+// interface NavbarLinksArrays extends LinkProps {
+//   text: string | JSX.Element;
+// }
 
-export const navbarLeftLinks: NavbarLinksArrays[] = [
+export const navbarLeftLinks = [
   {
     text: 'Yachts',
     href: '/catalogue',
@@ -21,7 +21,7 @@ export const navbarLeftLinks: NavbarLinksArrays[] = [
   },
 ];
 
-export const navbarRightLinks: NavbarLinksArrays[] = [
+export const navbarRightLinks = [
   {
     text: <Heart />,
     href: '/',

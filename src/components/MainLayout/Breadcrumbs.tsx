@@ -30,7 +30,7 @@ const Breadcrumb = () => {
     <div className="flex items-center space-x-4 px-5 md:px-16 py-4 md:py-6 xl:py-8">
       <ClickableComponent
         href="/"
-        variant="icon"
+        variants={[]}
       >
         <Home />
       </ClickableComponent>
@@ -46,7 +46,7 @@ const Breadcrumb = () => {
             <ClickableComponent
               key={index}
               href={href}
-              variant="icon"
+              variants={[]}
             >
               {segment}
             </ClickableComponent>

@@ -1,22 +1,31 @@
+export type Variant =
+  | 'button'
+  | 'primary'
+  | 'secondary'
+  | 'link'
+  | 'footer'
+  | 'text';
+
 interface Clickable {
   children?: React.ReactNode;
   className?: string;
-  variant:
-    | 'linkButtonPrimary'
-    | 'linkButtonSecondary'
-    | 'nav'
-    | 'footer'
-    | 'text'
-    | 'icon'
-    | 'menu'
-    | 'close'
-    | 'logo'
-    | 'imgContainer'
-    | 'yachtName'
-    | 'currency'
-    | 'secondaryButton'
-    | 'emailAddress'
-    | 'pagination';
+  variants?: Variant[];
+  // variant:
+  //   | 'linkButtonPrimary'
+  //   | 'linkButtonSecondary'
+  //   | 'nav'
+  //   | 'footer'
+  //   | 'text'
+  //   | 'icon'
+  //   | 'menu'
+  //   | 'close'
+  //   | 'logo'
+  //   | 'imgContainer'
+  //   | 'yachtName'
+  //   | 'currency'
+  //   | 'secondaryButton'
+  //   | 'emailAddress'
+  //   | 'pagination';
 }
 
 export interface ButtonProps extends Clickable {

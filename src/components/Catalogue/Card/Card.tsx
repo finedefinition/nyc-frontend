@@ -34,7 +34,7 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
       <div className="relative block w-full h-96">
         <ClickableComponent
           href={`/catalogue/${yacht_id}?name=${yacht_make}_${yacht_model}`}
-          variant="imgContainer"
+          variants={[]}
         >
           <CardImg keyImg={yacht_main_image_key} />
         </ClickableComponent>
@@ -47,7 +47,7 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
         <span className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition ease duration-1000">
           <ClickableComponent
             href={`/catalogue/${yacht_id}?name=${yacht_make}_${yacht_model}`}
-            variant="linkButtonPrimary"
+            variants={['button', 'primary']}
           >
             See Detail
           </ClickableComponent>
@@ -56,7 +56,7 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
       <div className="flex justify-between mb-2">
         <ClickableComponent
           href={`/catalogue/${yacht_id}?name=${yacht_make}`}
-          variant="yachtName"
+          variants={[]}
         >
           <span>{yacht_make}</span>
           <br />
@@ -65,7 +65,7 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
         <span className="mx-4 my-4">
           <ClickableComponent
             href=""
-            variant="icon"
+            variants={[]}
           >
             <Heart />
           </ClickableComponent>

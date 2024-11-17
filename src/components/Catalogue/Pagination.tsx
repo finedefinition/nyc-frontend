@@ -26,7 +26,7 @@ const Pagination = ({ pagination }: PaginationProps) => {
         <ClickableComponent
           href={`?page=${(currentPage as number) - 1}`}
           className="w-16 mr-8 "
-          variant="pagination"
+          variants={[]}
         >
           <Image
             src={LeftArrowImg}
@@ -49,7 +49,7 @@ const Pagination = ({ pagination }: PaginationProps) => {
           <li key={idx}>
             <ClickableComponent
               href={`?page=${page}`}
-              variant="pagination"
+              variants={[]}
               className={
                 currentPage === page
                   ? 'border-secondary-100 pointer-events-none'
@@ -69,7 +69,7 @@ const Pagination = ({ pagination }: PaginationProps) => {
         <ClickableComponent
           href={`?page=${(currentPage as number) + 1}`}
           className="w-16 ml-8 "
-          variant="pagination"
+          variants={[]}
         >
           <Image
             src={RightArrowImg}

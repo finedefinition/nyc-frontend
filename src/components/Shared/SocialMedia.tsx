@@ -8,6 +8,21 @@ type Props = {
   footer?: boolean;
 };
 
+const socialMediaLinks = [
+  {
+    href: 'https://www.instagram.com/norseyachtcom/',
+    component: Instagram,
+  },
+  {
+    href: 'https://t.me/norseyacht',
+    component: Telegram,
+  },
+  {
+    href: 'https://chat.whatsapp.com/HEclUDIVs1h4Ht5hJzXu0Q',
+    component: WhatsApp,
+  },
+];
+
 const SocialMedia = ({ color, footer }: Props) => {
   return (
     <div className="flex flex-col justify-center items-center space-y-4">
@@ -17,36 +32,18 @@ const SocialMedia = ({ color, footer }: Props) => {
         Follow us
       </span>
       <div className="flex space-x-4">
-        <ClickableComponent
-          href="https://www.instagram.com/norseyachtcom/"
-          target="_blank"
-          variant="icon"
-        >
-          <Instagram
-            color={color}
-            footer={footer}
-          />
-        </ClickableComponent>
-        <ClickableComponent
-          href="https://t.me/norseyacht"
-          target="_blank"
-          variant="icon"
-        >
-          <Telegram
-            color={color}
-            footer={footer}
-          />
-        </ClickableComponent>
-        <ClickableComponent
-          href="https://chat.whatsapp.com/HEclUDIVs1h4Ht5hJzXu0Q"
-          target="_blank"
-          variant="icon"
-        >
-          <WhatsApp
-            color={color}
-            footer={footer}
-          />
-        </ClickableComponent>
+        {socialMediaLinks.map(({ href, component: IconComponent }, index) => (
+          <ClickableComponent
+            key={index}
+            href={href}
+            target="_blank"
+          >
+            <IconComponent
+              color={color}
+              footer={footer}
+            />
+          </ClickableComponent>
+        ))}
       </div>
     </div>
   );

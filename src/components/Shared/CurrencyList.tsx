@@ -32,7 +32,7 @@ const CurrencyList = ({ desktopModal, onClose }: CurrencyListProps) => {
         >
           <ClickableComponent
             type="button"
-            variant="currency"
+            className="flex items-center gap-2 px-4 py-2"
             onClick={() => currencyModalHandler(currency.currencyName)}
           >
             {desktopModal && currency.currencyName}
