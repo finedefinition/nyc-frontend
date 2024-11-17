@@ -23,7 +23,7 @@ const MobileMenuModal = ({ onClose }: MobileMenuModalProps) => {
           >
             <ClickableComponent
               href={link.href}
-              variant={link.variant}
+              className="font-baiJ text-2xl"
             >
               {link.text}
             </ClickableComponent>

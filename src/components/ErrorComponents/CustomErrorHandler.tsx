@@ -21,8 +21,8 @@ const CustomErrorHandler = ({
             key={idx}
             size={
               idx % 2
-                ? 'text-[400px] sm:text-[700px] md:text-[750px]'
-                : 'text-[150px] sm:text-[260px] md:text-[288px]'
+                ? 'text-[400px] lg:text-[750px]'
+                : 'text-[150px] lg:text-[288px]'
             }
             font={idx % 2 ? 'font-bEs' : 'font-baiJ font-bold'}
             color={idx % 2 ? 'text-secondary-100' : 'text-primary'}
@@ -40,14 +40,14 @@ const CustomErrorHandler = ({
           <ClickableComponent
             type="button"
             onClick={onClick}
-            variant="secondaryButton"
+            variants={['button', 'primary']}
           >
             Try again
           </ClickableComponent>
         )}
         <ClickableComponent
           href="/"
-          variant="linkButtonSecondary"
+          variants={['button', 'secondary']}
         >
           Return to the main page
         </ClickableComponent>

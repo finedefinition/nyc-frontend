@@ -17,7 +17,7 @@ const FeaturedYachts = () => {
         <div className="flex justify-end mb-1 sm:mb-8 xl:mb-12">
           <ClickableComponent
             href="/catalogue"
-            variant="text"
+            variants={['text']}
           >
             {FeaturedYachtsSectionData.button}
           </ClickableComponent>

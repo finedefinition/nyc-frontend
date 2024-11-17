@@ -9,6 +9,7 @@ const WhatsApp = ({ color, footer }: Props) => (
     width={40}
     height={40}
     fill="none"
+    className="hover:scale-110"
   >
     <rect
       width={40}

@@ -5,13 +5,37 @@ import { useSearchParams } from 'next/navigation';
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
 
-import { navbarLeftLinks, navbarRightLinks } from '@/data/links/navbarLinks';
+import {
+  navbarLeftLinks,
+  NavbarLinksInterface,
+  navbarRightLinks,
+} from '@/data/links/navbarLinks';
 
 import MenuAndCloseButton from './MenuAndCloseButton';
 
 const NavbarLinks = () => {
   const searchParams = useSearchParams();
   const modal = searchParams.get('modal');
+
+  const renderLinks = (links: NavbarLinksInterface[], isLeft: boolean) => {
+    return links.map((link, i) => (
+      <li
+        key={i}
+        className={`${
+          isLeft
+            ? 'mr-9 last:mr-0 hidden xl:flex'
+            : `ml-9 first:ml-0 ${link.variant === 'nav' && 'hidden xl:flex'}`
+        }`}
+      >
+        <ClickableComponent
+          href={link.href}
+          variants={['link']}
+        >
+          {link.text}
+        </ClickableComponent>
+      </li>
+    ));
+  };
 
   return (
     <>
@@ -21,42 +45,15 @@ const NavbarLinks = () => {
             <MenuAndCloseButton modal={modal} />
           </Suspense>
         </li>
-        {navbarLeftLinks.map((link, i) => (
-          <li
-            key={i}
-            className="mr-9 last:mr-0 hidden xl:flex"
-          >
-            <ClickableComponent
-              href={link.href}
-              variant={link.variant}
-            >
-              {link.text}
-            </ClickableComponent>
-          </li>
-        ))}
+        {renderLinks(navbarLeftLinks, true)}
       </ul>
       <span className="flex justify-center">
-        <ClickableComponent
-          href="/"
-          variant="logo"
-        >
+        <ClickableComponent href="/">
           <NavbarFooterLogo navbar />
         </ClickableComponent>
       </span>
       <ul className="flex justify-end highlight-second">
-        {navbarRightLinks.map((link, i) => (
-          <li
-            key={i}
-            className={`ml-9 first:ml-0 ${link.variant === 'nav' && 'hidden xl:flex'}`}
-          >
-            <ClickableComponent
-              href={link.href}
-              variant={link.variant}
-            >
-              {link.text}
-            </ClickableComponent>
-          </li>
-        ))}
+        {renderLinks(navbarRightLinks, false)}
       </ul>
     </>
   );

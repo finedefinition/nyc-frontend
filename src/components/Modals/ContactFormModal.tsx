@@ -15,7 +15,7 @@ const ContactFormModal = ({ onClose }: ContactFormModalProps) => {
           <ClickableComponent
             type="button"
             onClick={onClose}
-            variant="close"
+            variants={[]}
           >
             <Close />
           </ClickableComponent>
@@ -25,7 +25,7 @@ const ContactFormModal = ({ onClose }: ContactFormModalProps) => {
         <span className="block mb-6">
           <ClickableComponent
             href="/"
-            variant="linkButtonSecondary"
+            variants={[]}
           >
             Return to the main page
           </ClickableComponent>

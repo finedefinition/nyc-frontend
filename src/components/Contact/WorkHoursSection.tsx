@@ -7,7 +7,7 @@ const WorkHoursSection = ({
 
   return (
     <div>
-      <h2 className="text-2xl">Office hours</h2>
+      <h4 className="text-2xl">Office hours</h4>
       <ul>
         {keysArr.map((key) => (
           <li key={key}>

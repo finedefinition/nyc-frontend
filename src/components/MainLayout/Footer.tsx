@@ -10,10 +10,7 @@ const Footer = () => {
   return (
     <footer className="w-full flex flex-col space-y-10 lg:space-y-0 lg:flex-row px-5 md:px-16 py-4 md:py-6 xl:py-8 bg-primary">
       <div className="flex-1 mx-auto">
-        <ClickableComponent
-          href="/"
-          variant="logo"
-        >
+        <ClickableComponent href="/">
           <NavbarFooterLogo />
         </ClickableComponent>
         <span className="hidden lg:block">
@@ -26,7 +23,7 @@ const Footer = () => {
             <ClickableComponent
               key={link.title}
               href={link.href}
-              variant="footer"
+              variants={['link', 'footer']}
             >
               {link.title}
             </ClickableComponent>

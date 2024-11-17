@@ -21,7 +21,7 @@ const HeroSection = () => {
           <h1>{HeroSectionData.subtitle}</h1>
           <ClickableComponent
             href="/catalogue"
-            variant="linkButtonPrimary"
+            variants={['button', 'primary']}
           >
             {HeroSectionData.ctaButton}
           </ClickableComponent>

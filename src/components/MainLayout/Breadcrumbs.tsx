@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
   capitalizeFirstLetter,
@@ -7,9 +6,9 @@ import {
   createHrefFromSegment,
   replaceLastSegment,
 } from '@/utils/breadcrumbs/helpers';
-import RightArrowImg from '@/public/icons/rightArrow.svg';
 import ClickableComponent from '../ClickableComponent/ClickableComponent';
 import Home from '../SvgIcons/Home';
+import RightArrow from '../SvgIcons/RightArrow';
 
 const Breadcrumb = () => {
   const pathname = usePathname();
@@ -26,39 +25,33 @@ const Breadcrumb = () => {
     capitalizeFirstLetter(segment)
   );
 
+  const renderSegment = (segment: string, index: number) => {
+    const href = createHrefFromSegment(segments, index);
+    const isLastSegment = index === normalizeSegments.length - 1;
+
+    return (
+      <div
+        key={index}
+        className="flex items-center"
+      >
+        <ClickableComponent
+          href={href}
+          className={`text-black hover:text-secondary-100 transition ${isLastSegment ? 'text-primary pointer-events-none' : ''}`}
+        >
+          {segment}
+        </ClickableComponent>
+        {!isLastSegment && <RightArrow className="fill-primary" />}
+      </div>
+    );
+  };
+
   return (
     <div className="flex items-center space-x-4 px-5 md:px-16 py-4 md:py-6 xl:py-8">
-      <ClickableComponent
-        href="/"
-        variant="icon"
-      >
+      <ClickableComponent href="/">
         <Home />
       </ClickableComponent>
-      <Image
-        src={RightArrowImg}
-        alt="RightArrow"
-      />
-      {normalizeSegments.map((segment, index) => {
-        const href = createHrefFromSegment(segments, index);
-
-        return (
-          <>
-            <ClickableComponent
-              key={index}
-              href={href}
-              variant="icon"
-            >
-              {segment}
-            </ClickableComponent>
-            {index !== normalizeSegments.length - 1 ? (
-              <Image
-                src={RightArrowImg}
-                alt="RightArrow"
-              />
-            ) : null}
-          </>
-        );
-      })}
+      <RightArrow className="fill-primary" />
+      {normalizeSegments.map(renderSegment)}
     </div>
   );
 };

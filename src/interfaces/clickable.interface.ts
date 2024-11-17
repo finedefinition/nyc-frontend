@@ -1,22 +1,16 @@
+export type Variant =
+  | 'button'
+  | 'primary'
+  | 'secondary'
+  | 'link'
+  | 'footer'
+  | 'text'
+  | 'pagination';
+
 interface Clickable {
   children?: React.ReactNode;
   className?: string;
-  variant:
-    | 'linkButtonPrimary'
-    | 'linkButtonSecondary'
-    | 'nav'
-    | 'footer'
-    | 'text'
-    | 'icon'
-    | 'menu'
-    | 'close'
-    | 'logo'
-    | 'imgContainer'
-    | 'yachtName'
-    | 'currency'
-    | 'secondaryButton'
-    | 'emailAddress'
-    | 'pagination';
+  variants?: Variant[];
 }
 
 export interface ButtonProps extends Clickable {

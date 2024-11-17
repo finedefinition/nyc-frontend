@@ -1,34 +1,29 @@
 import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
-import { LinkProps } from '@/interfaces/clickable.interface';
+// import { LinkProps } from '@/interfaces/clickable.interface';
 
-interface MobileMenuLinksArray extends LinkProps {
-  text: string | JSX.Element;
-}
+// interface MobileMenuLinksArray extends LinkProps {
+//   text: string | JSX.Element;
+// }
 
-export const mobileMenuLinks: MobileMenuLinksArray[] = [
+export const mobileMenuLinks = [
   {
     text: 'Yachts',
     href: '/catalogue',
-    variant: 'menu',
   },
   {
     text: 'How it Works?',
     href: '/how-it-works',
-    variant: 'menu',
   },
   {
     text: 'Contacts',
     href: '/contacts',
-    variant: 'menu',
   },
   {
     text: 'My account',
     href: '',
-    variant: 'menu',
   },
   {
     text: <SplitCurrencyLink />,
     href: '',
-    variant: 'menu',
   },
 ];
