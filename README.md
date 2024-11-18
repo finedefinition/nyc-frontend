@@ -18,7 +18,7 @@ The front-end of the project is built using Next.js with TypeScript, Tailwind CS
 Instructions on how to install the project.
 
 ```bash
-git clone https://github.com/anton-kulchytskyi/norse-yacht-co.git
+git clone https://github.com/finedefinition/nyc-frontend.git
 cd repo
 npm install
 ```
@@ -39,6 +39,11 @@ To display yacht photos, you need to follow a few simple steps. ⛵
 2. Fill this file with the necessary data.
 
 **You'll get the required data from the repository owner.**
+
+### Branching Guidelines
+
+We recommend creating a new branch from the `test` branch.
+Additionally, please create pull requests for your changes.
 
 ## Folder Structure
 
