@@ -26,7 +26,7 @@ const Block = ({ data }: BlockProps) => {
     >
       <div className="flex flex-col justify-between xl:w-1/2 2xl:w-1/3">
         <div
-          className={`flex items-baseline space-x-10 justify-center xl:absolute z-10 top-16 ${order ? 'left-16' : 'right-16'}`}
+          className={`flex items-baseline space-x-3 xl:space-x-6 justify-center xl:absolute z-10 top-16 ${order ? 'left-16' : 'right-16'}`}
         >
           {order ? (
             <>

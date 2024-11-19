@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { roboto, baiJ, bEs } from '@/utils/fonts/pageFonts';
 
-import Navbar from '@/components/MainLayout/Navbar';
+import Navbar from '@/components/MainLayout/Navbar/Navbar';
 import Footer from '@/components/MainLayout/Footer';
 
 import { CurrencyProvider } from '@/context/CurrencyContext';

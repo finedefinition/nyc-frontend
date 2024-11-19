@@ -6,7 +6,7 @@ import RightArrow from '@/components/SvgIcons/RightArrow';
 
 type PaginationButtonProps = {
   page: number | string;
-  isCurrent: boolean;
+  isCurrent?: boolean;
   isArrow?: boolean;
 };
 
@@ -34,7 +34,7 @@ const PaginationButton = ({
     <ClickableComponent
       href={createUrlWithPage(Number(page))}
       variants={['pagination']}
-      className={`${isArrow ? 'w-16' : 'w-8'} ${isCurrent && !isArrow ? 'border-secondary-100 pointer-events-none' : ''}`}
+      className={`${isArrow ? 'w-16' : 'w-8'} ${isCurrent ? 'border-secondary-100 pointer-events-none' : ''}`}
     >
       {isArrow ? (
         page === 'left' ? (

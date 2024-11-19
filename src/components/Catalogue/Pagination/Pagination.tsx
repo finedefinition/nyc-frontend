@@ -26,7 +26,6 @@ const Pagination = ({ pagination }: PaginationProps) => {
       >
         <PaginationButton
           page="left"
-          isCurrent={currentPage === 1}
           isArrow={true}
         />
       </li>
@@ -43,7 +42,6 @@ const Pagination = ({ pagination }: PaginationProps) => {
       >
         <PaginationButton
           page="right"
-          isCurrent={currentPage === totalPages}
           isArrow={true}
         />
       </li>
