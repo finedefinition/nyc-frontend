@@ -57,8 +57,7 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
           href={`/catalogue/${yacht_id}?name=${yacht_make}_${yacht_model}`}
           className="hover:text-secondary-100 hover:underline transition"
         >
-          <p className="font-baiJ text-2xl sm:text-4xl mb-4">{yacht_make}</p>
-          {/* <br /> */}
+          <p className="font-baiJ text-2xl sm:text-4xl mb-2">{yacht_make}</p>
           <p className="font-baiJ text-2xl sm:text-4xl mb-3">{yacht_model}</p>
         </ClickableComponent>
         <span className="mx-4 my-4">

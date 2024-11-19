@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { NextRouter } from 'next/router';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { FormikHelpers } from 'formik';
 import { apiClient } from '@/utils/api/apiClient';
@@ -11,8 +10,8 @@ import {
 export const handleSubmit = async (
   values: FormikSchema,
   helpers: FormikHelpers<FormikSchema>,
-  router: AppRouterInstance, // Додаємо router як параметр
-  pathname: string // Додаємо pathname як параметр
+  router: AppRouterInstance,
+  pathname: string
 ) => {
   const { resetForm, setSubmitting, setErrors } = helpers;
 
@@ -41,7 +40,7 @@ export const handleSubmit = async (
     console.log(error);
     setErrors({
       serverError:
-        "A connection error occurred. Please check your internet connection or try again later.",
+        'A connection error occurred. Please check your internet connection or try again later.',
     } as ExtendedFormikErrors<FormikSchema>);
   } finally {
     setSubmitting(false);

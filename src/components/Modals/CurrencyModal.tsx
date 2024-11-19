@@ -1,11 +1,3 @@
-// import Image from 'next/image';
-
-// import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-
-// import { useCurrency } from '@/context/CurrencyContext';
-
-// import { currencyData } from '@/data/currencyData';
-
 import CurrencyList from '../Shared/CurrencyList';
 import ModalWrapper from './ModalWrapper';
 
