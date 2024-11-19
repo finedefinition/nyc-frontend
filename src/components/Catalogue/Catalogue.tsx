@@ -1,17 +1,29 @@
 import { apiClient } from '@/utils/api/apiClient';
+import { sortFields } from '@/data/catalogue/sortFields';
 import CatalogueList from './CatalogueList';
 import Pagination from './Pagination';
+import SortingBy from './SortingBy';
+import Filter from './Filter';
 
 type CatalogueProps = {
   searchParams?: { [key: string]: string };
 };
 
 const Catalogue = async ({ searchParams }: CatalogueProps) => {
-  const page = searchParams?.page || '1';
+  const {
+    page = '1',
+    orderBy = 'asc',
+    sortBy = 'yacht_price',
+  } = searchParams || {};
 
   const { pagination, yachts } = await apiClient.getYachtsWithPagination(
-    `/yachts?page=${page}`
+    `/yachts?page=${page}&orderBy=${orderBy}&sortBy=${sortBy}`
   );
+
+  const sortingByTitle =
+    sortFields.find(
+      (field) => field.href === `?orderBy=${orderBy}&sortBy=${sortBy}`
+    )?.name || 'Low to High price';
 
   return (
     <>
@@ -19,7 +31,10 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
         <div>
           <h4>Catalogue</h4>
         </div>
-        <div>Filter & Sorting</div>
+        <div className="flex space-x-2 sm:space-x-4 md:space-x-6 3xl:space-x-10">
+          <Filter />
+          <SortingBy title={sortingByTitle} />
+        </div>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-8 gap-y-10 px-5 md:px-16">
         <CatalogueList yachts={yachts} />

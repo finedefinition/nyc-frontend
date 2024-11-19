@@ -8,6 +8,7 @@ type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
 async function request<T>(
   url: string,
+  // options?: any,
   data: any = null,
   tokenUser: string | null = '',
   method: RequestMethod = 'GET'
