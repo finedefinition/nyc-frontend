@@ -1,7 +1,7 @@
 import { apiClient } from '@/utils/api/apiClient';
 import { sortFields } from '@/data/catalogue/sortFields';
 import CatalogueList from './CatalogueList';
-import Pagination from './Pagination';
+import Pagination from './Pagination/Pagination';
 import SortingBy from './SortingBy';
 import Filter from './Filter';
 
