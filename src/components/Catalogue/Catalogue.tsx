@@ -1,5 +1,4 @@
 import { apiClient } from '@/utils/api/apiClient';
-import { sortFields } from '@/data/catalogue/sortFields';
 import CatalogueList from './CatalogueList';
 import Pagination from './Pagination/Pagination';
 import SortingBy from './SortingBy';
@@ -20,11 +19,6 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     `/yachts?page=${page}&orderBy=${orderBy}&sortBy=${sortBy}`
   );
 
-  const sortingByTitle =
-    sortFields.find(
-      (field) => field.href === `?orderBy=${orderBy}&sortBy=${sortBy}`
-    )?.name || 'Low to High price';
-
   return (
     <>
       <div className="flex w-full justify-between items-center px-5 md:px-16 py-4 md:py-6 xl:py-8">
@@ -33,7 +27,7 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
         </div>
         <div className="flex space-x-2 sm:space-x-4 md:space-x-6 3xl:space-x-10">
           <Filter />
-          <SortingBy title={sortingByTitle} />
+          <SortingBy />
         </div>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-8 gap-y-10 px-5 md:px-16">
