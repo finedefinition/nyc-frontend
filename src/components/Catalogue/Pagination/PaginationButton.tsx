@@ -24,9 +24,9 @@ const PaginationButton = ({
 
   if (page === '...') {
     return (
-      <li className="w-8 h-8 flex justify-center items-center border border-grey-50 rounded">
+      <span className="w-8 h-8 flex justify-center items-center border border-grey-50 rounded">
         {page}
-      </li>
+      </span>
     );
   }
 
