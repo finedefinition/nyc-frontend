@@ -48,6 +48,7 @@ const config: Config = {
       animation: {
         'scale-up': 'scale-up .3s ease',
         'slide-in-left': 'slide-in-left .3s ease forwards',
+        'slide-down': 'slide-down .3s ease forwards',
       },
       keyframes: {
         'scale-up': {
@@ -57,6 +58,16 @@ const config: Config = {
         'slide-in-left': {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(0)' },
+        },
+        'slide-down': {
+          from: {
+            opacity: '0',
+            transform: 'translateY(-10px)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
         },
       },
     },

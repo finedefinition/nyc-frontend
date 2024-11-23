@@ -1,17 +1,19 @@
+'use client';
+import { useRouter } from 'next/navigation';
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 
 import { mobileMenuLinks } from '@/data/links/mobileMenuLinks';
-import CurrencyList from '../Shared/CurrencyList';
-import SocialMedia from '../Shared/SocialMedia';
-import ModalWrapper from './ModalWrapper';
+import CurrencyList from '@/components/Shared/CurrencyList';
+import SocialMedia from '@/components/Shared/SocialMedia';
 
-type MobileMenuModalProps = {
-  onClose: () => void;
-};
+const MobileMenu = () => {
+  const router = useRouter();
 
-const MobileMenuModal = ({ onClose }: MobileMenuModalProps) => {
+  const onClose = () => {
+    router.back();
+  };
   return (
-    <ModalWrapper onClose={onClose}>
+    <div className="fixed z-10 inset-0 bg-transparent flex items-center justify-center">
       <ul
         onClick={(e) => e.stopPropagation()}
         className="bg-white relative w-full h-full pt-16 xs:pt-28 animate-slide-in-left"
@@ -36,8 +38,8 @@ const MobileMenuModal = ({ onClose }: MobileMenuModalProps) => {
           <SocialMedia color="#4d6575" />
         </li>
       </ul>
-    </ModalWrapper>
+    </div>
   );
 };
 
-export default MobileMenuModal;
+export default MobileMenu;
