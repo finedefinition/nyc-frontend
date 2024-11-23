@@ -1,6 +1,7 @@
 import Heart from '@/components/SvgIcons/Heart';
 import User from '@/components/SvgIcons/User';
-import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
+// import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
+import CurrencyDropdown from '@/components/MainLayout/Navbar/CurrencyDropdown';
 
 // import { LinkProps } from '@/interfaces/clickable.interface';
 
@@ -38,9 +39,14 @@ export const navbarRightLinks: NavbarLinksInterface[] = [
     href: '/',
     variant: 'icon',
   },
+  // {
+  //   text: <SplitCurrencyLink />,
+  //   href: '?modal=currency',
+  //   variant: 'nav',
+  // },
   {
-    text: <SplitCurrencyLink />,
-    href: '?modal=currency',
+    text: <CurrencyDropdown />,
+    href: '',
     variant: 'nav',
   },
   {

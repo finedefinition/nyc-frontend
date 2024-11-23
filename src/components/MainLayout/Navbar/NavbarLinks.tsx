@@ -1,6 +1,5 @@
 'use client';
 import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
@@ -8,15 +7,14 @@ import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
 import {
   navbarLeftLinks,
   NavbarLinksInterface,
-  navbarRightLinks,
 } from '@/data/links/navbarLinks';
 
+import Heart from '@/components/SvgIcons/Heart';
+import User from '@/components/SvgIcons/User';
+import CurrencyDropdown from './CurrencyDropdown';
 import MenuAndCloseButton from './MenuAndCloseButton';
 
 const NavbarLinks = () => {
-  const searchParams = useSearchParams();
-  const modal = searchParams.get('modal');
-
   const renderLinks = (links: NavbarLinksInterface[], isLeft: boolean) => {
     return links.map((link, i) => (
       <li
@@ -42,7 +40,7 @@ const NavbarLinks = () => {
       <ul className="flex justify-start">
         <li className="mr-3 flex xl:hidden">
           <Suspense fallback={null}>
-            <MenuAndCloseButton modal={modal} />
+            <MenuAndCloseButton />
           </Suspense>
         </li>
         {renderLinks(navbarLeftLinks, true)}
@@ -52,8 +50,31 @@ const NavbarLinks = () => {
           <NavbarFooterLogo navbar />
         </ClickableComponent>
       </span>
-      <ul className="flex justify-end highlight-second">
-        {renderLinks(navbarRightLinks, false)}
+      <ul className="flex justify-end items-center space-x-9">
+        <ClickableComponent
+          href="/contacts"
+          className="hidden xl:block"
+          variants={['link']}
+        >
+          Contacts
+        </ClickableComponent>
+        <div className="flex space-x-2">
+          <ClickableComponent
+            href=""
+            variants={['link']}
+          >
+            <Heart />
+          </ClickableComponent>
+          <ClickableComponent
+            href=""
+            variants={['link']}
+          >
+            <User />
+          </ClickableComponent>
+        </div>
+        <span className="hidden xl:block">
+          <CurrencyDropdown />
+        </span>
       </ul>
     </>
   );

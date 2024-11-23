@@ -1,15 +1,13 @@
 import Image from 'next/image';
-
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import { useCurrency } from '@/context/CurrencyContext';
 import { currencyData } from '@/data/currencyData';
 
 type CurrencyListProps = {
-  desktopModal?: boolean;
+  desktop?: boolean;
   onClose: () => void;
 };
 
-const CurrencyList = ({ desktopModal, onClose }: CurrencyListProps) => {
+const CurrencyList = ({ desktop, onClose }: CurrencyListProps) => {
   const { selectedCurrency, setCurrency } = useCurrency();
 
   const currencyModalHandler = (currency: string) => {
@@ -20,8 +18,8 @@ const CurrencyList = ({ desktopModal, onClose }: CurrencyListProps) => {
     <ul
       onClick={(e) => e.stopPropagation()}
       className={
-        desktopModal
-          ? 'absolute top-20 right-44 bg-white px-4 py-4 rounded-2xl animate-scale-up'
+        desktop
+          ? 'absolute right-0 bg-white border borber-grey-100 mt-1 px-4 py-4 rounded-2xl animate-scale-up'
           : 'flex justify-center'
       }
     >
@@ -30,17 +28,19 @@ const CurrencyList = ({ desktopModal, onClose }: CurrencyListProps) => {
           key={currency.currencyName}
           className={`mb-4 last:mb-0 border border-transparent hover:border-b-primary ${selectedCurrency.name === currency.currencyName && 'border-b-secondary-100 rounded-none'}`}
         >
-          <ClickableComponent
-            type="button"
+          <span
             className="flex items-center gap-2 px-4 py-2"
-            onClick={() => currencyModalHandler(currency.currencyName)}
+            onClick={(e) => {
+              e.preventDefault();
+              currencyModalHandler(currency.currencyName);
+            }}
           >
-            {desktopModal && currency.currencyName}
+            {desktop && currency.currencyName}
             <Image
               src={currency.flag}
               alt={currency.currencyName}
             />
-          </ClickableComponent>
+          </span>
         </li>
       ))}
     </ul>

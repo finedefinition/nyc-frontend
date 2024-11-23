@@ -1,20 +1,17 @@
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import Menu from '@/components/SvgIcons/Menu';
 import Close from '@/components/SvgIcons/Close';
 
-type MenuAndCloseButtonProps = {
-  modal: string | null;
-};
-
-const MenuAndCloseButton = ({ modal }: MenuAndCloseButtonProps) => {
+const MenuAndCloseButton = () => {
+  const pathname = usePathname();
   const router = useRouter();
   const closeModal = () => {
     router.back();
   };
   return (
     <>
-      {modal === 'mobileMenu' ? (
+      {pathname.includes('menu') ? (
         <ClickableComponent
           type="button"
           onClick={closeModal}
@@ -22,7 +19,7 @@ const MenuAndCloseButton = ({ modal }: MenuAndCloseButtonProps) => {
           <Close />
         </ClickableComponent>
       ) : (
-        <ClickableComponent href="?modal=mobileMenu">
+        <ClickableComponent href="/menu">
           <Menu />
         </ClickableComponent>
       )}
