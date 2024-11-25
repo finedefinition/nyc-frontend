@@ -1,5 +1,6 @@
 import { YachtDetail } from '@/interfaces/yacht.interface';
 import { apiClient } from '@/utils/api/apiClient';
+import YachtPageSkeleton from '../Skeletons/YachtPageSkeleton';
 import ProductPage from './ProductPage';
 
 type YachtPageIdProps = {
@@ -10,9 +11,9 @@ const YachtPageId = async ({ id }: YachtPageIdProps) => {
   try {
     const yacht: YachtDetail = await apiClient.getYachtById(`/yachts/${id}`);
 
-    return <ProductPage { ...yacht } />;
+    return <ProductPage {...yacht} />;
   } catch (error) {
-    return <h3>Add yacht page sketelon here</h3>;
+    return <YachtPageSkeleton />;
   }
 };
 
