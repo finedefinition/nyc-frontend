@@ -1,4 +1,4 @@
-# Этап 1: Сборка приложения
+# Stage 1: Build the application
 FROM node:18-alpine AS builder
 
 ARG NEXT_PUBLIC_AWS_REGION
@@ -9,16 +9,16 @@ ARG NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
 
 WORKDIR /app
 
-# Копируем файлы зависимостей
+# Copy dependency files
 COPY package.json package-lock.json ./
 
-# Устанавливаем все зависимости (включая devDependencies)
+# Install dependencies including devDependencies
 RUN npm ci
 
-# Копируем исходный код приложения
+# Copy the source code
 COPY . .
 
-# Устанавливаем переменные среды для сборки
+# Set environment variables for the build
 ENV APP_NAME=$APP_NAME
 ENV NEXT_PUBLIC_AWS_REGION=$NEXT_PUBLIC_AWS_REGION
 ENV NEXT_PUBLIC_BUCKET_NAME=$NEXT_PUBLIC_BUCKET_NAME
@@ -26,23 +26,25 @@ ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 ENV NEXT_PUBLIC_AWS_ACCESS_KEY_ID=$NEXT_PUBLIC_AWS_ACCESS_KEY_ID
 ENV NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=$NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
 
-# Собираем приложение
+# Build the application
 RUN npm run build
 
-# Удаляем devDependencies после сборки
+# Remove devDependencies after build
 RUN npm prune --production
 
-# Этап 2: Создание финального образа
+# Stage 2: Create final image
 FROM node:18-alpine
 
 WORKDIR /app
 
-# Копируем только необходимые файлы из этапа сборки
+# Copy only necessary files from build stage
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
 
-# Устанавливаем переменные среды для запуска
+# Set environment variables for runtime
 ENV APP_NAME=$APP_NAME
 ENV NEXT_PUBLIC_AWS_REGION=$NEXT_PUBLIC_AWS_REGION
 ENV NEXT_PUBLIC_BUCKET_NAME=$NEXT_PUBLIC_BUCKET_NAME
@@ -52,5 +54,5 @@ ENV NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=$NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
 
 EXPOSE 3000
 
-# Запускаем приложение напрямую с помощью Node.js
-CMD ["node", "build/index.js"]
+# Start the application
+CMD ["npm", "start"]
