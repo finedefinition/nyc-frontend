@@ -30,19 +30,21 @@ ENV NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=$NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
 RUN npm run build
 
 # Remove devDependencies after build
-RUN npm prune --production
+RUN npm prune --omit=dev
 
-# Stage 2: Create final image
+# Stage 2: Create the final image
 FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy only necessary files from build stage
+# Copy only necessary files from the builder stage
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
+
+# If you have a 'public' directory, uncomment the following line
+# COPY --from=builder /app/public ./public
 
 # Set environment variables for runtime
 ENV APP_NAME=$APP_NAME
