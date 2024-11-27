@@ -43,9 +43,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.js ./
 
-# If you have a 'public' directory, uncomment the following line
-# COPY --from=builder /app/public ./public
-
 # Set environment variables for runtime
 ENV APP_NAME=$APP_NAME
 ENV NEXT_PUBLIC_AWS_REGION=$NEXT_PUBLIC_AWS_REGION
