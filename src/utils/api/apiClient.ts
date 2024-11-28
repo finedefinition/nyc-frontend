@@ -63,6 +63,14 @@ export const apiClient = {
     );
   },
   getYachtById: <T>(url: string) => request<T>(url),
+  // getYachtById: async (url: string) => {
+  //   try {
+  //     const yacht = await request(url);
+  //     return yacht;
+  //   } catch (error) {
+  //     return null;
+  //   }
+  // },
   sendMessageFromContactForm: <T>(url: string, data: any) =>
     request<T>(url, data, '', 'POST'),
 };

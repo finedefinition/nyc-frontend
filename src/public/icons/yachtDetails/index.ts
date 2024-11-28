@@ -1,0 +1,9 @@
+export { default as loa } from './loa.svg';
+export { default as beam } from './beam.svg';
+export { default as draft } from './draft.svg';
+export { default as cabin } from './cabin.svg';
+export { default as berth } from './berth.svg';
+export { default as shower } from './shower.svg';
+export { default as heads } from './heads.svg';
+export { default as kell } from './kell.svg';
+export { default as fuel } from './fuel.svg';
