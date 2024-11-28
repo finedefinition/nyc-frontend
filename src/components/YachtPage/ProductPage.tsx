@@ -59,7 +59,7 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
     <div className="w-full px-5 md:px-16 pb-4 md:pb-6 xl:pb-8">
       <div className="grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-12">
         <div className="xl:col-span-8 flex flex-col items-center lg:flex-row lg:justify-between">
-          <span className="text-center text-xl font-medium md:text-3xl font-baiJ">
+          <span className="text-center text-xl font-medium md:text-2xl font-baiJ">
             {`${yacht_make} ${yacht_model}, ${yacht_year}, ${yacht_country}, ${yacht_town}`}
           </span>
           <span>
@@ -103,7 +103,7 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
           </div>
         </div>
         <div className="xl:col-span-4">
-          <div className="md:border md:border-primary md:p-4 3xl:p-12 rounded-2xl max-w-[600px] mx-auto h-[500px]">
+          <div className="md:border md:border-primary md:p-4 3xl:p-12 rounded-2xl max-w-[600px] mx-auto h-[560px]">
             <h4 className="text-center xl:text-left pt-10 mb-8">Contact Us</h4>
             <ContactForm />
           </div>

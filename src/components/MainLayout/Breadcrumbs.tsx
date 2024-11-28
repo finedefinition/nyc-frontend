@@ -36,7 +36,7 @@ const Breadcrumb = () => {
       >
         <ClickableComponent
           href={href}
-          className={`text-black hover:text-secondary-100 transition ${isLastSegment ? 'text-primary pointer-events-none' : ''}`}
+          className={`text-primary hover:text-secondary-100 mr-4 transition ${isLastSegment ? 'text-grey-50 pointer-events-none' : ''}`}
         >
           {segment}
         </ClickableComponent>
