@@ -51,13 +51,6 @@ const NavbarLinks = () => {
         </ClickableComponent>
       </span>
       <ul className="flex justify-end items-center space-x-9">
-        <ClickableComponent
-          href="/contacts"
-          className="hidden xl:block"
-          variants={['link']}
-        >
-          Contacts
-        </ClickableComponent>
         <div className="flex space-x-2">
           <ClickableComponent
             href=""
@@ -72,6 +65,13 @@ const NavbarLinks = () => {
             <User />
           </ClickableComponent>
         </div>
+        <ClickableComponent
+          href="/contacts"
+          className="hidden xl:block"
+          variants={['link']}
+        >
+          Contacts
+        </ClickableComponent>
         <span className="hidden xl:block">
           <CurrencyDropdown />
         </span>

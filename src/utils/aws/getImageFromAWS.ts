@@ -1,6 +1,7 @@
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { CustomErrorClass } from '@/utils/error/CustomErrorClass';
+import { YachtImage } from '@/interfaces/yacht.interface';
 
 const s3 = new S3Client({
   region: process.env.NEXT_PUBLIC_AWS_REGION as string,
@@ -37,4 +38,12 @@ export async function fetchImgUrl(keyFromAws: string): Promise<string | null> {
     console.error('Unexpected error:', err);
     return null;
   }
+}
+
+export async function loadAllImagesFromAWS(images: YachtImage[]) {
+  const imagePromises = images.map((image) =>
+    fetchImgUrl(image.yacht_image_key)
+  );
+
+  return await Promise.all(imagePromises);
 }

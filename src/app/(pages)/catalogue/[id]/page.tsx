@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import YachtPageId from '@/components/YachtPage/YachtPageId';
+import { apiClient } from '@/utils/api/apiClient';
+import { YachtDetail } from '@/interfaces/yacht.interface';
 
 type Props = {
   params: {
@@ -10,8 +12,9 @@ type Props = {
 export async function generateMetadata({
   params: { id },
 }: Props): Promise<Metadata> {
+  const yacht: YachtDetail = await apiClient.getYachtById(`/yachts/${id}`);
   return {
-    title: `Yacht ${id} | Norse Yacht Co`,
+    title: `Yacht ${yacht.yacht_make} ${yacht.yacht_model} | Norse Yacht Co`,
   };
 }
 

@@ -3,7 +3,7 @@ import { useCurrency } from '@/context/CurrencyContext';
 
 type YachtPriceProps = {
   price: string;
-  old_price: string;
+  old_price?: string;
 };
 
 const priceToRender = (price: number, currRate = 1): string => {
@@ -12,13 +12,13 @@ const priceToRender = (price: number, currRate = 1): string => {
 
 const YachtPrice = ({ price, old_price }: YachtPriceProps) => {
   const { selectedCurrency, currencyRates } = useCurrency();
-  const showOldPrice = +old_price > +price;
+  const showOldPrice = +(old_price as string) > +price;
   const updatePrice = priceToRender(
     +price,
     currencyRates[selectedCurrency.name]
   );
   const updatePriceOld = priceToRender(
-    +old_price,
+    +(old_price as string),
     currencyRates[selectedCurrency.name]
   );
   return (

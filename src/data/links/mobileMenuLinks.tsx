@@ -15,12 +15,12 @@ export const mobileMenuLinks = [
     href: '/how-it-works',
   },
   {
-    text: 'Contacts',
-    href: '/contacts',
-  },
-  {
     text: 'My account',
     href: '',
+  },
+  {
+    text: 'Contacts',
+    href: '/contacts',
   },
   {
     text: <SplitCurrencyLink />,
