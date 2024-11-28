@@ -75,7 +75,7 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
           </p>
         </div>
         <div className="xl:col-span-8">
-          <div className="bg-yellow-600 h-[300px] md:h-[400px] lg:h-[700px] relative block w-full">
+          <div className="h-[300px] md:h-[400px] lg:h-[700px] relative block w-full">
             <ProductPageSlider images={images} />
           </div>
           <h4 className="text-center xl:text-left pt-10 mb-4">About</h4>

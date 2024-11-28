@@ -8,7 +8,7 @@ const DynamicNavbarLinks = dynamic(() => import('./NavbarLinks'), {
 
 const Navbar = () => (
   <nav className="relative z-20 grid grid-cols-[1fr_auto_1fr] gap-1 items-center pt-4 md:pt-6 xl:pt-8 px-5 md:px-16">
-    <Suspense fallback={<p className="relative z-20">loading...</p>}>
+    <Suspense fallback={null}>
       <DynamicNavbarLinks />
     </Suspense>
   </nav>

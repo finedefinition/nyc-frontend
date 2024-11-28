@@ -13,8 +13,6 @@ const YachtPageId = async ({ id }: YachtPageIdProps) => {
     const yacht: YachtDetail = await apiClient.getYachtById(`/yachts/${id}`);
     const imagesForSlider = await loadAllImagesFromAWS(yacht.yacht_images);
 
-    // console.log(imagesForSlider)
-
     return (
       <ProductPage
         yacht={yacht}
