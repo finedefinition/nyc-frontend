@@ -1,14 +1,10 @@
 'use client';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 import { YachtDetail } from '@/interfaces/yacht.interface';
-import {
-  yachtDetailsHelper,
-  // YachtDetailsType,
-} from '@/utils/yachtPage/yachtDetailsHelper';
 import ContactForm from '../MainPageContent/ContactSection/ContactForm';
 import ProductPageSlider from './ProductPageSlider';
+import YachtDetails from './YachtDetails';
 
 const DynamicYachtPrice = dynamic(
   () => import('../Catalogue/Card/YachtPrice'),
@@ -43,7 +39,7 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
     yacht_fuel_type,
   } = yacht;
 
-  const details = yachtDetailsHelper(
+  const yachtSpecifications = {
     yacht_loa,
     yacht_beam,
     yacht_draft,
@@ -52,8 +48,8 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
     yacht_shower,
     yacht_heads,
     yacht_keel_type,
-    yacht_fuel_type
-  );
+    yacht_fuel_type,
+  };
 
   return (
     <div className="w-full px-5 md:px-16 pb-4 md:pb-6 xl:pb-8">
@@ -80,24 +76,10 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
           </div>
           <h4 className="text-center xl:text-left pt-10 mb-4">About</h4>
           <div className="grid gap-4 2xl:grid-cols-[5fr_3fr]">
-            <p className="text-justify">{yacht_description}</p>
+            <p className="text-base text-justify">{yacht_description}</p>
             <div>
               <ul className="grid md:grid-cols-2 2xl:grid-cols-1">
-                {details.map(({ name, icon, value }, i) => (
-                  <li
-                    key={i}
-                    className="text-primary text-2xl font-semibold grid grid-cols-[1fr_8fr_6fr] gap-2 mb-4 items-center"
-                  >
-                    <Image
-                      src={icon}
-                      alt={name}
-                    />
-                    {name}
-                    <span className="text-black text-xl font-normal">
-                      {value}
-                    </span>
-                  </li>
-                ))}
+                <YachtDetails yachtSpecifications={yachtSpecifications} />
               </ul>
             </div>
           </div>

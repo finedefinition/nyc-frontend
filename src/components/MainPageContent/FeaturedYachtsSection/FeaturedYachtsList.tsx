@@ -9,13 +9,12 @@ const FEATURED_YACHT_COUNT = 3;
 
 const FeaturedYachtsList = async () => {
   try {
-    const yachts: Yacht[] = await apiClient.getFeaturedYachts('/yachts');
-    yachts.sort(() => Math.random() - 0.5);
+    const featuredYachts: Yacht[] =
+      await apiClient.getFeaturedYachts('/yachts/featured');
 
-    const visibleYachts = yachts.slice(0, FEATURED_YACHT_COUNT);
     return (
       <>
-        {visibleYachts.map((yacht) => (
+        {featuredYachts.map((yacht) => (
           <Card
             key={yacht.yacht_id}
             yacht={yacht}

@@ -24,17 +24,20 @@ export interface YachtImage {
   yacht_image_index: number;
 }
 
-export interface YachtDetail extends Yacht {
+export interface YachtSpecifications {
   yacht_loa: number;
   yacht_beam: number;
   yacht_draft: number;
-  yacht_keel_type: string;
-  yacht_fuel_type: string;
-  yacht_images: YachtImage[];
   yacht_cabin: number;
   yacht_berth: number;
   yacht_heads: number;
   yacht_shower: number;
+  yacht_keel_type: string;
+  yacht_fuel_type: string;
+}
+
+export interface YachtDetail extends Yacht, YachtSpecifications {
+  yacht_images: YachtImage[];
   yacht_description: string;
   yacht_owner_first_name: string;
   yacht_owner_last_name: string;
