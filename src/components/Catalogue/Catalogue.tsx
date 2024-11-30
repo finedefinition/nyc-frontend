@@ -13,10 +13,26 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     page = '1',
     orderBy = 'asc',
     sortBy = 'yacht_price',
+    minPrice = '',
+    maxPrice = '',
+    make = '',
+    model = '',
+    country = '',
   } = searchParams || {};
 
+  const params = new URLSearchParams({
+    page,
+    orderBy,
+    sortBy,
+    minPrice,
+    maxPrice,
+    make,
+    model,
+    country,
+  });
+
   const { pagination, yachts } = await apiClient.getYachtsWithPagination(
-    `/yachts?page=${page}&orderBy=${orderBy}&sortBy=${sortBy}`
+    `/yachts?${params.toString()}`
   );
 
   return (

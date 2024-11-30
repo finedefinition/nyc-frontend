@@ -1,68 +1,61 @@
 import { StaticImageData } from 'next/image';
 import * as icons from '@/public/icons/yachtDetails';
+import { YachtSpecifications } from '@/interfaces/yacht.interface';
 
-export interface YachtDetailsType {
+type YachtDetailsType = {
   name: string;
   icon: StaticImageData;
   value: string | number;
-}
+};
 
 export const yachtDetailsHelper = (
-  yacht_loa: number,
-  yacht_beam: number,
-  yacht_draft: number,
-  yacht_cabin: number,
-  yacht_berth: number,
-  yacht_shower: number,
-  yacht_heads: number,
-  yacht_keel_type: string,
-  yacht_fuel_type: string
+  yacht: YachtSpecifications
 ): YachtDetailsType[] => {
   return [
     {
       name: 'Length Overall',
       icon: icons.loa,
-      value: `${yacht_loa} feet`,
+      value: `${yacht.yacht_loa} feet`,
     },
     {
       name: 'Beam',
       icon: icons.beam,
-      value: `${yacht_beam} feet`,
+      value: `${yacht.yacht_beam} feet`,
     },
     {
       name: 'Draft',
       icon: icons.draft,
-      value: `${yacht_draft} feet`,
+      value: `${yacht.yacht_draft} feet`,
     },
     {
       name: 'Cabin',
       icon: icons.cabin,
-      value: yacht_cabin,
+      value: yacht.yacht_cabin,
     },
     {
       name: 'Berth',
       icon: icons.berth,
-      value: yacht_berth,
+      value: yacht.yacht_berth,
     },
     {
       name: 'Shower',
       icon: icons.shower,
-      value: yacht_shower,
+      value: yacht.yacht_shower,
     },
     {
       name: 'Heads',
       icon: icons.heads,
-      value: yacht_heads,
+      value: yacht.yacht_heads,
     },
     {
       name: 'Kell Type',
       icon: icons.kell,
-      value: yacht_keel_type,
+      value: yacht.yacht_keel_type,
     },
     {
       name: 'Fuel Type',
       icon: icons.fuel,
-      value: yacht_fuel_type,
+      value: yacht.yacht_fuel_type,
     },
   ];
 };

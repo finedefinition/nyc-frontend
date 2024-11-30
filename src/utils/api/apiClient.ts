@@ -17,7 +17,8 @@ async function request<T>(
     const options: RequestInit = {
       method,
       headers: createHeaders(tokenUser, method),
-      cache: 'no-store',
+      next: { revalidate: 0 },
+      // cache: 'no-store',
     };
 
     if (data) {
@@ -56,21 +57,9 @@ export const apiClient = {
       return { pagination: {}, yachts: [] };
     }
   },
-  getFeaturedYachts: async (url: string) => {
-    const data = await request<{ yachts: Yacht[] }>(url);
-    return data.yachts.filter(
-      (yacht) => yacht.yacht_top || yacht.yacht_hot_price
-    );
-  },
+  getFeaturedYachts: <T>(url: string) => request<T>(url),
   getYachtById: <T>(url: string) => request<T>(url),
-  // getYachtById: async (url: string) => {
-  //   try {
-  //     const yacht = await request(url);
-  //     return yacht;
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // },
   sendMessageFromContactForm: <T>(url: string, data: any) =>
     request<T>(url, data, '', 'POST'),
+  getAllCountries: <T>(url: string) => request<T>(url),
 };
