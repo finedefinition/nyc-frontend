@@ -59,7 +59,7 @@ const ProductPageSlider = ({ images }: ProductCardSliderProps) => {
               sizes="25vw"
               src={img as string}
               alt="vessel"
-              className="w-full h-1/5 object-cover rounded-3xl py-3"
+              className="w-full h-full object-cover rounded-3xl py-3"
             />
           </SwiperSlide>
         ))}
