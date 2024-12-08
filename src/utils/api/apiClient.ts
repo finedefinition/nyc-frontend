@@ -3,10 +3,11 @@ import { Yacht } from '@/interfaces/yacht.interface';
 import { PaginationOptions } from '@/interfaces/pagination.interface';
 import { CustomErrorClass } from '../error/CustomErrorClass';
 import { createHeaders } from './createHeaders';
+// import { wait } from './getAllCountriesAndTowns';
 
 type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
-async function request<T>(
+export async function request<T>(
   url: string,
   // options?: any,
   data: any = null,
@@ -46,6 +47,7 @@ async function request<T>(
 
 export const apiClient = {
   getYachtsWithPagination: async (url: string) => {
+    // await wait(3000);
     try {
       const { pagination, yachts } = await request<{
         pagination: PaginationOptions;
