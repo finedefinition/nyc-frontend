@@ -25,7 +25,7 @@ const ProductPageSlider = ({ images }: ProductCardSliderProps) => {
         thumbs={{
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
-        className="relative block h-4/5 w-full"
+        className="relative block h-4/5 w-full mb-4"
         grabCursor={true}
       >
         {images.map((img, index) => (
@@ -59,7 +59,7 @@ const ProductPageSlider = ({ images }: ProductCardSliderProps) => {
               sizes="25vw"
               src={img as string}
               alt="vessel"
-              className="w-full h-full object-cover rounded-3xl py-3"
+              className="w-full h-full object-cover rounded-lg"
             />
           </SwiperSlide>
         ))}
