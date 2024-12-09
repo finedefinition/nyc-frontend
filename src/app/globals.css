@@ -72,9 +72,9 @@
 }
 
 .swiper-thumbs .swiper-slide-thumb-active.swiper-slide-fully-visible {
-  opacity: 1;
+  @apply border-2 border-secondary-100 rounded-lg;
 }
 
 .swiper-thumbs .swiper-slide {
-  opacity: 0.4;
+  @apply border-2 border-transparent rounded-lg;
 }
