@@ -78,3 +78,7 @@
 .swiper-thumbs .swiper-slide {
   @apply border-2 border-transparent rounded-lg;
 }
+
+.ant-select-selection-item {
+  @apply text-grey-100;
+}

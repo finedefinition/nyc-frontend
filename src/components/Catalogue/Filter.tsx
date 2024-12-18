@@ -1,69 +1,69 @@
 'use client';
-// import { useState } from 'react';
-// import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { Divider } from 'antd';
 import { Country } from '@/interfaces/country.interface';
-import FilterIcon from '../SvgIcons/Filter';
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
+import { Town } from '@/interfaces/town.interface';
+import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import DropdownWrapper from '../Shared/DropdownWrapper';
-import CountryDropDown from './FilterDropDown/CountryDropDown';
+import FilterIcon from '../SvgIcons/Filter';
+import CountrySelect from './FilterDropDown/CountrySelect';
+import TownSelect from './FilterDropDown/TownSelect';
 
 type FilterProps = {
   filterParams: {
     countries: Country[];
+    towns: Town[];
   };
 };
 
 const Filter = ({ filterParams }: FilterProps) => {
+  const router = useRouter();
+
+  const resetFilter = () => {
+    'bla-bla-bla';
+    router.push('/catalogue');
+  };
   return (
     <DropdownWrapper>
       {(isOpen, toggleDropdown) => (
         <>
           <ClickableComponent
             type="button"
+            className="flex space-x-1 items-center"
             onClick={toggleDropdown}
             aria-expanded={isOpen}
-            scroll={false}
           >
             <div className="flex space-x-2">
               <span className="hidden sm:flex">Filter</span> <FilterIcon />
             </div>
           </ClickableComponent>
           {isOpen && (
-            <ul className="fixed right-0 w-80 bg-white border borber-grey-100 mt-1 shadow-lg z-10 p-6 rounded-2xl space-y-8 animate-slide-down">
-              <li>
-                <CountryDropDown countries={filterParams.countries} />
-              </li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-              <li>2</li>
-            </ul>
+            <div className="absolute w-[360px] h-96 left-0 bg-white border borber-grey-100 mt-1 shadow-lg z-10 p-6 rounded-2xl space-y-8 animate-slide-down">
+              {/* <p className="text-base text-primary">Country</p> */}
+              <CountrySelect
+                countries={filterParams.countries}
+                resetFilter={resetFilter}
+              />
+              <Divider style={{ borderColor: '#d9e2eb' }} />
+              <p className="text-base text-primary">Town</p>
+              <TownSelect towns={filterParams.towns} />
+              <div className="flex justify-between">
+                <ClickableComponent
+                  type="button"
+                  variants={['primary', 'button']}
+                  onClick={resetFilter}
+                >
+                  Reset
+                </ClickableComponent>
+                <ClickableComponent
+                  type="button"
+                  variants={['primary', 'button']}
+                  onClick={toggleDropdown}
+                >
+                  Apply
+                </ClickableComponent>
+              </div>
+            </div>
           )}
         </>
       )}

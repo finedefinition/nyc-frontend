@@ -1,10 +1,7 @@
-// import { Suspense } from 'react';
-// import { headers } from 'next/headers';
-// import { revalidatePath } from 'next/cache';
 import { apiClient } from '@/utils/api/apiClient';
-import { allCountriees } from '@/utils/filter/countries';
+import { apiFilter } from '@/utils/api/apiFilter';
 import { Country } from '@/interfaces/country.interface';
-// import Loading from '@/app/(pages)/catalogue/loading';
+import { Town } from '@/interfaces/town.interface';
 import CatalogueList from './CatalogueList';
 import Pagination from './Pagination/Pagination';
 import SortingBy from './SortingBy';
@@ -24,9 +21,10 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     make = '',
     model = '',
     country = '',
+    town = '',
   } = searchParams || {};
 
-  const params = new URLSearchParams({
+  const paramsObject = {
     page,
     orderBy,
     sortBy,
@@ -35,20 +33,22 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     make,
     model,
     country,
-  });
+    town,
+  };
+
+  const filteredParams = Object.fromEntries(
+    Object.entries(paramsObject).filter(([, value]) => value)
+  );
+
+  const params = new URLSearchParams(filteredParams);
 
   const { pagination, yachts } = await apiClient.getYachtsWithPagination(
     `/yachts?${params.toString()}`
   );
 
-  // console.log(!!headers().get('accept')?.includes('text/html'));
-
-  // const x = !!headers().get('accept')?.includes('text/html');
-
-  // revalidatePath(`catalogue?${params.toString()}`);
-
   const filterParams = {
-    countries: (await allCountriees()) as Country[],
+    countries: (await apiFilter.getAllCoutries('/countries')) as Country[],
+    towns: (await apiFilter.getAllTowns('/towns')) as Town[],
   };
 
   return (
@@ -63,16 +63,7 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
         </div>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-8 gap-y-10 px-5 md:px-16">
-        {/* <Suspense fallback={<Loading />}> */}
         <CatalogueList yachts={yachts} />
-        {/* </Suspense> */}
-        {/* {x ? (
-          <Suspense fallback={<Loading />}>
-            <CatalogueList yachts={yachts} />
-          </Suspense>
-        ) : (
-          <CatalogueList yachts={yachts} />
-        )} */}
       </div>
       <div className="px-5 md:px-16 pt-10 pb-10 xl:pb-20 mx-auto">
         <Pagination pagination={pagination} />
