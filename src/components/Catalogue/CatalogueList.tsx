@@ -1,5 +1,3 @@
-// 'use client';
-import React from 'react';
 import CardSkeleton from '@/components/Skeletons/CardSkeleton';
 import { Yacht } from '@/interfaces/yacht.interface';
 import Card from './Card/Card';
@@ -10,8 +8,8 @@ type CatalogPageProps = {
   yachts: Yacht[];
 };
 
-const CatalogueList = ({ yachts }: CatalogPageProps) =>
-  yachts.length > 0 ? (
+const CatalogueList = ({ yachts }: CatalogPageProps) => {
+  return yachts.length > 0 ? (
     <>
       {yachts.map((yacht) => (
         <Card
@@ -27,5 +25,6 @@ const CatalogueList = ({ yachts }: CatalogPageProps) =>
       ))}
     </>
   );
+};
 
 export default CatalogueList;

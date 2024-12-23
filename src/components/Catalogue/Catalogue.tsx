@@ -1,4 +1,7 @@
 import { apiClient } from '@/utils/api/apiClient';
+import { apiFilter } from '@/utils/api/apiFilter';
+import { Country } from '@/interfaces/country.interface';
+import { Town } from '@/interfaces/town.interface';
 import CatalogueList from './CatalogueList';
 import Pagination from './Pagination/Pagination';
 import SortingBy from './SortingBy';
@@ -18,9 +21,10 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     make = '',
     model = '',
     country = '',
+    town = '',
   } = searchParams || {};
 
-  const params = new URLSearchParams({
+  const paramsObject = {
     page,
     orderBy,
     sortBy,
@@ -29,11 +33,23 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
     make,
     model,
     country,
-  });
+    town,
+  };
+
+  const filteredParams = Object.fromEntries(
+    Object.entries(paramsObject).filter(([, value]) => value)
+  );
+
+  const params = new URLSearchParams(filteredParams);
 
   const { pagination, yachts } = await apiClient.getYachtsWithPagination(
     `/yachts?${params.toString()}`
   );
+
+  const filterParams = {
+    countries: (await apiFilter.getAllCoutries('/countries')) as Country[],
+    towns: (await apiFilter.getAllTowns('/towns')) as Town[],
+  };
 
   return (
     <>
@@ -42,7 +58,7 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
           <h4>Catalogue</h4>
         </div>
         <div className="flex space-x-2 sm:space-x-4 md:space-x-6 3xl:space-x-10">
-          <Filter />
+          <Filter filterParams={filterParams} />
           <SortingBy />
         </div>
       </div>
