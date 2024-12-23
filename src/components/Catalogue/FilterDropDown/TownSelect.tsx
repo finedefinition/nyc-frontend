@@ -11,6 +11,7 @@ const TownSelect = ({ towns }: { towns: Town[] }) => {
   let visibleTowns = towns;
 
   const selectedCountry = searchParams.get('country');
+  const selectedTown = searchParams.get('town');
 
   if (selectedCountry) {
     visibleTowns = towns.filter(
@@ -25,21 +26,32 @@ const TownSelect = ({ towns }: { towns: Town[] }) => {
     router.push(`/catalogue?${params.toString()}`);
   };
   return (
-    <Select
-      placeholder="Select town"
-      className="w-full"
-      size="large"
-      onChange={handleSelect}
-    >
-      {visibleTowns.map((town) => (
-        <Option
-          key={town.town_name}
-          value={town.town_name}
-        >
-          {town.town_name}
-        </Option>
-      ))}
-    </Select>
+    <>
+      <label
+        className="text-base text-primary"
+        htmlFor="townSelect"
+      >
+        Town
+      </label>
+      <Select
+        id="townSelect"
+        placeholder="Select town"
+        className="w-full"
+        size="large"
+        value={selectedTown}
+        onChange={handleSelect}
+        autoFocus={false}
+      >
+        {visibleTowns.map((town) => (
+          <Option
+            key={town.town_name}
+            value={town.town_name}
+          >
+            {town.town_name}
+          </Option>
+        ))}
+      </Select>
+    </>
   );
 };
 

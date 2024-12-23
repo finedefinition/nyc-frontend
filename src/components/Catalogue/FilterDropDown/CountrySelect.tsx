@@ -7,14 +7,13 @@ import { Country } from '@/interfaces/country.interface';
 
 type CountrySelectType = {
   countries: Country[];
-  resetFilter: () => void;
 };
 
-const CountrySelect = ({ countries, resetFilter }: CountrySelectType) => {
+const CountrySelect = ({ countries }: CountrySelectType) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // const selectedCountry = searchParams.get('country') || 'Select country';
+  const selectedCountry = searchParams.get('country');
 
   const handleSelect = (option: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -27,18 +26,16 @@ const CountrySelect = ({ countries, resetFilter }: CountrySelectType) => {
     <>
       <label
         className="text-base text-primary"
-        htmlFor="mySelect"
+        htmlFor="countrySelect"
       >
         Country
       </label>
       <Select
-        id="mySelect"
-        allowClear
-        onClear={resetFilter}
-        // placeholder={selectedCountry}
+        id="countrySelect"
         placeholder="Select country"
         className="w-full"
         size="large"
+        value={selectedCountry}
         onChange={handleSelect}
         autoFocus={false}
       >

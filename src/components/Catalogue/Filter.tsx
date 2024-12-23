@@ -20,7 +20,6 @@ const Filter = ({ filterParams }: FilterProps) => {
   const router = useRouter();
 
   const resetFilter = () => {
-    'bla-bla-bla';
     router.push('/catalogue');
   };
   return (
@@ -39,13 +38,10 @@ const Filter = ({ filterParams }: FilterProps) => {
           </ClickableComponent>
           {isOpen && (
             <div className="absolute w-[360px] h-96 left-0 bg-white border borber-grey-100 mt-1 shadow-lg z-10 p-6 rounded-2xl space-y-8 animate-slide-down">
-              {/* <p className="text-base text-primary">Country</p> */}
               <CountrySelect
                 countries={filterParams.countries}
-                resetFilter={resetFilter}
               />
               <Divider style={{ borderColor: '#d9e2eb' }} />
-              <p className="text-base text-primary">Town</p>
               <TownSelect towns={filterParams.towns} />
               <div className="flex justify-between">
                 <ClickableComponent
