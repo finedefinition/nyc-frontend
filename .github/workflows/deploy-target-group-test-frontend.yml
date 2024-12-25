@@ -30,8 +30,14 @@ jobs:
 
       - name: Login to Amazon ECR
         run: |
+          echo "--- ENV VARIABLES ---"
+          echo "AWS_REGION=${{ env.AWS_REGION }}"
+          echo "AWS_ACCOUNT=${{ env.AWS_ACCOUNT }}"
+          echo "ECR_PRIVATE_REPOSITORY=${{ env.ECR_PRIVATE_REPOSITORY }}"
+          echo "--- AWS LOGIN ---"
           aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
-          docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
+          docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com || exit 1
+          echo "AWS Login completed successfully"
 
       - name: Set up Next.js (penultimate version)
         uses: actions/setup-node@v3
@@ -50,11 +56,13 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           args: |
-            NEXT_PUBLIC_AWS_REGION=${{ secrets.AWS_REGION }}
-            NEXT_PUBLIC_BUCKET_NAME=${{ secrets.BUCKET_NAME }}
-            NEXT_PUBLIC_SERVER_URL=${{ secrets.SERVER_URL }}
+            NEXT_PUBLIC_AWS_REGION=${{ vars.AWS_REGION }}
+            NEXT_PUBLIC_BUCKET_NAME=${{ vars.BUCKET_NAME }}
+            NEXT_PUBLIC_SERVER_URL=${{ vars.SERVER_URL }}
             NEXT_PUBLIC_AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}
             NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}
+          outputs:
+            logs: output
 
   deploy:
     needs: build-and-push
@@ -66,21 +74,25 @@ jobs:
 
       - name: Set up utility functions
         run: |
+          echo "Setting up utility functions"
           cat <<- 'EOF' > /tmp/utils.sh
           #!/bin/bash
 
           run_command() {
             local command="$1"
             local instance="$2"
+            echo "Running command: $command on instance: $instance"
             command_id=$(aws ssm send-command \
               --instance-ids "$instance" \
               --document-name "AWS-RunShellScript" \
               --parameters '{"commands": ["'"$command"'"]}' \
               --query "Command.CommandId" \
               --output text)
+            echo "Command ID: $command_id"
             aws ssm wait command-executed \
               --command-id "$command_id" \
               --instance-id "$instance"
+            echo "Command executed successfully"
           }
           export -f run_command
           EOF
@@ -88,6 +100,7 @@ jobs:
       - name: Get EC2 instances in Target Group
         id: get_instances
         run: |
+          echo "Fetching instances from target group"
           instances=$(aws elbv2 describe-target-health --target-group-arn ${{ env.YACHT_FRONTEND_TEST_TG_ARN }} --query 'TargetHealthDescriptions[*].Target.Id' --output text)
           echo "Instances found: $instances"
           echo "instances=$instances" >> $GITHUB_OUTPUT
@@ -95,6 +108,7 @@ jobs:
       - name: Pull the latest Docker image
         run: |
           source /tmp/utils.sh
+          echo "Pulling latest Docker image"
           instances="${{ steps.get_instances.outputs.instances }}"
           for instance in $instances; do
             run_command "docker pull ${{ env.AWS_ACCOUNT }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_PRIVATE_REPOSITORY }}:${{ github.ref_name }}-latest" "$instance"
@@ -103,6 +117,7 @@ jobs:
       - name: Stop running containers
         run: |
           source /tmp/utils.sh
+          echo "Stopping running containers"
           instances="${{ steps.get_instances.outputs.instances }}"
           for instance in $instances; do
             run_command "cd /home/ec2-user/app && docker-compose down" "$instance"
@@ -111,6 +126,7 @@ jobs:
       - name: Start containers
         run: |
           source /tmp/utils.sh
+          echo "Starting containers"
           instances="${{ steps.get_instances.outputs.instances }}"
           for instance in $instances; do
             run_command "cd /home/ec2-user/app && docker-compose up -d" "$instance"
@@ -119,6 +135,7 @@ jobs:
       - name: Remove unused Docker images
         run: |
           source /tmp/utils.sh
+          echo "Removing unused Docker images"
           instances="${{ steps.get_instances.outputs.instances }}"
           for instance in $instances; do
             run_command "docker image prune -f" "$instance"
