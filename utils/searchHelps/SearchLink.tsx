@@ -8,8 +8,8 @@ type Props = Omit<React.ComponentProps<typeof Link>, 'href'> & {
 };
 
 export const SearchLink: React.FC<Props> = ({
-  children, // this is the content between the open and closing tags
-  params, // the params to be updated in the `search`
+  children, // this is the content between open and closing tags
+  params, // the params to be updated in `search`
   ...props // all usual Link props like `className`, `style` and `id`
 }) => {
   const searchParams = useSearchParams();
