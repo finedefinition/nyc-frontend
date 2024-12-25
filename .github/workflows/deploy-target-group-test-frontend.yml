@@ -55,7 +55,7 @@ jobs:
             ${{ env.AWS_ACCOUNT }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_PRIVATE_REPOSITORY }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          args: |
+          build-args: |
             NEXT_PUBLIC_AWS_REGION=${{ vars.AWS_REGION }}
             NEXT_PUBLIC_BUCKET_NAME=${{ vars.BUCKET_NAME }}
             NEXT_PUBLIC_SERVER_URL=${{ vars.SERVER_URL }}
