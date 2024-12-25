@@ -3,7 +3,7 @@ name: Build & Deploy to Target Group YACHT-FRONTEND-PRODUCTION
 on:
   push:
     branches:
-      - test
+      - main
 
 env:
   AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
