@@ -23,7 +23,6 @@
     "@react-google-maps/api": "^2.20.3",
     "antd": "^5.22.4",
     "antd-style": "^3.7.1",
-    "aws-amplify": "^6.8.1",
     "formik": "^2.4.6",
     "next": "14.2.15",
     "react": "^18",
