@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 //Move server url to .env file
-// const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL; done
 
 export function wait(delay: number) {
   return new Promise((resolve) => {
@@ -49,7 +49,8 @@ function request<T>(
 }
 
 export const client = {
-  sendMessageFromForm: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
+  sendMessageFromForm: <T>(url: string, data: any) =>
+    request<T>(url, data, '', 'POST'),
   userSignUp: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
   userSignIn: <T>(url: string, data: any) => request<T>(url, data, '', 'POST'),
   confirmUser: <T>(url: string) => request<T>(url, 'POST'),
