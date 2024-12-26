@@ -10,8 +10,8 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
   AWS_REGION: ${{ vars.AWS_REGION }}
-  ECR_PRIVATE_REPOSITORY: ${{ vars.ECR_PRIVATE_REPOSITORY }}
-  YACHT_FRONTEND_TEST_TG_ARN: ${{ vars.YACHT_FRONTEND_TEST_TG_ARN }}
+  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+  TARGET_GROUP_ARN: ${{ vars[format('TARGET_GROUP_ARN_{0}', github.ref_name)] }}
   DOCKER_BUILDKIT: 1
   BUILDKIT_PROGRESS: plain
 
@@ -33,7 +33,7 @@ jobs:
           echo "--- ENV VARIABLES ---"
           echo "AWS_REGION=${{ env.AWS_REGION }}"
           echo "AWS_ACCOUNT=${{ env.AWS_ACCOUNT_ID }}"
-          echo "ECR_PRIVATE_REPOSITORY=${{ env.ECR_PRIVATE_REPOSITORY }}"
+          echo "ECR_PRIVATE_REPOSITORY=${{ env.ECR_REPOSITORY }}"
           echo "--- AWS LOGIN ---"
           aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
           docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
@@ -51,17 +51,17 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_PRIVATE_REPOSITORY }}:${{ github.ref_name }}-latest
-            ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_PRIVATE_REPOSITORY }}:latest
+            ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ github.ref_name }}-latest
+            ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             NEXT_PUBLIC_AWS_REGION=${{ vars.AWS_REGION }}
             NEXT_PUBLIC_BUCKET_NAME=${{ vars.BUCKET_NAME }}
-            NEXT_PUBLIC_SERVER_URL=${{ vars.SERVER_URL }}
+            NEXT_PUBLIC_SERVER_URL=${{ vars[format('SERVER_URL_{0}', github.ref_name)] }}
             NEXT_PUBLIC_AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
             NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            NEXT_PUBLIC_MAP_API_KEY=${{ vars.GOOGLE_MAP_API_KEY }}
+            NEXT_PUBLIC_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }}
 
   deploy:
     needs: build-and-push
@@ -100,7 +100,7 @@ jobs:
         id: get_instances
         run: |
           echo "Fetching instances from target group"
-          instances=$(aws elbv2 describe-target-health --target-group-arn ${{ env.YACHT_FRONTEND_TEST_TG_ARN }} --query 'TargetHealthDescriptions[*].Target.Id' --output text)
+          instances=$(aws elbv2 describe-target-health --target-group-arn ${{ env.TARGET_GROUP_ARN }} --query 'TargetHealthDescriptions[*].Target.Id' --output text)
           echo "Instances found: $instances"
           echo "instances=$instances" >> $GITHUB_OUTPUT
 
