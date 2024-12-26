@@ -1,7 +1,7 @@
 # -------------------------------------------------------------
 # --- Stage 1: Build the application ---
 # -------------------------------------------------------------
-FROM node:18-alpine AS builder
+FROM node:23-alpine3.20 AS builder
 
 WORKDIR /app
 
@@ -30,13 +30,15 @@ RUN npm run build
 # -------------------------------------------------------------
 # --- Stage 2: Production container ---
 # -------------------------------------------------------------
-FROM node:18-alpine AS runner
+FROM node:23-alpine3.20 AS runner
+RUN node -v    # Посмотреть версию Node
+RUN npm -v     # Посмотреть версию npm
 
 WORKDIR /app
 
 COPY --from=builder /app/package*.json ./
 
-RUN npm ci
+RUN npm ci --omit=dev
 
 ARG NEXT_PUBLIC_AWS_REGION
 ARG NEXT_PUBLIC_BUCKET_NAME
