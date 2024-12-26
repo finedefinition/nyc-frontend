@@ -36,7 +36,7 @@ WORKDIR /app
 
 COPY --from=builder /app/package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci
 
 ARG NEXT_PUBLIC_AWS_REGION
 ARG NEXT_PUBLIC_BUCKET_NAME
