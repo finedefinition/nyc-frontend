@@ -16,7 +16,7 @@ const CopyRight = () => (
       fontSize="16"
       fill="#C6C7CC"
     >
-      Norse Yachts Co. All rights reserved.
+      Norse Yachts Co. v.1.0.3.
     </text>
   </svg>
 );
