@@ -110,7 +110,7 @@ jobs:
           echo "Pulling latest Docker image"
           instances="${{ steps.get_instances.outputs.instances }}"
           for instance in $instances; do
-            run_command "docker pull ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_PRIVATE_REPOSITORY }}:${{ github.ref_name }}-latest" "$instance"
+            run_command "docker pull ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ github.ref_name }}-latest" "$instance"
           done
 
       - name: Stop running containers
