@@ -5,23 +5,28 @@ import { YachtDetail } from '@/interfaces/yacht.interface';
 import ProductPage from '@/components/YachtPage/ProductPage';
 import YachtPageSkeleton from '@/components/Skeletons/YachtPageSkeleton';
 
-type Props = {
+type YachtPageProps = {
   params: {
     id: string;
   };
 };
 
+type MetadataProps = {
+  searchParams?: { [key: string]: string };
+};
+
 export async function generateMetadata({
-  params: { id },
-}: Props): Promise<Metadata> {
-  const yacht: YachtDetail = await apiClient.getYachtById(`/yachts/${id}`);
-  const title = `Yacht ${yacht.yacht_make} ${yacht.yacht_model} | Norse Yacht Co`;
+  searchParams,
+}: MetadataProps): Promise<Metadata> {
+  const name = searchParams?.name;
+  const normalizeName = name?.replace(/_/g, ' ');
+  const title = `Yacht ${normalizeName} | Norse Yacht Co`;
   return {
     title,
   };
 }
 
-const YachtPage = async ({ params: { id } }: Props) => {
+const YachtPage = async ({ params: { id } }: YachtPageProps) => {
   try {
     const yacht: YachtDetail = await apiClient.getYachtById(`/yachts/${id}`);
     const imagesForSlider = await loadAllImagesFromAWS(yacht.yacht_images);
