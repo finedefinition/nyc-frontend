@@ -44,7 +44,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/src/public ./public
+
 
 ARG NEXT_PUBLIC_AWS_REGION
 ARG NEXT_PUBLIC_BUCKET_NAME
