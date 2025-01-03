@@ -31,7 +31,7 @@ const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const decodedToken = jwtDecode<DecodedTokenType>(
       (token as { token: string }).token
     );
-    const fullName = `${decodedToken.given_name} ${decodedToken.family_name}`;
+    const fullName = `${decodedToken.given_name} ${decodedToken.family_name[0]}.`;
     Cookies.set('token', JSON.stringify(decodedToken), {
       expires: new Date(decodedToken.exp * 1000),
     });
@@ -69,6 +69,7 @@ const SignInForm = () => {
         form={form}
         layout="vertical"
         size="large"
+        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"

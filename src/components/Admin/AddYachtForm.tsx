@@ -1,9 +1,20 @@
 'use client';
-import type { FormProps } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { useState } from 'react';
+// import type { FormProps } from 'antd';
+import { AutoComplete, Button, Checkbox, Form, Input, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import type { UploadFile } from 'antd/es/upload/interface';
+import { TransformedObject } from '@/utils/addYachtForm/autocompleteHelper';
 
 const { Item } = Form;
 const { TextArea } = Input;
+
+type AddYachtFormProps = {
+  filterParams: {
+    countries: TransformedObject[];
+    towns: TransformedObject[];
+  };
+};
 
 type FieldType = {
   yacht_vat: boolean;
@@ -29,24 +40,55 @@ type FieldType = {
   yacht_description: string;
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-  console.log('Success:', values);
-};
+// const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+//   console.log('Success:', values);
+// };
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
-
-const AddYachtForm = () => {
+const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const handleUploadChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    setFileList(fileList);
+  };
+
+  const handleSubmit = async (values: FieldType) => {
+    const formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      formData.append(key, (values as any)[key]);
+    });
+    fileList.forEach((file, i) => {
+      if (i === 0) {
+        formData.append('mainImage', file.originFileObj as Blob);
+      } else {
+        formData.append('additionalImages', file.originFileObj as Blob);
+      }
+    });
+
+    try {
+      const response = await fetch('https://api.norseyacht.com/yachts', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log('Form submitted successfully');
+      } else {
+        console.error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+
   return (
     <div className="flex w-full justify-between items-center px-5 md:px-16 py-4 md:py-6 xl:py-8">
       <Form
         form={form}
         layout="inline"
         size="large"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        onFinish={handleSubmit}
+        // onFinish={onFinish}
         autoComplete="off"
       >
         <Item<FieldType>
@@ -87,7 +129,15 @@ const AddYachtForm = () => {
           label="Country"
           style={{ marginBottom: '8px' }}
         >
-          <Input />
+          <AutoComplete
+            style={{ width: 200 }}
+            options={filterParams.countries}
+            placeholder="Country"
+            filterOption={(inputValue, option) =>
+              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+          />
         </Item>
 
         <Item<FieldType>
@@ -95,7 +145,15 @@ const AddYachtForm = () => {
           label="City"
           style={{ marginBottom: '8px' }}
         >
-          <Input />
+          <AutoComplete
+            style={{ width: 200 }}
+            options={filterParams.towns}
+            placeholder="Country"
+            filterOption={(inputValue, option) =>
+              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+          />
         </Item>
 
         <Item<FieldType>
@@ -216,6 +274,18 @@ const AddYachtForm = () => {
 "
         >
           <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
+        </Item>
+
+        <Item label="Upload Files">
+          <Upload
+            name="files"
+            fileList={fileList}
+            beforeUpload={() => false} // Відключає автоматичне завантаження
+            onChange={handleUploadChange}
+            multiple
+          >
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
         </Item>
 
         <Item label={null}>

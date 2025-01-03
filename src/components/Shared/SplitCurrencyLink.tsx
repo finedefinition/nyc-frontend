@@ -5,9 +5,7 @@ import { useCurrency } from '@/context/CurrencyContext';
 const SplitCurrencyLink = () => {
   const { selectedCurrency } = useCurrency();
   return (
-    <Suspense fallback={null}>
-      {`Split currency / ${selectedCurrency.name}`}
-    </Suspense>
+    <Suspense fallback={null}>{`Currency / ${selectedCurrency.name}`}</Suspense>
   );
 };
 

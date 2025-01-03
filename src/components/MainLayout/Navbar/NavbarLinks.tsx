@@ -89,7 +89,6 @@ const NavbarLinks = () => {
             variants={['link']}
           >
             CRM
-            {/* Contacts */}
           </ClickableComponent>
         ) : (
           <ClickableComponent
