@@ -4,16 +4,19 @@ type TopRightLabelProps = {
 };
 
 const TopRightLabel = ({ yachtTop, yachtHotPrice }: TopRightLabelProps) => {
-  switch (true) {
-    case yachtTop && yachtHotPrice:
-      return 'top | hot price';
-    case yachtHotPrice && !yachtTop:
-      return 'hot price';
-    case yachtTop && !yachtHotPrice:
-      return 'top';
-    default:
-      return null;
+  if (yachtTop && yachtHotPrice) {
+    return <>top | hot price</>;
   }
+
+  if (yachtHotPrice) {
+    return <>hot price</>;
+  }
+
+  if (yachtTop) {
+    return <>top</>;
+  }
+
+  return null;
 };
 
 export default TopRightLabel;

@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { useState } from 'react';
-// import type { FormProps } from 'antd';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import { AutoComplete, Button, Checkbox, Form, Input, Upload } from 'antd';
+import type { FormProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { TransformedObject } from '@/utils/addYachtForm/autocompleteHelper';
+import { apiUser } from '@/utils/api/apiUser';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -44,29 +46,53 @@ type FieldType = {
 const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [userToken, setUserToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const tokenCookie = Cookies.get('token');
+    if (tokenCookie) {
+      setUserToken(JSON.parse(tokenCookie));
+    }
+  }, [userToken]);
 
   const handleUploadChange = ({ fileList }: { fileList: UploadFile[] }) => {
     setFileList(fileList);
   };
 
-  const handleSubmit = async (values: FieldType) => {
+  const handleSubmit: FormProps<FieldType>['onFinish'] = async (
+    values: FieldType
+  ) => {
     const formData = new FormData();
-    Object.keys(values).forEach((key) => {
-      formData.append(key, (values as any)[key]);
-    });
+
+    // console.log('values', values);
+    // console.log('fileList', fileList);
+
+    const valuesToAdd = JSON.stringify(values);
+    // console.log('valuesToAdd', valuesToAdd);
+    formData.append('yachtData', valuesToAdd);
+
+    const additionalImages: Blob[] = [];
+
     fileList.forEach((file, i) => {
       if (i === 0) {
         formData.append('mainImage', file.originFileObj as Blob);
       } else {
-        formData.append('additionalImages', file.originFileObj as Blob);
+        additionalImages.push(file.originFileObj as Blob);
       }
     });
+    formData.append('additionalImages', additionalImages);
+
+    // console.log('FormData entries:');
+    // formData.forEach((value, key) => {
+    //   console.log(key, value);
+    // });
 
     try {
-      const response = await fetch('https://api.norseyacht.com/yachts', {
-        method: 'POST',
-        body: formData,
-      });
+      const response: any = await apiUser.adminAddYacht(
+        '/yachts',
+        formData,
+        userToken
+      );
 
       if (response.ok) {
         // eslint-disable-next-line no-console

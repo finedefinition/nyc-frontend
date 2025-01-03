@@ -24,31 +24,32 @@ type DecodedTokenType = {
   family_name: string;
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-  console.log('Success:', values);
-  try {
-    const token = await apiUser.userSignIn('/auth/login', values);
-    const decodedToken = jwtDecode<DecodedTokenType>(
-      (token as { token: string }).token
-    );
-    const fullName = `${decodedToken.given_name} ${decodedToken.family_name[0]}.`;
-    Cookies.set('token', JSON.stringify(decodedToken), {
-      expires: new Date(decodedToken.exp * 1000),
-    });
-    Cookies.set('role', decodedToken['cognito:groups'][0], {
-      expires: new Date(decodedToken.exp * 1000),
-    });
-    Cookies.set('fullName', fullName, {
-      expires: new Date(decodedToken.exp * 1000),
-    });
-  } catch (error) {
-    console.error('Error during sign in:', error);
-  }
-};
+// const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+//   // console.log('Success:', values);
+//   try {
+//     const token = await apiUser.userSignIn('/auth/login', values);
+//     const decodedToken = jwtDecode<DecodedTokenType>(
+//       (token as { token: string }).token
+//     );
+//     const fullName = `${decodedToken.given_name} ${decodedToken.family_name[0]}.`;
+//     Cookies.set('token', JSON.stringify((token as { token: string }).token), {
+//       expires: new Date(decodedToken.exp * 1000),
+//     });
+//     Cookies.set('role', decodedToken['cognito:groups'][0], {
+//       expires: new Date(decodedToken.exp * 1000),
+//     });
+//     Cookies.set('fullName', fullName, {
+//       expires: new Date(decodedToken.exp * 1000),
+//     });
+//   } catch (error) {
+//     // eslint-disable-next-line
+//     console.error('Error during sign in:', error);
+//   }
+// };
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+// const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+//   console.log('Failed:', errorInfo);
+// };
 
 const SignInForm = () => {
   const router = useRouter();
@@ -58,9 +59,34 @@ const SignInForm = () => {
     router.back();
   };
 
-  const onLogin = () => {
-    router.replace('/');
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    // console.log('Success:', values);
+    const valuesToAdd = JSON.stringify(values);
+    try {
+      const token = await apiUser.userSignIn('/auth/login', valuesToAdd);
+      const decodedToken = jwtDecode<DecodedTokenType>(
+        (token as { token: string }).token
+      );
+      const fullName = `${decodedToken.given_name} ${decodedToken.family_name[0]}.`;
+      Cookies.set('token', JSON.stringify((token as { token: string }).token), {
+        expires: new Date(decodedToken.exp * 1000),
+      });
+      Cookies.set('role', decodedToken['cognito:groups'][0], {
+        expires: new Date(decodedToken.exp * 1000),
+      });
+      Cookies.set('fullName', fullName, {
+        expires: new Date(decodedToken.exp * 1000),
+      });
+      router.push('/');
+    } catch (error) {
+      // eslint-disable-next-line
+      console.error('Error during sign in:', error);
+    }
   };
+
+  // const onLogin = () => {
+  //   router.push('/');
+  // };
 
   return (
     <ModalWrapper onClose={onClose}>
@@ -71,7 +97,7 @@ const SignInForm = () => {
         size="large"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Item<FieldType>
@@ -103,7 +129,7 @@ const SignInForm = () => {
             type="submit"
             htmlType="submit"
             variants={['primary', 'button']}
-            onClick={onLogin}
+            // onClick={onLogin}
           >
             Sign In
           </ClickableComponent>
