@@ -1,10 +1,9 @@
 'use client';
 import { Formik, Form, FormikHelpers } from 'formik';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { formikSchema, FormikSchema } from '@/lib/validation/formikSchema';
 import InputContainer from '@/components/Shared/InputContainer';
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import ContactFormModal from '@/components/Modals/ContactFormModal';
 import { handleSubmit } from '@/utils/contactForm/handleSubmit';
 import { ContactSectionData } from '@/data/mainPage/ContactSection';
 
@@ -14,12 +13,7 @@ type ContactFormikProps = {
 
 const ContactForm = ({ dark }: ContactFormikProps) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const modal = searchParams.get('modal');
-  const closeModal = () => {
-    router.back();
-  };
+
   return (
     <>
       <Formik
@@ -33,7 +27,7 @@ const ContactForm = ({ dark }: ContactFormikProps) => {
           values,
           helpers: FormikHelpers<FormikSchema & { serverError?: string }>
         ) => {
-          await handleSubmit(values, helpers, router, pathname);
+          await handleSubmit(values, helpers, router);
         }}
       >
         {({ values, errors, touched, isValid, dirty }) => (
@@ -64,7 +58,6 @@ const ContactForm = ({ dark }: ContactFormikProps) => {
           </Form>
         )}
       </Formik>
-      {modal === 'contact' && <ContactFormModal onClose={closeModal} />}
     </>
   );
 };

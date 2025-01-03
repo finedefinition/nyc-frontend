@@ -10,8 +10,8 @@ import {
 export const handleSubmit = async (
   values: FormikSchema,
   helpers: FormikHelpers<FormikSchema>,
-  router: AppRouterInstance,
-  pathname: string
+  router: AppRouterInstance
+  // pathname: string
 ) => {
   const { resetForm, setSubmitting, setErrors } = helpers;
 
@@ -27,7 +27,8 @@ export const handleSubmit = async (
     if (data.status === 200) {
       // eslint-disable-next-line
       console.log(values);
-      router.push(`${pathname}?modal=contact`, { scroll: false });
+      // router.push(`${pathname}?modal=contact`, { scroll: false });
+      router.push('/contactform', { scroll: false });
       resetForm();
       return;
     }

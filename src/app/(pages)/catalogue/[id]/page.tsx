@@ -12,13 +12,13 @@ type YachtPageProps = {
 };
 
 type MetadataProps = {
-  searchParams?: { [key: string]: string };
+  searchParams?: Promise<{ name: string | undefined }>;
 };
 
 export async function generateMetadata({
   searchParams,
 }: MetadataProps): Promise<Metadata> {
-  const name = searchParams?.name;
+  const name = (await searchParams)?.name ?? '';
   const normalizeName = name?.replace(/_/g, ' ');
   const title = `Yacht ${normalizeName} | Norse Yacht Co`;
   return {

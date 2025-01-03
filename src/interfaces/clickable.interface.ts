@@ -15,8 +15,9 @@ interface Clickable {
 
 export interface ButtonProps extends Clickable {
   type: 'button' | 'submit' | 'reset' | undefined;
+  htmlType?: 'button' | 'submit' | 'reset' | undefined;
   disabled?: boolean | undefined;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface LinkProps extends Clickable {

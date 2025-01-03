@@ -1,13 +1,18 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+
 import ClickableComponent from '../ClickableComponent/ClickableComponent';
 import SocialMedia from '../Shared/SocialMedia';
 import Close from '../SvgIcons/Close';
 import ModalWrapper from './ModalWrapper';
 
-type ContactFormModalProps = {
-  onClose: () => void;
-};
+const ContactFormModal = () => {
+  const router = useRouter();
 
-const ContactFormModal = ({ onClose }: ContactFormModalProps) => {
+  const onClose = () => {
+    router.back();
+  };
   return (
     <ModalWrapper onClose={onClose}>
       <div className="relative bg-white p-9 text-center rounded-3xl shadow-custom">
@@ -25,7 +30,7 @@ const ContactFormModal = ({ onClose }: ContactFormModalProps) => {
         <span className="block mb-6">
           <ClickableComponent
             href="/"
-            variants={[]}
+            variants={['button', 'secondary']}
           >
             Return to the main page
           </ClickableComponent>
