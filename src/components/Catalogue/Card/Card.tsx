@@ -31,8 +31,9 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
 
   return (
     <div className="space-y-3 hover:shadow-custom hover:rounded-lg hover:scale-105 transition ease duration-1000 group">
-      <div className="relative block w-full h-96">
+      <div className="relative">
         <ClickableComponent
+          className="relative block w-full h-96"
           href={`/catalogue/${yacht_id}?name=${yacht_make}_${yacht_model}`}
         >
           <CardImg keyImg={yacht_main_image_key} />
