@@ -14,10 +14,12 @@ type FieldType = {
 };
 
 const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+  // eslint-disable-next-line
   console.log('Success:', values);
 };
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+  // eslint-disable-next-line
   console.log('Failed:', errorInfo);
 };
 
