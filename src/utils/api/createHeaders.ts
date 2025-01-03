@@ -1,12 +1,17 @@
 type tokenUser = string | null;
 type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+type ContentType = 'application/json' | 'multipart/form-data';
 
 export const createHeaders = (
   tokenUser: tokenUser = '',
-  method: RequestMethod
+  method: RequestMethod,
+  content: boolean = false
 ) => {
+  const contentType: ContentType = content
+    ? 'multipart/form-data'
+    : 'application/json';
   const headers: HeadersInit = {
-    'Content-Type': 'application/json;charset=UTF-8',
+    'Content-Type': contentType,
   };
 
   if (

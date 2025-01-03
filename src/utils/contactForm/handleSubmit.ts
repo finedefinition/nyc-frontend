@@ -15,10 +15,12 @@ export const handleSubmit = async (
 ) => {
   const { resetForm, setSubmitting, setErrors } = helpers;
 
+  const valuesToSend = JSON.stringify(values);
+
   try {
     const data: any = await apiClient.sendMessageFromContactForm(
       '/contact',
-      values
+      valuesToSend
     );
 
     // eslint-disable-next-line

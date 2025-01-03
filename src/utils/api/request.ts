@@ -9,19 +9,32 @@ export async function request<T>(
   // options?: any,
   data: any = null,
   tokenUser: string | null = '',
-  method: RequestMethod = 'GET'
+  method: RequestMethod = 'GET',
+  content: boolean = false
 ): Promise<T> {
   try {
     const options: RequestInit = {
       method,
-      headers: createHeaders(tokenUser, method),
+      headers: createHeaders(tokenUser, method, content),
       next: { revalidate: 0 },
       // cache: 'no-store',
     };
 
     if (data) {
-      options.body = JSON.stringify(data);
+      // eslint-disable-next-line
+      console.log('data entries:');
+      data.forEach((value, key) => {
+        // eslint-disable-next-line
+        console.log(key, value);
+      });
+      // options.body = JSON.stringify(data);
+      options.body = data;
     }
+
+    // eslint-disable-next-line
+    console.log(process.env.NEXT_PUBLIC_SERVER_URL + url);
+    // eslint-disable-next-line
+    console.log(options);
 
     const responseBody = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + url,
