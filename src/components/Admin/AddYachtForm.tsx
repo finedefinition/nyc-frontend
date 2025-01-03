@@ -71,16 +71,17 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
     // console.log('valuesToAdd', valuesToAdd);
     formData.append('yachtData', valuesToAdd);
 
-    const additionalImages: Blob[] = [];
+    // const additionalImages: Blob[] = [];
 
     fileList.forEach((file, i) => {
       if (i === 0) {
         formData.append('mainImage', file.originFileObj as Blob);
       } else {
-        additionalImages.push(file.originFileObj as Blob);
+        formData.append('additionalImages', file.originFileObj as Blob);
+        // additionalImages.push(file.originFileObj as Blob);
       }
     });
-    formData.append('additionalImages', additionalImages);
+    // formData.append('additionalImages', additionalImages);
 
     // console.log('FormData entries:');
     // formData.forEach((value, key) => {
