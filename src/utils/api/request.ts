@@ -22,11 +22,11 @@ export async function request<T>(
 
     if (data) {
       // eslint-disable-next-line
-      console.log('data entries:');
-      data.forEach((value, key) => {
-        // eslint-disable-next-line
-        console.log(key, value);
-      });
+      // console.log('data entries:');
+      // data.forEach((value, key) => {
+      //   // eslint-disable-next-line
+      //   console.log(key, value);
+      // });
       // options.body = JSON.stringify(data);
       options.body = data;
     }
