@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useState } from 'react';
 // import type { FormProps } from 'antd';
@@ -40,10 +41,6 @@ type FieldType = {
   yacht_description: string;
 };
 
-// const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-//   console.log('Success:', values);
-// };
-
 const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -72,11 +69,14 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
       });
 
       if (response.ok) {
+        // eslint-disable-next-line no-console
         console.log('Form submitted successfully');
       } else {
+        // eslint-disable-next-line no-console
         console.error('Form submission failed');
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error submitting form:', error);
     }
   };
