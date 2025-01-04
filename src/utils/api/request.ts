@@ -6,7 +6,6 @@ type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
 export async function request<T>(
   url: string,
-  // options?: any,
   data: any = null,
   tokenUser: string | null = '',
   method: RequestMethod = 'GET',
@@ -17,18 +16,19 @@ export async function request<T>(
       method,
       headers: createHeaders(tokenUser, method, content),
       next: { revalidate: 0 },
-      // cache: 'no-store',
     };
 
     if (data) {
+      options.body = content ? data : JSON.stringify(data);
+    }
+
+    if (content) {
       // eslint-disable-next-line
-      // console.log('data entries:');
-      // data.forEach((value: any, key: any) => {
-      //   // eslint-disable-next-line
-      //   console.log(key, value);
-      // });
-      // options.body = JSON.stringify(data);
-      options.body = data;
+      console.log('data entries:');
+      data.forEach((value: any, key: any) => {
+        // eslint-disable-next-line
+        console.log(key, value);
+      });
     }
 
     // eslint-disable-next-line

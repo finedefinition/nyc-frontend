@@ -11,25 +11,19 @@ export const handleSubmit = async (
   values: FormikSchema,
   helpers: FormikHelpers<FormikSchema>,
   router: AppRouterInstance
-  // pathname: string
 ) => {
   const { resetForm, setSubmitting, setErrors } = helpers;
-
-  const valuesToSend = JSON.stringify(values);
 
   try {
     const data: any = await apiClient.sendMessageFromContactForm(
       '/contact',
-      valuesToSend
+      values
     );
 
     // eslint-disable-next-line
     console.log(data.status, 'status');
 
     if (data.status === 200) {
-      // eslint-disable-next-line
-      console.log(values);
-      // router.push(`${pathname}?modal=contact`, { scroll: false });
       router.push('/contactform', { scroll: false });
       resetForm();
       return;

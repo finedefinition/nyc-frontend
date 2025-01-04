@@ -50,10 +50,13 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
 
   useEffect(() => {
     const tokenCookie = Cookies.get('token');
+    console.log(tokenCookie, 'from cookie');
     if (tokenCookie) {
-      setUserToken(JSON.parse(tokenCookie));
+      const currToken = JSON.parse(tokenCookie);
+      console.log(currToken, 'parse token');
+      setUserToken(currToken.token);
     }
-  }, [userToken]);
+  }, []);
 
   const handleUploadChange = ({ fileList }: { fileList: UploadFile[] }) => {
     setFileList(fileList);
@@ -67,9 +70,14 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
     // console.log('values', values);
     // console.log('fileList', fileList);
 
-    const valuesToAdd = JSON.stringify(values);
+    // const valuesToAdd = JSON.stringify(values);
     // console.log('valuesToAdd', valuesToAdd);
-    formData.append('yachtData', valuesToAdd);
+    // const yachtDataBlob = new Blob([valuesToAdd], { type: 'application/json' });
+    // formData.append('yachtData', yachtDataBlob);
+    formData.append(
+      'yachtData',
+      new Blob([JSON.stringify(values)], { type: 'application/json' })
+    );
 
     // const additionalImages: Blob[] = [];
 
