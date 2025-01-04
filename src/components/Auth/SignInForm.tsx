@@ -78,6 +78,7 @@ const SignInForm = () => {
         expires: new Date(decodedToken.exp * 1000),
       });
       router.push('/');
+      router.refresh();
     } catch (error) {
       // eslint-disable-next-line
       console.error('Error during sign in:', error);
