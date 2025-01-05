@@ -3,10 +3,8 @@
 import { useRouter } from 'next/navigation';
 import type { FormProps } from 'antd';
 import { Form, Input } from 'antd';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
-import { JwtPayload } from 'jwt-decode';
 import { apiUser } from '@/utils/api/apiUser';
+import { setCookie } from '@/utils/auth/authCookie';
 import ClickableComponent from '../ClickableComponent/ClickableComponent';
 import ModalWrapper from '../Modals/ModalWrapper';
 
@@ -18,20 +16,9 @@ type FieldType = {
   user_password?: string;
 };
 
-export interface DecodedTokenType extends JwtPayload {
-  given_name: string;
-  family_name: string;
-  email: string;
-  ['cognito:groups']: string[];
-  exp: number;
+interface SignInResponse {
+  token: string;
 }
-
-// type DecodedTokenType = {
-//   exp: number;
-//   'cognito:groups': string[];
-//   given_name: string;
-//   family_name: string;
-// };
 
 const SignInForm = () => {
   const router = useRouter();
@@ -43,23 +30,9 @@ const SignInForm = () => {
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
-      const token = await apiUser.userSignIn('/auth/login', values);
-      const decodedToken = jwtDecode<DecodedTokenType>(
-        (token as { token: string }).token
-      );
-      const fullName = `${decodedToken.given_name} ${decodedToken.family_name[0]}.`;
-      // Cookies.set('token', JSON.stringify((token as { token: string }).token), {
-      //   expires: new Date(decodedToken.exp * 1000),
-      // });
-      Cookies.set('token', JSON.stringify(token), {
-        expires: new Date(decodedToken.exp * 1000),
-      });
-      Cookies.set('role', decodedToken['cognito:groups'][0], {
-        expires: new Date(decodedToken.exp * 1000),
-      });
-      Cookies.set('fullName', fullName, {
-        expires: new Date(decodedToken.exp * 1000),
-      });
+      const response = await apiUser.userSignIn('/auth/login', values);
+      const signInResponse = response as SignInResponse;
+      setCookie(signInResponse.token);
       router.push('/');
       router.refresh();
     } catch (error) {

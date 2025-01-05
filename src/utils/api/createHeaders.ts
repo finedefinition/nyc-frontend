@@ -1,23 +1,19 @@
 type tokenUser = string | null;
-type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 type ContentType = 'application/json' | 'multipart/form-data';
 
 export const createHeaders = (
-  tokenUser: tokenUser = '',
-  method: RequestMethod,
+  tokenUser: tokenUser,
   content: boolean = false
 ) => {
   const contentType: ContentType = content
     ? 'multipart/form-data'
     : 'application/json';
+
   const headers: HeadersInit = {
     'Content-Type': contentType,
   };
 
-  if (
-    tokenUser &&
-    (method === 'GET' || method === 'DELETE' || method === 'POST')
-  ) {
+  if (tokenUser) {
     headers.Authorization = `Bearer ${tokenUser}`;
   }
 

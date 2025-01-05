@@ -14,7 +14,7 @@ export async function request<T>(
   try {
     const options: RequestInit = {
       method,
-      headers: createHeaders(tokenUser, method, content),
+      headers: createHeaders(tokenUser, content),
       next: { revalidate: 0 },
     };
 
@@ -41,8 +41,19 @@ export async function request<T>(
       options
     );
 
+    if (content) {
+      // eslint-disable-next-line
+      console.log(responseBody);
+    }
+
     if (!responseBody.ok) {
-      throw new CustomErrorClass(responseBody.statusText, responseBody.status);
+      const error = new CustomErrorClass(
+        responseBody.statusText,
+        responseBody.status
+      );
+      // eslint-disable-next-line
+      console.error(error.toString());
+      throw error;
     }
 
     return url === '/contact'

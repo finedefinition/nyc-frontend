@@ -50,13 +50,10 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
 
   useEffect(() => {
     const tokenCookie = Cookies.get('token');
-    console.log(tokenCookie, 'from cookie');
     if (tokenCookie) {
-      const currToken = JSON.parse(tokenCookie);
-      console.log(currToken, 'parse token');
-      setUserToken(currToken.token);
+      setUserToken(tokenCookie);
     }
-  }, []);
+  }, [userToken, setUserToken]);
 
   const handleUploadChange = ({ fileList }: { fileList: UploadFile[] }) => {
     setFileList(fileList);
@@ -67,34 +64,18 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
   ) => {
     const formData = new FormData();
 
-    // console.log('values', values);
-    // console.log('fileList', fileList);
-
-    // const valuesToAdd = JSON.stringify(values);
-    // console.log('valuesToAdd', valuesToAdd);
-    // const yachtDataBlob = new Blob([valuesToAdd], { type: 'application/json' });
-    // formData.append('yachtData', yachtDataBlob);
     formData.append(
       'yachtData',
       new Blob([JSON.stringify(values)], { type: 'application/json' })
     );
-
-    // const additionalImages: Blob[] = [];
 
     fileList.forEach((file, i) => {
       if (i === 0) {
         formData.append('mainImage', file.originFileObj as Blob);
       } else {
         formData.append('additionalImages', file.originFileObj as Blob);
-        // additionalImages.push(file.originFileObj as Blob);
       }
     });
-    // formData.append('additionalImages', additionalImages);
-
-    // console.log('FormData entries:');
-    // formData.forEach((value, key) => {
-    //   console.log(key, value);
-    // });
 
     try {
       const response: any = await apiUser.adminAddYacht(
@@ -123,7 +104,6 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
         layout="inline"
         size="large"
         onFinish={handleSubmit}
-        // onFinish={onFinish}
         autoComplete="off"
       >
         <Item<FieldType>
