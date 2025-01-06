@@ -90,24 +90,15 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
     });
 
     try {
-      // Debug: log FormData contents
-      for (const pair of formData.entries()) {
-        console.log(`${pair[0]}:`, pair[1]);
-      }
+      // Send the request to the API
+      await apiUser.adminAddYacht('/yachts', formData, userToken);
 
-      const response: any = await apiUser.adminAddYacht('/yachts', formData, userToken);
-
-      // It is assumed that the backend returns the saved yacht or confirmation
       message.success('Form submitted successfully');
-
-      // Remove the following line to prevent clearing form fields
-      // form.resetFields();
 
       // Clear the image lists
       setMainImageList([]);
       setAdditionalImageList([]);
     } catch (error: any) {
-      console.error('Error submitting the form:', error);
       message.error(error.message || 'An error occurred while submitting the form');
     }
   };
@@ -149,7 +140,7 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
           rules={[
             { required: true, message: 'Make is required.' },
             { min: 3, max: 30, message: 'Make must be between 3 and 30 characters.' },
-            { pattern: /^[A-Z][a-zA-Z\s\-]*$/, message: 'Make must start with a capital letter and can include letters, spaces, and hyphens.' },
+            { pattern: /^[A-Z][a-zA-Z\s-]*$/, message: 'Make must start with a capital letter and can include letters, spaces, and hyphens.' },
           ]}
           style={{ marginBottom: '8px' }}
         >
@@ -350,10 +341,7 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
 
         {/* Submit button */}
         <Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-          >
+          <Button type="primary" htmlType="submit">
             Save
           </Button>
         </Item>
