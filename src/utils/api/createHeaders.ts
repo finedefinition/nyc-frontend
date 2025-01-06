@@ -1,20 +1,17 @@
-type tokenUser = string | null;
-type ContentType = 'application/json' | 'multipart/form-data';
+type TokenUser = string | null;
 
 export const createHeaders = (
-  tokenUser: tokenUser,
-  content: boolean = false
-) => {
-  const contentType: ContentType = content
-    ? 'multipart/form-data'
-    : 'application/json';
+  tokenUser: TokenUser,
+  isMultipart: boolean = false
+): HeadersInit => {
+  const headers: HeadersInit = {};
 
-  const headers: HeadersInit = {
-    'Content-Type': contentType,
-  };
+  if (!isMultipart) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   if (tokenUser) {
-    headers.Authorization = `Bearer ${tokenUser}`;
+    headers['Authorization'] = `Bearer ${tokenUser}`;
   }
 
   return headers;

@@ -7,60 +7,62 @@ type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 export async function request<T>(
   url: string,
   data: any = null,
-  tokenUser: string | null = '',
+  tokenUser: string | null = null,
   method: RequestMethod = 'GET',
-  content: boolean = false
+  isMultipart: boolean = false
 ): Promise<T> {
   try {
+    const headers = createHeaders(tokenUser, isMultipart);
+
     const options: RequestInit = {
       method,
-      headers: createHeaders(tokenUser, content),
+      headers,
       next: { revalidate: 0 },
     };
 
     if (data) {
-      options.body = content ? data : JSON.stringify(data);
+      options.body = isMultipart ? data : JSON.stringify(data);
     }
 
-    if (content) {
-      // eslint-disable-next-line
+    if (isMultipart && data instanceof FormData) {
+      // Логирование содержимого FormData
       console.log('data entries:');
-      data.forEach((value: any, key: any) => {
-        // eslint-disable-next-line
+      for (const [key, value] of data.entries()) {
         console.log(key, value);
-      });
+      }
     }
 
-    // eslint-disable-next-line
-    console.log(process.env.NEXT_PUBLIC_SERVER_URL + url);
-    // eslint-disable-next-line
-    console.log(options);
+    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`);
+    console.log('Request Options:', options);
 
-    const responseBody = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + url,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`,
       options
     );
 
-    if (content) {
-      // eslint-disable-next-line
-      console.log(responseBody);
+    if (isMultipart) {
+      console.log('Response:', response);
     }
 
-    if (!responseBody.ok) {
-      const error = new CustomErrorClass(
-        responseBody.statusText,
-        responseBody.status
-      );
-      // eslint-disable-next-line
+    if (!response.ok) {
+      // Попытка получить тело ошибки
+      let errorMessage = response.statusText;
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorMessage;
+      } catch (e) {
+        // Если тело не в JSON формате
+      }
+
+      const error = new CustomErrorClass(errorMessage, response.status);
       console.error(error.toString());
       throw error;
     }
 
-    return url === '/contact'
-      ? (responseBody as unknown as T)
-      : responseBody.json();
-  } catch (error) {
-    // eslint-disable-next-line
+    // Возвращаем JSON или другой тип данных
+    const responseData: T = await response.json();
+    return responseData;
+  } catch (error: any) {
     console.error('Помилка під час виконання запиту:', error);
     throw error;
   }
