@@ -24,45 +24,38 @@ export async function request<T>(
       options.body = isMultipart ? data : JSON.stringify(data);
     }
 
-    if (isMultipart && data instanceof FormData) {
-      // Логирование содержимого FormData
-      console.log('data entries:');
-      for (const [key, value] of data.entries()) {
-        console.log(key, value);
-      }
-    }
-
-    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`);
-    console.log('Request Options:', options);
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`,
       options
     );
 
-    if (isMultipart) {
-      console.log('Response:', response);
-    }
+    // TO DO: update error handler and return respone after backend change response
 
     if (!response.ok) {
       // Попытка получить тело ошибки
-      let errorMessage = response.statusText;
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.message || errorMessage;
-      } catch (e) {
-        // Если тело не в JSON формате
-      }
+      // let errorMessage = response.statusText;
+      // try {
+      //   const errorData = await response.json();
+      //   errorMessage = errorData.message || errorMessage;
+      // } catch (error) {
+      //   // eslint-disable-next-line
+      //   console.error(error);
+      //   throw error;
+      // }
 
-      const error = new CustomErrorClass(errorMessage, response.status);
+      const error = new CustomErrorClass(response.statusText, response.status);
+      // eslint-disable-next-line
       console.error(error.toString());
       throw error;
     }
 
+    return url === '/contact' ? (response as unknown as T) : response.json();
+
     // Возвращаем JSON или другой тип данных
-    const responseData: T = await response.json();
-    return responseData;
+    // const responseData: T = await response.json();
+    // return responseData;
   } catch (error: any) {
+    // eslint-disable-next-line
     console.error('Помилка під час виконання запиту:', error);
     throw error;
   }
