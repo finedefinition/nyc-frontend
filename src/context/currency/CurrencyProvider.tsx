@@ -1,18 +1,8 @@
 'use client';
-import React, { createContext, useContext, ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { currencyData } from '@/data/currencyData';
 import useLocalStorage from '@/hooks/useLocalStorage';
-
-type CurrencyContextType = {
-  selectedCurrency: { [key: string]: string };
-  currencyRates: { [key: string]: number };
-  setCurrency: (currency: string) => void;
-  updateCurrencyRates: () => Promise<void>;
-};
-
-const CurrencyContext = createContext<CurrencyContextType | undefined>(
-  undefined
-);
+import CurrencyContext from './CurrencyContext';
 
 type CurrencyProviderProps = {
   children: ReactNode;
@@ -97,12 +87,4 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({
       {children}
     </CurrencyContext.Provider>
   );
-};
-
-export const useCurrency = (): CurrencyContextType => {
-  const context = useContext(CurrencyContext);
-  if (!context) {
-    throw new Error('useCurrency must be used within a CurrencyProvider');
-  }
-  return context;
 };
