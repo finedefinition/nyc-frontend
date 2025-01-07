@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useCurrency } from '@/context/CurrencyContext';
+import { useCurrency } from '@/context/currency/CurrencyContext';
 import { currencyData } from '@/data/currencyData';
 
 type CurrencyListProps = {

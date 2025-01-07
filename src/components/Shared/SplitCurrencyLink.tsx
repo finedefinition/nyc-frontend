@@ -1,6 +1,6 @@
 'use client';
 import { Suspense } from 'react';
-import { useCurrency } from '@/context/CurrencyContext';
+import { useCurrency } from '@/context/currency/CurrencyContext';
 
 const SplitCurrencyLink = () => {
   const { selectedCurrency } = useCurrency();

@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { ConfigProvider } from 'antd';
+import RootProvider from '@/context/RootProvider';
 import { roboto, baiJ, bEs } from '@/utils/fonts/pageFonts';
-
-import { CurrencyProvider } from '@/context/CurrencyContext';
-
-import { themeConfig } from '@/lib/antd/themeConfig';
 
 import './globals.css';
 
@@ -27,14 +22,10 @@ export default function RootLayout({
       className={`${roboto.variable} ${baiJ.variable} ${bEs.variable}`}
     >
       <body className="bg-white font-roboto text-black font-normal h-screen flex flex-col justify-between max-w-screen-3xl mx-auto">
-        <AntdRegistry>
-          <ConfigProvider theme={themeConfig}>
-            <CurrencyProvider>
-              {children}
-              {modal}
-            </CurrencyProvider>
-          </ConfigProvider>
-        </AntdRegistry>
+        <RootProvider>
+          {children}
+          {modal}
+        </RootProvider>
       </body>
     </html>
   );
