@@ -1,16 +1,7 @@
 import type { Metadata } from 'next';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { ConfigProvider } from 'antd';
+import RootProvider from '@/context/RootProvider';
 import { roboto, baiJ, bEs } from '@/utils/fonts/pageFonts';
 
-import Navbar from '@/components/MainLayout/Navbar/Navbar';
-import Footer from '@/components/MainLayout/Footer';
-
-import { CurrencyProvider } from '@/context/CurrencyContext';
-
-import { themeConfig } from '@/lib/antd/themeConfig';
-
-// import 'antd/dist/reset.css';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -19,8 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  modal,
   children,
 }: Readonly<{
+  modal: React.ReactNode;
   children: React.ReactNode;
 }>) {
   return (
@@ -28,16 +21,11 @@ export default function RootLayout({
       lang="en"
       className={`${roboto.variable} ${baiJ.variable} ${bEs.variable}`}
     >
-      <body className="bg-white font-roboto text-black font-medium h-screen flex flex-col justify-between max-w-screen-3xl mx-auto">
-        <AntdRegistry>
-          <ConfigProvider theme={themeConfig}>
-            <CurrencyProvider>
-              <Navbar />
-              {children}
-              <Footer />
-            </CurrencyProvider>
-          </ConfigProvider>
-        </AntdRegistry>
+      <body className="bg-white font-roboto text-black font-normal h-screen flex flex-col justify-between max-w-screen-3xl mx-auto">
+        <RootProvider>
+          {children}
+          {modal}
+        </RootProvider>
       </body>
     </html>
   );

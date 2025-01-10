@@ -1,19 +1,17 @@
-type tokenUser = string | null;
-type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+type TokenUser = string | null;
 
 export const createHeaders = (
-  tokenUser: tokenUser = '',
-  method: RequestMethod
-) => {
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json;charset=UTF-8',
-  };
+  tokenUser: TokenUser,
+  isMultipart: boolean = false
+): HeadersInit => {
+  const headers: HeadersInit = {};
 
-  if (
-    tokenUser &&
-    (method === 'GET' || method === 'DELETE' || method === 'POST')
-  ) {
-    headers.Authorization = `Bearer ${tokenUser}`;
+  if (!isMultipart) {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  if (tokenUser) {
+    headers['Authorization'] = `Bearer ${tokenUser}`;
   }
 
   return headers;

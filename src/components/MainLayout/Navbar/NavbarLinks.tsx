@@ -1,5 +1,6 @@
 'use client';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
@@ -15,6 +16,20 @@ import CurrencyDropdown from './CurrencyDropdown';
 import MenuAndCloseButton from './MenuAndCloseButton';
 
 const NavbarLinks = () => {
+  const [role, setRole] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>('My account');
+
+  useEffect(() => {
+    const roleCookie = Cookies.get('role');
+    const nameCookie = Cookies.get('fullName');
+    if (roleCookie) {
+      setRole(roleCookie);
+    }
+    if (nameCookie) {
+      setUserName(nameCookie);
+    }
+  }, []);
+
   const renderLinks = (links: NavbarLinksInterface[], isLeft: boolean) => {
     return links.map((link, i) => (
       <li
@@ -59,19 +74,31 @@ const NavbarLinks = () => {
             <Heart />
           </ClickableComponent>
           <ClickableComponent
-            href=""
+            className="flex items-center"
+            href="/signin"
             variants={['link']}
+            scroll={false}
           >
-            <User />
+            <User /> <span className="hidden xl:flex">{userName}</span>
           </ClickableComponent>
         </div>
-        <ClickableComponent
-          href="/contacts"
-          className="hidden xl:block"
-          variants={['link']}
-        >
-          Contacts
-        </ClickableComponent>
+        {role === 'ROLE_ADMIN' ? (
+          <ClickableComponent
+            href="/crm"
+            className="hidden xl:block"
+            variants={['link']}
+          >
+            CRM
+          </ClickableComponent>
+        ) : (
+          <ClickableComponent
+            href="/contacts"
+            className="hidden xl:block"
+            variants={['link']}
+          >
+            Contacts
+          </ClickableComponent>
+        )}
         <span className="hidden xl:block">
           <CurrencyDropdown />
         </span>

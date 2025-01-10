@@ -1,29 +1,13 @@
 'use client';
-import { usePathname, useSearchParams } from 'next/navigation';
-import {
-  capitalizeFirstLetter,
-  convertPathToSegments,
-  createHrefFromSegment,
-  replaceLastSegment,
-} from '@/utils/breadcrumbs/helpers';
+import { createHrefFromSegment } from '@/utils/breadcrumbs/helpers';
+
+import useBreadcrumbs from '@/hooks/useBreadcrumbs';
 import ClickableComponent from '../ClickableComponent/ClickableComponent';
 import Home from '../SvgIcons/Home';
 import RightArrow from '../SvgIcons/RightArrow';
 
 const Breadcrumb = () => {
-  const pathname = usePathname();
-  const search = useSearchParams();
-  const yachtName = search.get('name');
-
-  const segments = convertPathToSegments(pathname);
-
-  if (yachtName) {
-    replaceLastSegment(segments, yachtName);
-  }
-
-  const normalizeSegments = segments.map((segment) =>
-    capitalizeFirstLetter(segment)
-  );
+  const [segments, normalizeSegments] = useBreadcrumbs();
 
   const renderSegment = (segment: string, index: number) => {
     const href = createHrefFromSegment(segments, index);

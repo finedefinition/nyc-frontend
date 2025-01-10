@@ -1,5 +1,5 @@
 'use client';
-import { useCurrency } from '@/context/CurrencyContext';
+import { useCurrency } from '@/context/currency/CurrencyContext';
 
 type YachtPriceProps = {
   price: string;
