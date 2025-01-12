@@ -1,8 +1,9 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
+
 import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
 import LeftArrow from '@/components/SvgIcons/LeftArrow';
 import RightArrow from '@/components/SvgIcons/RightArrow';
+import { usePaginationUrl } from '@/hooks/usePaginationUrl';
 
 type PaginationButtonProps = {
   page: number | string;
@@ -15,12 +16,7 @@ const PaginationButton = ({
   isCurrent,
   isArrow,
 }: PaginationButtonProps) => {
-  const searchParams = useSearchParams();
-  const createUrlWithPage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', String(page));
-    return `?${params.toString()}`;
-  };
+  const createUrlWithPage = usePaginationUrl();
 
   if (page === '...') {
     return (
@@ -32,7 +28,7 @@ const PaginationButton = ({
 
   return (
     <ClickableComponent
-      href={createUrlWithPage(Number(page))}
+      href={createUrlWithPage(page)}
       variants={['pagination']}
       className={`${isArrow ? 'w-16' : 'w-8'} ${isCurrent ? 'border-secondary-100 pointer-events-none' : ''}`}
     >
