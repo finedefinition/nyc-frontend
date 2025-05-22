@@ -6,13 +6,13 @@ import Fullscreen from 'react-fullscreen-crossbrowser';
 
 import { YachtDetail } from '@/interfaces/yacht.interface';
 import fullScreen from '@/public/icons/fullScreen.svg';
-import ContactForm from '../MainPageContent/ContactSection/ContactForm';
-import ProductPageSlider from './ProductPageSlider';
-import YachtDetails from './YachtDetails';
-import FullScreenGallery from './FullScreenGallery';
+import { ContactForm } from '../MainPageContent/ContactSection/ContactForm';
+import { ProductPageSlider } from './ProductPageSlider';
+import { YachtDetails } from './YachtDetails';
+import { FullScreenGallery } from './FullScreenGallery';
 
 const DynamicYachtPrice = dynamic(
-  () => import('../Catalogue/Card/YachtPrice'),
+  () => import('../Catalogue/Card/YachtPrice').then((mod) => mod.YachtPrice),
   {
     ssr: false,
   }
@@ -23,7 +23,7 @@ type ProductPageProps = {
   images: (string | null)[];
 };
 
-const ProductPage = ({ yacht, images }: ProductPageProps) => {
+export const ProductPage = ({ yacht, images }: ProductPageProps) => {
   const [isFullscreenEnabled, setIsFullscreenEnabled] = useState(false);
   const {
     yacht_make,
@@ -131,5 +131,3 @@ const ProductPage = ({ yacht, images }: ProductPageProps) => {
     </>
   );
 };
-
-export default ProductPage;

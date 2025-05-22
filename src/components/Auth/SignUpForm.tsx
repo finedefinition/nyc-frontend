@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import type { FormProps } from 'antd';
 import { Form, Input } from 'antd';
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import ModalWrapper from '../Modals/ModalWrapper';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { ModalWrapper } from '../Modals/ModalWrapper';
 
 const { Item } = Form;
 
@@ -23,7 +23,7 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
-const SignUpForm = () => {
+export const SignUpForm = () => {
   const router = useRouter();
 
   const onClose = () => {
@@ -75,5 +75,3 @@ const SignUpForm = () => {
     </ModalWrapper>
   );
 };
-
-export default SignUpForm;

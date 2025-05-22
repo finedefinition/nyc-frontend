@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { sortFields, Option } from '@/data/catalogue/sortFields';
-import DownArrow from '@/components/SvgIcons/DownArrow';
-import UpArrow from '@/components/SvgIcons/UpArrow';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import DropdownWrapper from '../Shared/DropdownWrapper';
+import { DownArrow } from '@/components/SvgIcons/DownArrow';
+import { UpArrow } from '@/components/SvgIcons/UpArrow';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { DropdownWrapper } from '@/components/Shared/DropdownWrapper';
 
-const SortingBy = () => {
+export const SortingBy = () => {
   const [selected, setSelected] = useState<string | null>(sortFields[0].name);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -61,5 +61,3 @@ const SortingBy = () => {
     </DropdownWrapper>
   );
 };
-
-export default SortingBy;

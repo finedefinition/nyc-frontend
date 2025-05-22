@@ -1,8 +1,8 @@
 import { BlocksSectionData } from '@/data/mainPage/BlocksSectionData';
 
-import Block from './Block';
+import { Block } from './Block';
 
-const BlocksSection = () => {
+export const BlocksSection = () => {
   return (
     <>
       {BlocksSectionData.map((block, i) => (
@@ -14,5 +14,3 @@ const BlocksSection = () => {
     </>
   );
 };
-
-export default BlocksSection;

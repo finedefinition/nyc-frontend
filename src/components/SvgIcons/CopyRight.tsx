@@ -1,4 +1,4 @@
-const CopyRight = () => (
+export const CopyRight = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={300}
@@ -20,5 +20,3 @@ const CopyRight = () => (
     </text>
   </svg>
 );
-
-export default CopyRight;

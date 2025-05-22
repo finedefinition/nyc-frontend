@@ -1,12 +1,12 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
 
 import { mobileMenuLinks } from '@/data/links/mobileMenuLinks';
-import CurrencyList from '@/components/Shared/CurrencyList';
-import SocialMedia from '@/components/Shared/SocialMedia';
+import { CurrencyList } from '@/components/Shared/CurrencyList';
+import { SocialMedia } from '@/components/Shared/SocialMedia';
 
-const MobileMenu = () => {
+export const MobileMenu = () => {
   const router = useRouter();
 
   const onClose = () => {
@@ -41,5 +41,3 @@ const MobileMenu = () => {
     </div>
   );
 };
-
-export default MobileMenu;

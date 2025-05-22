@@ -2,7 +2,7 @@ type NavbarFooterLogoProps = {
   navbar?: boolean;
 };
 
-const NavbarFooterLogo = ({ navbar }: NavbarFooterLogoProps) => (
+export const NavbarFooterLogo = ({ navbar }: NavbarFooterLogoProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={300}
@@ -24,5 +24,3 @@ const NavbarFooterLogo = ({ navbar }: NavbarFooterLogoProps) => (
     </text>
   </svg>
 );
-
-export default NavbarFooterLogo;

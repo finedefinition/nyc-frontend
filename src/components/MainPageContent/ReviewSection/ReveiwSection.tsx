@@ -12,15 +12,18 @@ import {
   reviewSectionTitle,
   reviewUsersArray,
 } from '@/data/mainPage/ReviewSectionData';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import LeftArrow from '@/components/SvgIcons/LeftArrow';
-import RightArrow from '@/components/SvgIcons/RightArrow';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { LeftArrow } from '@/components/SvgIcons/LeftArrow';
+import { RightArrow } from '@/components/SvgIcons/RightArrow';
 
-const DynamicReviewCard = dynamic(() => import('./ReviewCard'), {
-  ssr: false,
-});
+const DynamicReviewCard = dynamic(
+  () => import('./ReviewCard').then((mod) => mod.ReviewCard),
+  {
+    ssr: false,
+  }
+);
 
-const ReviewsSection = () => {
+export const ReviewsSection = () => {
   return (
     <section className="w-full space-y-8 px-5 md:px-16 py-4 md:py-6 xl:py-8 mb-10 xl:mb-16 2xl:mb-24">
       <h3 className="">{reviewSectionTitle}</h3>
@@ -80,5 +83,3 @@ const ReviewsSection = () => {
     </section>
   );
 };
-
-export default ReviewsSection;

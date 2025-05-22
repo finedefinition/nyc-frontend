@@ -1,9 +1,9 @@
 import { useRouter, usePathname } from 'next/navigation';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import Menu from '@/components/SvgIcons/Menu';
-import Close from '@/components/SvgIcons/Close';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { Menu } from '@/components/SvgIcons/Menu';
+import { Close } from '@/components/SvgIcons/Close';
 
-const MenuAndCloseButton = () => {
+export const MenuAndCloseButton = () => {
   const pathname = usePathname();
   const router = useRouter();
   const closeModal = () => {
@@ -26,5 +26,3 @@ const MenuAndCloseButton = () => {
     </>
   );
 };
-
-export default MenuAndCloseButton;

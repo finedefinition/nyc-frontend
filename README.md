@@ -10,6 +10,7 @@ The front-end of the project is built using Next.js with TypeScript, Tailwind CS
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Folder Structure](#folder-structure)
+- [App folder Structure](#app-folder-structure)
 - [License](#license)
 - [Learn More](#learn-more)
 
@@ -58,6 +59,24 @@ src/
 ├── lib/ # Contains configuration for third-party libraries.
 ├── public/ # Static assets such as images, fonts, and other files served directly.
 └── utils/ # Utility functions and helper methods used throughout the application.
+```
+
+## App folder Structure
+
+```bash
+app/
+├── (admin)/ # pages for the admin CRM interface.
+├── (pages)/ # user-facing pages, accessible routes for standard users.
+├── @modal/ # intercepting routes for modal, enabling custom route handling for modals.
+├── contactform/ # Route for intercepting and displaying the contact form modal via @modal/(.)contactform.
+├── menu/ # Route for displaying the mobile menu.
+├── signin/ # Route for intercepting and displaying the sign-in modal via @modal/(.)signin.
+├── signup/ # Route for intercepting and displaying the sign-up modal via @modal/(.)signup.
+├── favicon.ico # The favicon for the application, displayed in browser tabs.
+├── global.css # Global CSS styles applied across the entire application.
+├── layout.tsx # Defines the layout for all pages, including shared components like headers or footers.
+├── loading.tsx # Displays a loading indicator while content or data is being fetched.
+└── page.tsx # The main entry point for the root route, rendering the content for the base URL.
 ```
 
 ## License

@@ -1,12 +1,11 @@
-import React from 'react';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
-import CopyRight from '@/components/SvgIcons/CopyRight';
-import SocialMedia from '@/components/Shared/SocialMedia';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { NavbarFooterLogo } from '@/components/SvgIcons/NavbarFooterLogo';
+import { CopyRight } from '@/components/SvgIcons/CopyRight';
+import { SocialMedia } from '@/components/Shared/SocialMedia';
 
 import { footerLinks } from '@/data/links/footerLinks';
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="w-full flex flex-col space-y-10 lg:space-y-0 lg:flex-row px-5 md:px-16 py-4 md:py-6 xl:py-8 bg-primary">
       <div className="flex-1 mx-auto">
@@ -42,5 +41,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

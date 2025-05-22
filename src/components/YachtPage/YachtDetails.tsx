@@ -6,7 +6,7 @@ type YachtDetailsProps = {
   yachtSpecifications: YachtSpecifications;
 };
 
-const YachtDetails = ({ yachtSpecifications }: YachtDetailsProps) => {
+export const YachtDetails = ({ yachtSpecifications }: YachtDetailsProps) => {
   const details = yachtDetailsHelper(yachtSpecifications);
 
   return (
@@ -27,5 +27,3 @@ const YachtDetails = ({ yachtSpecifications }: YachtDetailsProps) => {
     </>
   );
 };
-
-export default YachtDetails;

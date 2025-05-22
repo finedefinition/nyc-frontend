@@ -1,13 +1,14 @@
-import Card from '@/components/Catalogue/Card/Card';
-import CardSkeleton from '@/components/Skeletons/CardSkeleton';
+
+import { CardSkeleton } from '@/components/Skeletons/CardSkeleton';
 
 import { apiClient } from '@/utils/api/apiClient';
 
 import { Yacht } from '@/interfaces/yacht.interface';
+import { CatalogueCard } from '@/components/Catalogue/Card/Card';
 
 const FEATURED_YACHT_COUNT = 3;
 
-const FeaturedYachtsList = async () => {
+export const FeaturedYachtsList = async () => {
   try {
     const featuredYachts: Yacht[] =
       await apiClient.getFeaturedYachts('/yachts/featured');
@@ -15,7 +16,7 @@ const FeaturedYachtsList = async () => {
     return (
       <>
         {featuredYachts.map((yacht) => (
-          <Card
+          <CatalogueCard
             key={yacht.yacht_id}
             yacht={yacht}
           />
@@ -32,5 +33,3 @@ const FeaturedYachtsList = async () => {
     );
   }
 };
-
-export default FeaturedYachtsList;

@@ -6,7 +6,7 @@ type NumberDisplayProps = {
   children: React.ReactNode;
 };
 
-const NumberDisplay = ({
+export const NumberDisplay = ({
   size,
   font,
   color,
@@ -21,5 +21,3 @@ const NumberDisplay = ({
     </span>
   );
 };
-
-export default NumberDisplay;

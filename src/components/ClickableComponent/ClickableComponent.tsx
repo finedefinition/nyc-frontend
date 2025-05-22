@@ -1,6 +1,6 @@
 import { LinkProps, ButtonProps } from '@/interfaces/clickable.interface';
-import LinkComponent from './LinkComponent';
-import ButtonComponent from './ButtonComponent';
+import { LinkComponent } from './LinkComponent';
+import { ButtonComponent } from './ButtonComponent';
 
 function isPropsForLinkElement(
   props: ButtonProps | LinkProps
@@ -21,7 +21,7 @@ const variantClasses = {
     'h-8 flex justify-center items-center border border-grey-50 rounded hover:text-white hover:bg-grey-50 transition',
 };
 
-const ClickableComponent = (props: ButtonProps | LinkProps) => {
+export const ClickableComponent = (props: ButtonProps | LinkProps) => {
   const { children, variants, className } = props;
 
   const combinedClasses =
@@ -46,5 +46,3 @@ const ClickableComponent = (props: ButtonProps | LinkProps) => {
     </ButtonComponent>
   );
 };
-
-export default ClickableComponent;

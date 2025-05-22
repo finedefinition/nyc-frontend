@@ -1,7 +1,7 @@
 import { PaginationOptions } from '@/interfaces/pagination.interface';
 
 export function isEmpty(obj: PaginationOptions): boolean {
-  return Object.keys(obj).length === 0;
+  return typeof obj.totalPages === 'number' && obj.totalPages === 0;
 }
 
 export function getPaginationWithDots(

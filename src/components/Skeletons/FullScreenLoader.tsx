@@ -1,6 +1,6 @@
-import Spinner from '../Shared/Spinner';
+import { Spinner } from '../Shared/Spinner';
 
-const FullScreenLoader = () => {
+export const FullScreenLoader = () => {
   return (
     <div className="h-screen w-screen-0 opacity-75">
       <Spinner />
@@ -9,5 +9,3 @@ const FullScreenLoader = () => {
     </div>
   );
 };
-
-export default FullScreenLoader;

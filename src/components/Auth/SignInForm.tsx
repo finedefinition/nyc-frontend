@@ -5,8 +5,8 @@ import type { FormProps } from 'antd';
 import { Form, Input } from 'antd';
 import { apiUser } from '@/utils/api/apiUser';
 import { setCookie } from '@/utils/auth/authCookie';
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import ModalWrapper from '../Modals/ModalWrapper';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { ModalWrapper } from '../Modals/ModalWrapper';
 
 const { Item } = Form;
 const { Password } = Input;
@@ -20,7 +20,7 @@ interface SignInResponse {
   token: string;
 }
 
-const SignInForm = () => {
+export const SignInForm = () => {
   const router = useRouter();
   const [form] = Form.useForm();
 
@@ -97,5 +97,3 @@ const SignInForm = () => {
     </ModalWrapper>
   );
 };
-
-export default SignInForm;

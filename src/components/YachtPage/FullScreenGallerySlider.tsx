@@ -15,7 +15,9 @@ type FullScreenGallerySliderProps = {
   images: (string | null)[];
 };
 
-const FullScreenGallerySlider = ({ images }: FullScreenGallerySliderProps) => {
+export const FullScreenGallerySlider = ({
+  images,
+}: FullScreenGallerySliderProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType>();
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -90,5 +92,3 @@ const FullScreenGallerySlider = ({ images }: FullScreenGallerySliderProps) => {
     </div>
   );
 };
-
-export default FullScreenGallerySlider;

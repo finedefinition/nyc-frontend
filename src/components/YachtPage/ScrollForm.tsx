@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import ContactForm from '../MainPageContent/ContactSection/ContactForm';
+import { ContactForm } from '../MainPageContent/ContactSection/ContactForm';
 // const debounce = (func: (...args: any[]) => void, delay: number) => {
 //   let timeoutId: NodeJS.Timeout;
 //   return (...args: any[]) => {
@@ -14,7 +14,7 @@ import ContactForm from '../MainPageContent/ContactSection/ContactForm';
 //   };
 // };
 
-const ScrollForm = () => {
+export const ScrollForm = () => {
   const [scrollY, setScrollY] = useState<number>(0);
   const handleScroll = () => {
     setScrollY(window.scrollY);
@@ -47,5 +47,3 @@ const ScrollForm = () => {
     </div>
   );
 };
-
-export default ScrollForm;

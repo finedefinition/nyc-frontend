@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { LinkProps } from '@/interfaces/clickable.interface';
 
-const LinkComponent = ({ href, className, scroll, children }: LinkProps) => (
+export const LinkComponent = ({ href, className, scroll, children }: LinkProps) => (
   <Link
     href={href}
     className={className}
@@ -11,4 +11,3 @@ const LinkComponent = ({ href, className, scroll, children }: LinkProps) => (
   </Link>
 );
 
-export default LinkComponent;

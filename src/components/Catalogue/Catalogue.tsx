@@ -1,55 +1,26 @@
 import { apiClient } from '@/utils/api/apiClient';
-import { apiFilter } from '@/utils/api/apiFilter';
-import { Country } from '@/interfaces/country.interface';
-import { Town } from '@/interfaces/town.interface';
-import CatalogueList from './CatalogueList';
-import Pagination from './Pagination/Pagination';
-import SortingBy from './SortingBy';
-import Filter from './Filter';
+import { parseCatalogueParams } from '@/utils/filter/parseCatalogueParams';
+import { getCatalogueFilters } from '@/utils/filter/getCatalogueFilters';
+import { CatalogueList } from './CatalogueList';
+import { Pagination } from './Pagination/Pagination';
+
+import { FilterNoMatch } from './Filter/FilterNoMatch';
+import { Filter } from './Filter/Filter';
+import { SortingBy } from './Filter/SortingBy';
 
 type CatalogueProps = {
   searchParams?: { [key: string]: string };
 };
 
-const Catalogue = async ({ searchParams }: CatalogueProps) => {
-  const {
-    page = '1',
-    orderBy = 'asc',
-    sortBy = 'yacht_price',
-    minPrice = '',
-    maxPrice = '',
-    make = '',
-    model = '',
-    country = '',
-    town = '',
-  } = searchParams || {};
-
-  const paramsObject = {
-    page,
-    orderBy,
-    sortBy,
-    minPrice,
-    maxPrice,
-    make,
-    model,
-    country,
-    town,
-  };
-
-  const filteredParams = Object.fromEntries(
-    Object.entries(paramsObject).filter(([, value]) => value)
-  );
-
-  const params = new URLSearchParams(filteredParams);
+export const Catalogue = async ({ searchParams }: CatalogueProps) => {
+  const { params, hasFilters } = parseCatalogueParams(searchParams);
+  const filterParams = await getCatalogueFilters();
 
   const { pagination, yachts } = await apiClient.getYachtsWithPagination(
     `/yachts?${params.toString()}`
   );
 
-  const filterParams = {
-    countries: (await apiFilter.getAllCoutries('/countries')) as Country[],
-    towns: (await apiFilter.getAllTowns('/towns')) as Town[],
-  };
+  const notFilterMatched = yachts.length === 0 && hasFilters;
 
   return (
     <>
@@ -62,14 +33,16 @@ const Catalogue = async ({ searchParams }: CatalogueProps) => {
           <SortingBy />
         </div>
       </div>
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-8 gap-y-10 px-5 md:px-16">
-        <CatalogueList yachts={yachts} />
-      </div>
+      {notFilterMatched ? (
+        <FilterNoMatch />
+      ) : (
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-8 gap-y-10 px-5 md:px-16">
+          <CatalogueList yachts={yachts} />
+        </div>
+      )}
       <div className="px-5 md:px-16 pt-10 pb-10 xl:pb-20 mx-auto">
         <Pagination pagination={pagination} />
       </div>
     </>
   );
 };
-
-export default Catalogue;
