@@ -5,5 +5,3 @@ export const MapSkeleton = () => {
     </div>
   );
 };
-
-export default MapSkeleton;

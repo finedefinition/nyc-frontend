@@ -2,11 +2,11 @@
 import { createHrefFromSegment } from '@/utils/breadcrumbs/helpers';
 
 import useBreadcrumbs from '@/hooks/useBreadcrumbs';
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import Home from '../SvgIcons/Home';
-import RightArrow from '../SvgIcons/RightArrow';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { Home } from '../SvgIcons/Home';
+import { RightArrow } from '../SvgIcons/RightArrow';
 
-const Breadcrumb = () => {
+export const Breadcrumb = () => {
   const [segments, normalizeSegments] = useBreadcrumbs();
 
   const renderSegment = (segment: string, index: number) => {
@@ -39,5 +39,3 @@ const Breadcrumb = () => {
     </div>
   );
 };
-
-export default Breadcrumb;

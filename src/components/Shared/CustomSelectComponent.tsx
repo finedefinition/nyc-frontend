@@ -1,8 +1,8 @@
 'use client';
 
 import { Select } from 'antd';
-import { useSelectHandler } from '@/hooks/useSelectHandler';
-import DownArrow from '../SvgIcons/DownArrow';
+// import { useSelectHandler } from '@/hooks/useSelectHandler';
+import { DownArrow } from '../SvgIcons/DownArrow';
 
 const { Option } = Select;
 
@@ -13,24 +13,24 @@ type CustomSelectComponentProps = {
   placeholder: string;
   value: string | null;
   options: { value: string }[];
+  onChange: (key: string, value: string | null) => void;
 };
 
-const CustomSelectComponent = ({
+export const CustomSelectComponent = ({
   label,
   id,
   valueKey,
   placeholder,
   value,
   options,
+  onChange,
 }: CustomSelectComponentProps) => {
-  const { handleSelect } = useSelectHandler();
-
-  const onChange = (option: string) => {
-    handleSelect(valueKey, option);
+  const handleChange = (option: string | null) => {
+    onChange(valueKey, option);
   };
 
   return (
-    <>
+    <div>
       <label
         className="text-base text-primary"
         htmlFor={id}
@@ -43,7 +43,8 @@ const CustomSelectComponent = ({
         className="w-full"
         size="large"
         value={value}
-        onChange={onChange}
+        // onChange={onChange}
+        onChange={handleChange}
         autoFocus={false}
         allowClear
         suffixIcon={<DownArrow />}
@@ -57,8 +58,7 @@ const CustomSelectComponent = ({
           </Option>
         ))}
       </Select>
-    </>
+    </div>
   );
 };
 
-export default CustomSelectComponent;

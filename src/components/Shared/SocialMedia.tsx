@@ -1,4 +1,4 @@
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
 import { socialMediaLinks } from '@/data/links/socialMediaLinks';
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   footer?: boolean;
 };
 
-const SocialMedia = ({ color, footer }: Props) => {
+export const SocialMedia = ({ color, footer }: Props) => {
   return (
     <div className="flex flex-col justify-center items-center space-y-4">
       <span
@@ -31,5 +31,3 @@ const SocialMedia = ({ color, footer }: Props) => {
     </div>
   );
 };
-
-export default SocialMedia;

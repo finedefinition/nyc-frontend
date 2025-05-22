@@ -2,8 +2,8 @@
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
 import { formikSchema, FormikSchema } from '@/lib/validation/formikSchema';
-import InputContainer from '@/components/Shared/InputContainer';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
+import { InputContainer } from '@/components/Shared/InputContainer';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
 import { handleSubmit } from '@/utils/contactForm/handleSubmit';
 import { ContactSectionData } from '@/data/mainPage/ContactSection';
 
@@ -11,7 +11,7 @@ type ContactFormikProps = {
   dark?: boolean;
 };
 
-const ContactForm = ({ dark }: ContactFormikProps) => {
+export const ContactForm = ({ dark }: ContactFormikProps) => {
   const router = useRouter();
 
   return (
@@ -61,5 +61,3 @@ const ContactForm = ({ dark }: ContactFormikProps) => {
     </>
   );
 };
-
-export default ContactForm;

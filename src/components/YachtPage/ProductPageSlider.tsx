@@ -13,7 +13,7 @@ type ProductCardSliderProps = {
   images: (string | null)[];
 };
 
-const ProductPageSlider = ({ images }: ProductCardSliderProps) => {
+export const ProductPageSlider = ({ images }: ProductCardSliderProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType>();
   return (
     <>
@@ -67,5 +67,3 @@ const ProductPageSlider = ({ images }: ProductCardSliderProps) => {
     </>
   );
 };
-
-export default ProductPageSlider;

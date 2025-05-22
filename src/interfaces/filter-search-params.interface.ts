@@ -1,0 +1,38 @@
+export interface FilterSearchParams {
+  featuredTop3?: boolean;
+  featuredHotPrice?: boolean;
+  vatIncluded?: boolean;
+  // minPrice?: number;
+  // maxPrice?: number;
+  Price?: [number, number];
+  make?: string;
+  model?: string;
+  // minYear?: number;
+  // maxYear?: number;
+  Year?: [number, number];
+  country?: string;
+  town?: string;
+  // minLengthOverall?: number;
+  // maxLengthOverall?: number;
+  LengthOverall?: [number, number];
+  // minBeamWidth?: number;
+  // maxBeamWidth?: number;
+  BeamWidth?: [number, number];
+  // minDraftDepth?: number;
+  // maxDraftDepth?: number;
+  DraftDepth?: [number, number];
+  keelType?: string;
+  fuelType?: string;
+  // minBerthNumber?: number;
+  // maxBerthNumber?: number;
+  BerthNumber?: [number, number];
+  // minCabinNumber?: number;
+  // maxCabinNumber?: number;
+  CabinNumber?: [number, number];
+  // minHeadsNumber?: number;
+  // maxHeadsNumber?: number;
+  HeadsNumber?: [number, number];
+  // minShowerNumber?: number;
+  // maxShowerNumber?: number;
+  ShowerNumber?: [number, number];
+}

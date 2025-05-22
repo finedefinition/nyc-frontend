@@ -1,10 +1,10 @@
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
 
 import { FeaturedYachtsSectionData } from '@/data/mainPage/FeaturedYachtsSectionData';
 
-import FeaturedYachtsList from './FeaturedYachtsList';
+import { FeaturedYachtsList } from './FeaturedYachtsList';
 
-const FeaturedYachts = () => {
+export const FeaturedYachts = () => {
   return (
     <>
       <div className="w-full px-5 md:px-16 py-4 md:py-6 xl:py-8 mb-10 xl:mb-16 2xl:mb-24">
@@ -29,5 +29,3 @@ const FeaturedYachts = () => {
     </>
   );
 };
-
-export default FeaturedYachts;

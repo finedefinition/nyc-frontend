@@ -1,9 +1,9 @@
-import Catalogue from '@/components/Catalogue/Catalogue';
+import { Catalogue } from '@/components/Catalogue/Catalogue';
 
 const CataloguePage = async ({
   searchParams,
 }: {
-  searchParams?: { page: string; orderBy: string; sortBy: string };
+  searchParams?: { [key: string]: string };
 }) => {
   return <Catalogue searchParams={searchParams} />;
 };

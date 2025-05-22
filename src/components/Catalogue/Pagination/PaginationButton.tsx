@@ -1,8 +1,8 @@
 'use client';
 
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import LeftArrow from '@/components/SvgIcons/LeftArrow';
-import RightArrow from '@/components/SvgIcons/RightArrow';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { LeftArrow } from '@/components/SvgIcons/LeftArrow';
+import { RightArrow } from '@/components/SvgIcons/RightArrow';
 import { usePaginationUrl } from '@/hooks/usePaginationUrl';
 
 type PaginationButtonProps = {
@@ -11,7 +11,7 @@ type PaginationButtonProps = {
   isArrow?: boolean;
 };
 
-const PaginationButton = ({
+export const PaginationButton = ({
   page,
   isCurrent,
   isArrow,
@@ -30,7 +30,7 @@ const PaginationButton = ({
     <ClickableComponent
       href={createUrlWithPage(page)}
       variants={['pagination']}
-      className={`${isArrow ? 'w-16' : 'w-8'} ${isCurrent ? 'border-secondary-100 pointer-events-none' : ''}`}
+      className={`${isArrow ? 'w-8 sm:w-16' : 'w-8'} ${isCurrent ? 'border-secondary-100 pointer-events-none' : ''}`}
     >
       {isArrow ? (
         page === 'left' ? (
@@ -44,5 +44,3 @@ const PaginationButton = ({
     </ClickableComponent>
   );
 };
-
-export default PaginationButton;

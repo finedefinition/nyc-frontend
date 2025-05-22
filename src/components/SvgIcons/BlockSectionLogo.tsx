@@ -3,7 +3,7 @@ type BlockSectionLogoProps = {
   logoTxt: string;
   logoSubTxt: string;
 };
-const BlockSectionLogo = ({
+export const BlockSectionLogo = ({
   order,
   logoTxt,
   logoSubTxt,
@@ -58,4 +58,3 @@ const BlockSectionLogo = ({
     </svg>
   );
 };
-export default BlockSectionLogo;

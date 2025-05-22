@@ -40,10 +40,19 @@ export async function fetchImgUrl(keyFromAws: string): Promise<string | null> {
   }
 }
 
+const DEFAULT_IMG_URL = 'https://fakeimg.pl/600x400?text=Norse+Yacht+Co.';
+
 export async function loadAllImagesFromAWS(images: YachtImage[]) {
   const imagePromises = images.map((image) =>
-    fetchImgUrl(image.yacht_image_key)
+    fetchImgUrl(image.yacht_image_key).catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error(`Error fetching image ${image.yacht_image_key}:`, err);
+      return null;
+    })
   );
 
-  return await Promise.all(imagePromises);
+  const urls = await Promise.all(imagePromises);
+
+  // Повертаємо завжди валідний масив картинок (навіть якщо з деякими були проблеми)
+  return urls.map((url) => url || DEFAULT_IMG_URL);
 }

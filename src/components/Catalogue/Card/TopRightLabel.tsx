@@ -3,7 +3,7 @@ type TopRightLabelProps = {
   yachtHotPrice: boolean;
 };
 
-const TopRightLabel = ({ yachtTop, yachtHotPrice }: TopRightLabelProps) => {
+export const TopRightLabel = ({ yachtTop, yachtHotPrice }: TopRightLabelProps) => {
   if (yachtTop && yachtHotPrice) {
     return <>top | hot price</>;
   }
@@ -19,4 +19,3 @@ const TopRightLabel = ({ yachtTop, yachtHotPrice }: TopRightLabelProps) => {
   return null;
 };
 
-export default TopRightLabel;

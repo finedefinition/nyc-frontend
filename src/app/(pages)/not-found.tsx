@@ -1,4 +1,4 @@
-import CustomErrorHandler from '@/components/ErrorComponents/CustomErrorHandler';
+import { CustomErrorHandler } from '@/components/ErrorComponents/CustomErrorHandler';
 
 export default function NotFound() {
   return (

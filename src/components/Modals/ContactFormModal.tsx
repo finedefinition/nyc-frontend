@@ -2,12 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import SocialMedia from '../Shared/SocialMedia';
-import Close from '../SvgIcons/Close';
-import ModalWrapper from './ModalWrapper';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { SocialMedia } from '../Shared/SocialMedia';
+import { Close } from '../SvgIcons/Close';
+import { ModalWrapper } from './ModalWrapper';
 
-const ContactFormModal = () => {
+export const ContactFormModal = () => {
   const router = useRouter();
 
   const onClose = () => {
@@ -40,5 +40,3 @@ const ContactFormModal = () => {
     </ModalWrapper>
   );
 };
-
-export default ContactFormModal;

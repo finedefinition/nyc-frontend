@@ -1,6 +1,10 @@
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
 
-const EmailAddressSection = ({ emailAddress }: { emailAddress: string }) => {
+export const EmailAddressSection = ({
+  emailAddress,
+}: {
+  emailAddress: string;
+}) => {
   return (
     <div>
       <h4 className="text-2xl">E-mail address</h4>
@@ -13,5 +17,3 @@ const EmailAddressSection = ({ emailAddress }: { emailAddress: string }) => {
     </div>
   );
 };
-
-export default EmailAddressSection;

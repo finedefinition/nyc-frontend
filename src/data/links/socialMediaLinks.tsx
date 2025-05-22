@@ -1,6 +1,6 @@
-import Instagram from '@/components/SvgIcons/Instagram';
-import Telegram from '@/components/SvgIcons/Telegram';
-import WhatsApp from '@/components/SvgIcons/WhatsApp';
+import { Instagram } from '@/components/SvgIcons/Instagram';
+import { Telegram } from '@/components/SvgIcons/Telegram';
+import { WhatsApp } from '@/components/SvgIcons/WhatsApp';
 
 export const socialMediaLinks = [
   {

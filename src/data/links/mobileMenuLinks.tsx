@@ -1,4 +1,4 @@
-import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
+import { SplitCurrencyLink } from '@/components/Shared/SplitCurrencyLink';
 // import { LinkProps } from '@/interfaces/clickable.interface';
 
 // interface MobileMenuLinksArray extends LinkProps {

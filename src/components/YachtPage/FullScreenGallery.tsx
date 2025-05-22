@@ -1,12 +1,12 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { Dispatch, SetStateAction } from 'react';
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import Close from '../SvgIcons/Close';
-import FullScreenGallerySlider from './FullScreenGallerySlider';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { Close } from '../SvgIcons/Close';
+import { FullScreenGallerySlider } from './FullScreenGallerySlider';
 
 const DynamicYachtPrice = dynamic(
-  () => import('../Catalogue/Card/YachtPrice'),
+  () => import('../Catalogue/Card/YachtPrice').then((mod) => mod.YachtPrice),
   {
     ssr: false,
   }
@@ -20,7 +20,7 @@ type FullScreenGalleryProps = {
   setIsFullscreenEnabled: Dispatch<SetStateAction<boolean>>;
 };
 
-const FullScreenGallery = ({
+export const FullScreenGallery = ({
   yacht_make,
   yacht_model,
   yacht_price,
@@ -52,5 +52,3 @@ const FullScreenGallery = ({
     </div>
   );
 };
-
-export default FullScreenGallery;

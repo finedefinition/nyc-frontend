@@ -2,20 +2,20 @@
 import { Suspense, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { NavbarFooterLogo } from '@/components/SvgIcons/NavbarFooterLogo';
 
 import {
   navbarLeftLinks,
   NavbarLinksInterface,
 } from '@/data/links/navbarLinks';
 
-import Heart from '@/components/SvgIcons/Heart';
-import User from '@/components/SvgIcons/User';
-import CurrencyDropdown from './CurrencyDropdown';
-import MenuAndCloseButton from './MenuAndCloseButton';
+import { Heart } from '@/components/SvgIcons/Heart';
+import { User } from '@/components/SvgIcons/User';
+import { CurrencyDropdown } from './CurrencyDropdown';
+import { MenuAndCloseButton } from './MenuAndCloseButton';
 
-const NavbarLinks = () => {
+export const NavbarLinks = () => {
   const [role, setRole] = useState<string | null>(null);
   const [userName, setUserName] = useState<string>('My account');
 
@@ -106,5 +106,3 @@ const NavbarLinks = () => {
     </>
   );
 };
-
-export default NavbarLinks;

@@ -1,14 +1,14 @@
 'use client';
 import { ReactNode, useEffect } from 'react';
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import Close from '../SvgIcons/Close';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { Close } from '../SvgIcons/Close';
 
 type ModalWrapperProps = {
   onClose: () => void;
   children: ReactNode;
 };
 
-const ModalWrapper = ({ onClose, children }: ModalWrapperProps) => {
+export const ModalWrapper = ({ onClose, children }: ModalWrapperProps) => {
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -40,5 +40,3 @@ const ModalWrapper = ({ onClose, children }: ModalWrapperProps) => {
     </div>
   );
 };
-
-export default ModalWrapper;

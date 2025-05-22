@@ -7,7 +7,7 @@ type InputContainerProps = {
   dark?: boolean;
 };
 
-const InputContainer = ({
+export const InputContainer = ({
   inputName,
   error,
   isTouched,
@@ -61,5 +61,3 @@ const InputContainer = ({
     </div>
   );
 };
-
-export default InputContainer;

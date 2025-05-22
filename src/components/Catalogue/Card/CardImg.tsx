@@ -7,7 +7,7 @@ type CardImgProps = {
   keyImg: string;
 };
 
-const CardImg = async ({ keyImg }: CardImgProps) => {
+export const CardImg = async ({ keyImg }: CardImgProps) => {
   const currImg = (await fetchImgUrl(keyImg)) || IMAGE_600_400;
 
   return (
@@ -20,5 +20,3 @@ const CardImg = async ({ keyImg }: CardImgProps) => {
     />
   );
 };
-
-export default CardImg;

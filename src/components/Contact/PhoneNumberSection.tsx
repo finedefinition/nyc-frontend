@@ -1,4 +1,8 @@
-const PhoneNumberSection = ({ phoneNumber }: { phoneNumber: string }) => {
+export const PhoneNumberSection = ({
+  phoneNumber,
+}: {
+  phoneNumber: string;
+}) => {
   return (
     <div>
       <h4 className="text-2xl">Phone number</h4>
@@ -6,5 +10,3 @@ const PhoneNumberSection = ({ phoneNumber }: { phoneNumber: string }) => {
     </div>
   );
 };
-
-export default PhoneNumberSection;

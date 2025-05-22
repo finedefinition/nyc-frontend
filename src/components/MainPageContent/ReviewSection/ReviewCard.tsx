@@ -4,9 +4,9 @@ import QuotesImg from '@/public/icons/quotes.svg';
 
 import { ReviewPerson } from '@/interfaces/reviewPerson.interface';
 
-import FiveStars from './FiveStars';
+import { FiveStars } from './FiveStars';
 
-const ReviewCard = ({
+export const ReviewCard = ({
   sliderIdx,
   userName,
   userAvatar,
@@ -43,5 +43,3 @@ const ReviewCard = ({
     </div>
   );
 };
-
-export default ReviewCard;
