@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 @layer base {
   h1 {
     @apply text-7xl sm:text-8xl xl:text-9xl 2xl:text-[194px] font-bEs text-secondary-100 mb-20;
