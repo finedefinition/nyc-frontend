@@ -3,10 +3,11 @@ import { ClickableComponent } from '@/components/ClickableComponent/ClickableCom
 import { FeaturedYachtsSectionData } from '@/data/mainPage/FeaturedYachtsSectionData';
 
 import { FeaturedYachtsList } from './FeaturedYachtsList';
+import { ZoomInSection } from './ZoomInSection';
 
 export const FeaturedYachts = () => {
   return (
-    <>
+    <ZoomInSection>
       <div className="w-full px-5 md:px-16 py-4 md:py-6 xl:py-8 mb-10 xl:mb-16 2xl:mb-24">
         <div className="flex justify-center space-x-3 items-baseline xl:flex-col xl:items-center">
           <h4>{FeaturedYachtsSectionData.title}</h4>
@@ -26,6 +27,6 @@ export const FeaturedYachts = () => {
           <FeaturedYachtsList />
         </div>
       </div>
-    </>
+    </ZoomInSection>
   );
 };
