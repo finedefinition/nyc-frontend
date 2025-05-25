@@ -10,7 +10,7 @@ const priceToRender = (price: number, currRate = 1): string => {
   return Math.round(price * currRate).toLocaleString('en-US');
 };
 
-const YachtPrice = ({ price, old_price }: YachtPriceProps) => {
+export const YachtPrice = ({ price, old_price }: YachtPriceProps) => {
   const { selectedCurrency, currencyRates } = useCurrency();
   const showOldPrice = +(old_price as string) > +price;
   const updatePrice = priceToRender(
@@ -30,5 +30,3 @@ const YachtPrice = ({ price, old_price }: YachtPriceProps) => {
     </span>
   );
 };
-
-export default YachtPrice;

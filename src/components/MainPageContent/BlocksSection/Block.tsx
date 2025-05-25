@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { StaticImageData } from 'next/image';
 
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import BlockSectionLogo from '@/components/SvgIcons/BlockSectionLogo';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { BlockSectionLogo } from '@/components/SvgIcons/BlockSectionLogo';
 
 interface BlockSection {
   title: string;
@@ -18,7 +18,7 @@ type BlockProps = {
   data: BlockSection;
 };
 
-const Block = ({ data }: BlockProps) => {
+export const Block = ({ data }: BlockProps) => {
   const { title, titleCursive, desc, img, logoTxt, logoSubTxt, order } = data;
   return (
     <section
@@ -74,5 +74,3 @@ const Block = ({ data }: BlockProps) => {
     </section>
   );
 };
-
-export default Block;

@@ -3,7 +3,7 @@ type Props = {
   footer?: boolean;
 };
 
-const Instagram = ({ color, footer }: Props) => (
+export const Instagram = ({ color, footer }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={40}
@@ -28,4 +28,3 @@ const Instagram = ({ color, footer }: Props) => (
   </svg>
 );
 
-export default Instagram;

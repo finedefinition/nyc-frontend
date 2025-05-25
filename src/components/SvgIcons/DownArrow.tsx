@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DownArrow = () => (
+export const DownArrow = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -16,5 +16,3 @@ const DownArrow = () => (
     />
   </svg>
 );
-
-export default DownArrow;

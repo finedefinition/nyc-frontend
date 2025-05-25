@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { apiClient } from '@/utils/api/apiClient';
 import { loadAllImagesFromAWS } from '@/utils/aws/getImageFromAWS';
 import { YachtDetail } from '@/interfaces/yacht.interface';
-import ProductPage from '@/components/YachtPage/ProductPage';
-import YachtPageSkeleton from '@/components/Skeletons/YachtPageSkeleton';
+import { ProductPage } from '@/components/YachtPage/ProductPage';
+import { YachtPageSkeleton } from '@/components/Skeletons/YachtPageSkeleton';
 
 type YachtPageProps = {
   params: {
@@ -11,15 +11,11 @@ type YachtPageProps = {
   };
 };
 
-type MetadataProps = {
-  searchParams?: Promise<{ name: string | undefined }>;
-};
-
 export async function generateMetadata({
-  searchParams,
-}: MetadataProps): Promise<Metadata> {
-  const name = (await searchParams)?.name ?? '';
-  const normalizeName = name?.replace(/_/g, ' ');
+  params: { id },
+}: YachtPageProps): Promise<Metadata> {
+  const yacht: YachtDetail = await apiClient.getYachtById(`/yachts/${id}`);
+  const normalizeName = `${yacht.yacht_make} ${yacht.yacht_model}`;
   const title = `Yacht ${normalizeName} | Norse Yacht Co`;
   return {
     title,

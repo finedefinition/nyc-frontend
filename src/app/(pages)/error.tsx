@@ -1,5 +1,5 @@
 'use client';
-import CustomErrorHandler from '@/components/ErrorComponents/CustomErrorHandler';
+import { CustomErrorHandler } from '@/components/ErrorComponents/CustomErrorHandler';
 import { CustomErrorClass } from '@/utils/error/CustomErrorClass';
 
 export default function Error({

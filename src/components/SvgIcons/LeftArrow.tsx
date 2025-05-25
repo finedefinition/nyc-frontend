@@ -2,7 +2,7 @@ type LeftArrowProps = {
   className?: string;
 };
 
-const LeftArrow = ({ className }: LeftArrowProps) => (
+export const LeftArrow = ({ className }: LeftArrowProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -16,4 +16,3 @@ const LeftArrow = ({ className }: LeftArrowProps) => (
   </svg>
 );
 
-export default LeftArrow;

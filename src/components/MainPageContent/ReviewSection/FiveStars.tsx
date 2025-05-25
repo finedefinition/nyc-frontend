@@ -2,7 +2,7 @@ import Image from 'next/image';
 import StarImg from '@/public/icons/stars/star.svg';
 import StarEmptyImg from '@/public/icons/stars/star_empty.svg';
 
-const FiveStars = () => {
+export const FiveStars = () => {
   const stars = Array.from({ length: 5 }, (_, i) => {
     return (
       <Image
@@ -27,5 +27,3 @@ const FiveStars = () => {
 
   return <div className="flex gap-1">{stars}</div>;
 };
-
-export default FiveStars;

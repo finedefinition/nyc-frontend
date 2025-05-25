@@ -2,7 +2,16 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { Button, Form, Input, Upload, message, Checkbox, AutoComplete, InputNumber } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Upload,
+  message,
+  Checkbox,
+  AutoComplete,
+  InputNumber,
+} from 'antd';
 import type { FormProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
@@ -39,14 +48,16 @@ type FieldType = {
   first_name: string;
   last_name: string;
   phone_number: string;
-  "e-mail": string;
+  'e-mail': string;
   yacht_description: string;
 };
 
-const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
+export const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
   const [form] = Form.useForm();
   const [mainImageList, setMainImageList] = useState<UploadFile[]>([]);
-  const [additionalImageList, setAdditionalImageList] = useState<UploadFile[]>([]);
+  const [additionalImageList, setAdditionalImageList] = useState<UploadFile[]>(
+    []
+  );
   const [userToken, setUserToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -60,7 +71,11 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
     setMainImageList(fileList.slice(0, 1)); // Limit to one file
   };
 
-  const handleAdditionalImagesChange = ({ fileList }: { fileList: UploadFile[] }) => {
+  const handleAdditionalImagesChange = ({
+    fileList,
+  }: {
+    fileList: UploadFile[];
+  }) => {
     setAdditionalImageList(fileList);
   };
 
@@ -99,7 +114,9 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
       setMainImageList([]);
       setAdditionalImageList([]);
     } catch (error: any) {
-      message.error(error.message || 'An error occurred while submitting the form');
+      message.error(
+        error.message || 'An error occurred while submitting the form'
+      );
     }
   };
 
@@ -116,7 +133,9 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
           label="VAT Included"
           name="yacht_vat"
           valuePropName="checked"
-          rules={[{ required: false, message: 'Please indicate if VAT is included.' }]}
+          rules={[
+            { required: false, message: 'Please indicate if VAT is included.' },
+          ]}
           style={{ marginBottom: '8px' }}
         >
           <Checkbox>VAT Included</Checkbox>
@@ -127,7 +146,12 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
           name="yacht_price"
           rules={[
             { required: true, message: 'Please enter the price.' },
-            { type: 'number', min: 0.01, max: 5000000, message: 'Price must be between 0.01 and 5,000,000.' },
+            {
+              type: 'number',
+              min: 0.01,
+              max: 5000000,
+              message: 'Price must be between 0.01 and 5,000,000.',
+            },
           ]}
           style={{ marginBottom: '8px' }}
         >
@@ -139,8 +163,16 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
           label="Make"
           rules={[
             { required: true, message: 'Make is required.' },
-            { min: 3, max: 30, message: 'Make must be between 3 and 30 characters.' },
-            { pattern: /^[A-Z][a-zA-Z\s-]*$/, message: 'Make must start with a capital letter and can include letters, spaces, and hyphens.' },
+            {
+              min: 3,
+              max: 30,
+              message: 'Make must be between 3 and 30 characters.',
+            },
+            {
+              pattern: /^[A-Z][a-zA-Z\s-]*$/,
+              message:
+                'Make must start with a capital letter and can include letters, spaces, and hyphens.',
+            },
           ]}
           style={{ marginBottom: '8px' }}
         >
@@ -152,7 +184,11 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
           label="Model"
           rules={[
             { required: true, message: 'Model is required.' },
-            { min: 1, max: 30, message: 'Model must be between 1 and 30 characters.' },
+            {
+              min: 1,
+              max: 30,
+              message: 'Model must be between 1 and 30 characters.',
+            },
           ]}
           style={{ marginBottom: '8px' }}
         >
@@ -196,7 +232,12 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
           label="Year Built"
           rules={[
             { required: true, message: 'Year is required.' },
-            { type: 'number', min: 1930, max: new Date().getFullYear() + 1, message: 'Year must be between 1930 and next year.' },
+            {
+              type: 'number',
+              min: 1930,
+              max: new Date().getFullYear() + 1,
+              message: 'Year must be between 1930 and next year.',
+            },
           ]}
           style={{ marginBottom: '8px' }}
         >
@@ -315,7 +356,10 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
         </Item>
 
         {/* Image upload fields */}
-        <Item label="Main Image" required>
+        <Item
+          label="Main Image"
+          required
+        >
           <Upload
             listType="picture"
             fileList={mainImageList}
@@ -341,7 +385,10 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
 
         {/* Submit button */}
         <Item>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+          >
             Save
           </Button>
         </Item>
@@ -349,5 +396,3 @@ const AddYachtForm = ({ filterParams }: AddYachtFormProps) => {
     </div>
   );
 };
-
-export default AddYachtForm;

@@ -1,7 +1,7 @@
 import React from 'react';
-import ContactForm from '../MainPageContent/ContactSection/ContactForm';
+import { ContactForm } from '../MainPageContent/ContactSection/ContactForm';
 
-const YachtPageSkeleton = () => {
+export const YachtPageSkeleton = () => {
   return (
     <div className="w-full px-5 md:px-16 pb-4 md:pb-6 xl:pb-8">
       <div className="grid grid-cols-1 gap-x-6 gap-y-4 xl:grid-cols-12">
@@ -25,5 +25,3 @@ const YachtPageSkeleton = () => {
     </div>
   );
 };
-
-export default YachtPageSkeleton;

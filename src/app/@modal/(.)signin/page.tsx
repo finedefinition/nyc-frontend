@@ -1,5 +1,5 @@
-import LoginForm from '@/components/Auth/SignInForm';
+import { SignInForm } from '@/components/Auth/SignInForm';
 
 export default function InterceptedLogin() {
-  return <LoginForm />;
+  return <SignInForm />;
 }

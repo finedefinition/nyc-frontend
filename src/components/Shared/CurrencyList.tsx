@@ -7,7 +7,7 @@ type CurrencyListProps = {
   onClose: () => void;
 };
 
-const CurrencyList = ({ desktop, onClose }: CurrencyListProps) => {
+export const CurrencyList = ({ desktop, onClose }: CurrencyListProps) => {
   const { selectedCurrency, setCurrency } = useCurrency();
 
   const currencyModalHandler = (currency: string) => {
@@ -46,5 +46,3 @@ const CurrencyList = ({ desktop, onClose }: CurrencyListProps) => {
     </ul>
   );
 };
-
-export default CurrencyList;

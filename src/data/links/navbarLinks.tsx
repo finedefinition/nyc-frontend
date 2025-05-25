@@ -1,7 +1,7 @@
-import Heart from '@/components/SvgIcons/Heart';
-import User from '@/components/SvgIcons/User';
+import { Heart } from '@/components/SvgIcons/Heart';
+import { User } from '@/components/SvgIcons/User';
 // import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
-import CurrencyDropdown from '@/components/MainLayout/Navbar/CurrencyDropdown';
+import { CurrencyDropdown } from '@/components/MainLayout/Navbar/CurrencyDropdown';
 
 // import { LinkProps } from '@/interfaces/clickable.interface';
 

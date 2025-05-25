@@ -3,7 +3,7 @@ import { Country } from '@/interfaces/country.interface';
 import { Town } from '@/interfaces/town.interface';
 import { transformObjects } from '@/utils/addYachtForm/autocompleteHelper';
 
-import AddYachtForm from '@/components/Admin/AddYachtForm';
+import { AddYachtForm } from '@/components/Admin/AddYachtForm';
 
 const AddYachtPage = async () => {
   const countriesFromServer: Country[] =

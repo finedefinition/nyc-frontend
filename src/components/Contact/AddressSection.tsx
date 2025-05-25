@@ -1,4 +1,4 @@
-const AddressSection = ({ address }: { address: string }) => {
+export const AddressSection = ({ address }: { address: string }) => {
   return (
     <div>
       <h4 className="text-2xl">Address</h4>
@@ -7,4 +7,3 @@ const AddressSection = ({ address }: { address: string }) => {
   );
 };
 
-export default AddressSection;

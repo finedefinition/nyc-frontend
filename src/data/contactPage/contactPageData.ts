@@ -1,4 +1,4 @@
-const contactData = {
+export const contactData = {
   workHours: new Map([
     ['Monday - Friday', '10:00 - 18:00'],
     ['Saturday', '11:00 - 16:00'],
@@ -13,5 +13,3 @@ const contactData = {
     lng: -6.135119093254048,
   },
 };
-
-export default contactData;

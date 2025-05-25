@@ -1,4 +1,4 @@
-const WorkHoursSection = ({
+export const WorkHoursSection = ({
   workHours,
 }: {
   workHours: Map<string, string>;
@@ -19,4 +19,3 @@ const WorkHoursSection = ({
   );
 };
 
-export default WorkHoursSection;

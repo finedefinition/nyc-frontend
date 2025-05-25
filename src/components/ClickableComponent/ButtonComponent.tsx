@@ -1,6 +1,6 @@
 import { ButtonProps } from '@/interfaces/clickable.interface';
 
-const ButtonComponent = ({
+export const ButtonComponent = ({
   type,
   disabled,
   onClick,
@@ -16,5 +16,3 @@ const ButtonComponent = ({
     {children}
   </button>
 );
-
-export default ButtonComponent;

@@ -1,5 +1,5 @@
-import ClickableComponent from '../ClickableComponent/ClickableComponent';
-import NumberDisplay from './NumberDisplay';
+import { ClickableComponent } from '../ClickableComponent/ClickableComponent';
+import { NumberDisplay } from './NumberDisplay';
 
 type CustomErrorHandlerProps = {
   message: string;
@@ -7,7 +7,7 @@ type CustomErrorHandlerProps = {
   onClick?: () => void;
 };
 
-const CustomErrorHandler = ({
+export const CustomErrorHandler = ({
   message,
   code,
   onClick,
@@ -55,5 +55,3 @@ const CustomErrorHandler = ({
     </div>
   );
 };
-
-export default CustomErrorHandler;

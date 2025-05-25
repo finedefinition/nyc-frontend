@@ -1,10 +1,10 @@
 'use client';
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import SplitCurrencyLink from '@/components/Shared/SplitCurrencyLink';
-import CurrencyList from '@/components/Shared/CurrencyList';
-import DropdownWrapper from '@/components/Shared/DropdownWrapper';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { SplitCurrencyLink } from '@/components/Shared/SplitCurrencyLink';
+import { CurrencyList } from '@/components/Shared/CurrencyList';
+import { DropdownWrapper } from '@/components/Shared/DropdownWrapper';
 
-const CurrencyDropdown = () => {
+export const CurrencyDropdown = () => {
   return (
     <DropdownWrapper>
       {(isOpen, toggleDropdown) => (
@@ -28,5 +28,3 @@ const CurrencyDropdown = () => {
     </DropdownWrapper>
   );
 };
-
-export default CurrencyDropdown;

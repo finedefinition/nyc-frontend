@@ -1,4 +1,4 @@
-const CardSkeleton = () => {
+export const CardSkeleton = () => {
   return (
     <div className="animate-pulse space-y-2">
       <div className="relative block w-full h-96 bg-grey-50">
@@ -20,4 +20,3 @@ const CardSkeleton = () => {
   );
 };
 
-export default CardSkeleton;

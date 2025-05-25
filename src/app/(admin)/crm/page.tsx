@@ -1,4 +1,4 @@
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
 
 const AdminPanelPage = () => {
   return (

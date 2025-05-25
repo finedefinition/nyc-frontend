@@ -1,6 +1,6 @@
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import Breadcrumb from '@/components/MainLayout/Breadcrumbs';
-import NavbarFooterLogo from '@/components/SvgIcons/NavbarFooterLogo';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { Breadcrumb } from '@/components/MainLayout/Breadcrumbs';
+import { NavbarFooterLogo } from '@/components/SvgIcons/NavbarFooterLogo';
 
 export default function AdminLayout({
   children,

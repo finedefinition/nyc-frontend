@@ -1,4 +1,4 @@
-import CardSkeleton from '@/components/Skeletons/CardSkeleton';
+import { CardSkeleton } from '@/components/Skeletons/CardSkeleton';
 
 const YACHT_COUNT = 9;
 

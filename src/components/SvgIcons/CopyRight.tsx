@@ -1,4 +1,4 @@
-const CopyRight = () => (
+export const CopyRight = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={300}
@@ -16,9 +16,7 @@ const CopyRight = () => (
       fontSize="16"
       fill="#C6C7CC"
     >
-      Norse Yachts Co. v.1.0.4.
+      Norse Yachts Co. v.1.0.5.
     </text>
   </svg>
 );
-
-export default CopyRight;

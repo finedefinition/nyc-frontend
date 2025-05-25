@@ -1,20 +1,23 @@
 import dynamic from 'next/dynamic';
 import { Yacht } from '@/interfaces/yacht.interface';
 
-import ClickableComponent from '@/components/ClickableComponent/ClickableComponent';
-import Heart from '@/components/SvgIcons/Heart';
-import CardImg from './CardImg';
-import TopRightLabel from './TopRightLabel';
+import { ClickableComponent } from '@/components/ClickableComponent/ClickableComponent';
+import { Heart } from '@/components/SvgIcons/Heart';
+import { CardImg } from './CardImg';
+import { TopRightLabel } from './TopRightLabel';
 
-const DynamicYachtPrice = dynamic(() => import('./YachtPrice'), {
-  ssr: false,
-});
+const DynamicYachtPrice = dynamic(
+  () => import('./YachtPrice').then((mod) => mod.YachtPrice),
+  {
+    ssr: false,
+  }
+);
 
 type CatalogueCardProps = {
   yacht: Yacht;
 };
 
-const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
+export const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
   const {
     yacht_id,
     yacht_model,
@@ -75,5 +78,3 @@ const CatalogueCard = async ({ yacht }: CatalogueCardProps) => {
     </div>
   );
 };
-
-export default CatalogueCard;
