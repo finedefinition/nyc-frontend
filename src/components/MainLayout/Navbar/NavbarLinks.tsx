@@ -11,6 +11,7 @@ import {
 } from '@/data/links/navbarLinks';
 
 import { Heart } from '@/components/SvgIcons/Heart';
+// import { HeartIconComponent } from '@/components/Shared/HeartIconComponent';
 import { User } from '@/components/SvgIcons/User';
 import { CurrencyDropdown } from './CurrencyDropdown';
 import { MenuAndCloseButton } from './MenuAndCloseButton';
@@ -71,6 +72,7 @@ export const NavbarLinks = () => {
             href=""
             variants={['link']}
           >
+            {/* <HeartIconComponent color={true} /> */}
             <Heart />
           </ClickableComponent>
           <ClickableComponent

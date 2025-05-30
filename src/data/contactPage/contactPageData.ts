@@ -5,11 +5,11 @@ export const contactData = {
     ['Sunday', 'day off'],
   ]),
   address:
-    'Dun Laoghaire Marina, Harbour Road Dun Laoghaire Co., Dublin A96 D376',
+    'Dun Laoghaire Marina, \nDublin A96 D376, \nHarbour Road Dun Laoghaire Co.',
   phoneNumber: '+353874375161',
   emailAddress: 'sales@norseyacht.com',
-  center: {
-    lat: 53.296253536288454,
-    lng: -6.135119093254048,
-  },
+  // center: {
+  //   lat: 53.296253536288454,
+  //   lng: -6.135119093254048,
+  // },
 };

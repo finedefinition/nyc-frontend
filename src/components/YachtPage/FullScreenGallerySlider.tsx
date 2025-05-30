@@ -60,7 +60,7 @@ export const FullScreenGallerySlider = ({
         ))}
       </Swiper>
 
-      <div className="w-0 h-full xl:w-1/5">
+      <div className="hidden xl:block w-1/5 h-full">
         <div className="text-white text-2xl h-14 border border-white rounded-lg flex items-center justify-center mb-2">
           {`${activeIndex} / ${images.length}`}
         </div>
