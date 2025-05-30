@@ -13,7 +13,7 @@ import { GoogleMapEmbed } from './GoogleMapEmbed';
 export const Contact = () => {
   return (
     <>
-      <h4 className="px-5 md:px-16">Contact</h4>
+      <h4 className="px-5 md:px-16">Contacts</h4>
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 px-5 md:px-16 pb-4 md:pb-10 3xl:pb-20">
         <section className="xl:col-span-1">
           <div className="pt-4 md:pt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-5">

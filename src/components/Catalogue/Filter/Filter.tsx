@@ -66,7 +66,7 @@ export const Filter = ({ filterParams }: FilterProps) => {
           </ClickableComponent>
 
           {isOpen && (
-            <div className="absolute h-[660px] bg-white border borber-grey-100 mt-1 shadow-lg z-10 p-6 rounded-2xl space-y-6 animate-slide-down flex flex-col">
+            <div className="absolute left-[-150px] md:left-[-90px] xl:left-12 w-[300px] h-[660px] bg-white border borber-grey-100 mt-1 shadow-lg z-10 p-6 rounded-2xl space-y-6 animate-slide-down flex flex-col">
               <div className="w-full flex justify-between">
                 <h4>Filter</h4>
                 <ClickableComponent
